@@ -2,5 +2,6 @@
 
 export(.onUnload)
 export(cheesecake)
-importFrom(Rcpp,sourceCpp)
+export(run)
+import(Rcpp)
 useDynLib(gluesless)

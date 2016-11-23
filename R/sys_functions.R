@@ -1,8 +1,11 @@
 # General roxygen tags
 #' @useDynLib gluesless
-#' @importFrom Rcpp sourceCpp
+#' @import Rcpp
 
 #' @export
 .onUnload <- function (libpath) {
   library.dynam.unload("gluesless", libpath)
 }
+
+# load modules
+loadModule("Population_module", TRUE)
