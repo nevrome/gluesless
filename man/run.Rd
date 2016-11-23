@@ -7,7 +7,7 @@
 run(steps = 100L)
 }
 \arguments{
-\item{i}{test}
+\item{steps}{test}
 }
 \value{
 test

@@ -30,7 +30,7 @@ cheesecake <- function(i = 1L) {
 #' @details
 #' test
 #'
-#' @param i test
+#' @param steps test
 #'
 #' @return
 #' test

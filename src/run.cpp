@@ -13,7 +13,7 @@ using namespace Rcpp;
 //' @details
 //' test
 //'
-//' @param i test
+//' @param steps test
 //'
 //' @return
 //' test
