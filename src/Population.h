@@ -12,8 +12,9 @@ public:
   // getter
   double size_get();
 
-  // develop function
-  void develop(Function popdevel);
+  // develop functions
+  void develop();
+  void develop_udef(Function pop_develop_udef);
 
 private:
   // attributes

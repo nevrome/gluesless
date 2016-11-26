@@ -30,7 +30,7 @@ cheesecake <- function(i = 1L) {
 #' @details
 #' test
 #'
-#' @param popdevel test
+#' @param modell_builder test
 #' @param steps test
 #'
 #' @return
@@ -42,10 +42,19 @@ cheesecake <- function(i = 1L) {
 #'   return(res)
 #' }
 #'
-#' run(f)
+#' test_builder <- new(
+#'   "modell_builder",
+#'   pop_size = 200,
+#'   pop_birthrate = 0.01,
+#'   pop_deathrate = 0.005,
+#'   pop_develop_udef_decision = FALSE,
+#'   pop_develop_udef = f
+#' )
+#'
+#' run(test_builder)
 #'
 #' @export
-run <- function(popdevel, steps = 100L) {
-    .Call('gluesless_run', PACKAGE = 'gluesless', popdevel, steps)
+run <- function(modell_builder, steps = 100L) {
+    .Call('gluesless_run', PACKAGE = 'gluesless', modell_builder, steps)
 }
 

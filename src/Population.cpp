@@ -16,14 +16,18 @@ double Population::size_get() {
   return size;
 }
 
-// develop function
-void Population::develop(Function popdevel) {
-  //size = size + size*birthrate - size*deathrate;
-  size = as<double>(popdevel(size, birthrate, deathrate));
+// develop functions
+void Population::develop() {
+  size = size + size*birthrate - size*deathrate;
   return;
 }
 
+void Population::develop_udef(Function pop_develop_udef) {
+  size = as<double>(pop_develop_udef(size, birthrate, deathrate));
+  return;
+}
 
+// RCPP_Module definition
 RCPP_MODULE(Population_module) {
   using namespace Rcpp;
 
@@ -31,5 +35,6 @@ RCPP_MODULE(Population_module) {
     .constructor<double,double,double>()
     .method("size_get", &Population::size_get)
     .method("develop", &Population::develop)
+    .method("develop_udef", &Population::develop_udef)
     ;
 }

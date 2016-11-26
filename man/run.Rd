@@ -4,10 +4,10 @@
 \alias{run}
 \title{run model}
 \usage{
-run(popdevel, steps = 100L)
+run(modell_builder, steps = 100L)
 }
 \arguments{
-\item{popdevel}{test}
+\item{modell_builder}{test}
 
 \item{steps}{test}
 }
@@ -26,7 +26,16 @@ f <- function(size,birthrate,deathrate) {
   return(res)
 }
 
-run(f)
+test_builder <- new(
+  "modell_builder",
+  pop_size = 200,
+  pop_birthrate = 0.01,
+  pop_deathrate = 0.005,
+  pop_develop_udef_decision = FALSE,
+  pop_develop_udef = f
+)
+
+run(test_builder)
 
 }
 

@@ -3,6 +3,7 @@
 export(.onUnload)
 export(cheesecake)
 export(run)
+exportClasses(modell_builder)
 import(Rcpp)
 import(methods)
 useDynLib(gluesless)

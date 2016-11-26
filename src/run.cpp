@@ -13,7 +13,7 @@ using namespace Rcpp;
 //' @details
 //' test
 //'
-//' @param popdevel test
+//' @param modell_builder test
 //' @param steps test
 //'
 //' @return
@@ -25,24 +25,45 @@ using namespace Rcpp;
 //'   return(res)
 //' }
 //'
-//' run(f)
+//' test_builder <- new(
+//'   "modell_builder",
+//'   pop_size = 200,
+//'   pop_birthrate = 0.01,
+//'   pop_deathrate = 0.005,
+//'   pop_develop_udef_decision = FALSE,
+//'   pop_develop_udef = f
+//' )
+//'
+//' run(test_builder)
 //'
 //' @export
 // [[Rcpp::export]]
-double run(Function popdevel, int steps = 100){
+double run(SEXP modell_builder, int steps = 100){
+
+  Rcpp::S4 mb(modell_builder);
 
   //create testpopulation
-  Population* testpop = new Population(100, 0.1, 0.05);
+  Population* testpop = new Population(
+    mb.slot("pop_size"),
+    mb.slot("pop_birthrate"),
+    mb.slot("pop_deathrate")
+  );
 
   Rcout << testpop->size_get() << std::endl;
 
   for (int t = 1; t <= steps; t++) {
-    testpop->develop(popdevel);
+    if (mb.slot("pop_develop_udef_decision")) {
+      testpop->develop();
+    } else {
+      testpop->develop_udef(mb.slot("pop_develop_udef"));
+    }
   }
 
   double res = testpop->size_get();
 
   delete testpop;
+
+  //double res = 1.0;
 
   return res;
 }
