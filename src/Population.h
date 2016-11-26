@@ -2,6 +2,7 @@
 #define _gluesless_RCPP_POPULATION_H
 
 #include <Rcpp.h>
+using namespace Rcpp;
 
 class Population {
 public:
@@ -12,7 +13,7 @@ public:
   double size_get();
 
   // develop function
-  void develop();
+  void develop(Function popdevel);
 
 private:
   // attributes

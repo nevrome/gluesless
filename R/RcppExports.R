@@ -30,16 +30,22 @@ cheesecake <- function(i = 1L) {
 #' @details
 #' test
 #'
+#' @param popdevel test
 #' @param steps test
 #'
 #' @return
 #' test
 #'
 #' @examples
-#' run()
+#' f <- function(size,birthrate,deathrate) {
+#'   res <- size + size*birthrate*2 - size*deathrate*2
+#'   return(res)
+#' }
+#'
+#' run(f)
 #'
 #' @export
-run <- function(steps = 100L) {
-    .Call('gluesless_run', PACKAGE = 'gluesless', steps)
+run <- function(popdevel, steps = 100L) {
+    .Call('gluesless_run', PACKAGE = 'gluesless', popdevel, steps)
 }
 

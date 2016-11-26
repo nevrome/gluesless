@@ -1,5 +1,8 @@
 #include <Rcpp.h>
+using namespace Rcpp;
 #include "Population.h"
+
+
 
 // constructor
 Population::Population(double size_, double birthrate_, double deathrate_) {
@@ -14,8 +17,9 @@ double Population::size_get() {
 }
 
 // develop function
-void Population::develop() {
-  size = size + size*birthrate - size*deathrate;
+void Population::develop(Function popdevel) {
+  //size = size + size*birthrate - size*deathrate;
+  size = as<double>(popdevel(size, birthrate, deathrate));
   return;
 }
 

@@ -17,13 +17,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // run
-double run(int steps);
-RcppExport SEXP gluesless_run(SEXP stepsSEXP) {
+double run(Function popdevel, int steps);
+RcppExport SEXP gluesless_run(SEXP popdevelSEXP, SEXP stepsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Function >::type popdevel(popdevelSEXP);
     Rcpp::traits::input_parameter< int >::type steps(stepsSEXP);
-    rcpp_result_gen = Rcpp::wrap(run(steps));
+    rcpp_result_gen = Rcpp::wrap(run(popdevel, steps));
     return rcpp_result_gen;
 END_RCPP
 }

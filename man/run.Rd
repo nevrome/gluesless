@@ -4,9 +4,11 @@
 \alias{run}
 \title{run model}
 \usage{
-run(steps = 100L)
+run(popdevel, steps = 100L)
 }
 \arguments{
+\item{popdevel}{test}
+
 \item{steps}{test}
 }
 \value{
@@ -19,7 +21,12 @@ test
 test
 }
 \examples{
-run()
+f <- function(size,birthrate,deathrate) {
+  res <- size + size*birthrate*2 - size*deathrate*2
+  return(res)
+}
+
+run(f)
 
 }
 

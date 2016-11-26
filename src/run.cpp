@@ -13,23 +13,31 @@ using namespace Rcpp;
 //' @details
 //' test
 //'
+//' @param popdevel test
 //' @param steps test
 //'
 //' @return
 //' test
 //'
 //' @examples
-//' run()
+//' f <- function(size,birthrate,deathrate) {
+//'   res <- size + size*birthrate*2 - size*deathrate*2
+//'   return(res)
+//' }
+//'
+//' run(f)
 //'
 //' @export
 // [[Rcpp::export]]
-double run(int steps = 100){
-  Population* testpop = new Population(100, 0.1, 0.5);
+double run(Function popdevel, int steps = 100){
+
+  //create testpopulation
+  Population* testpop = new Population(100, 0.1, 0.05);
 
   Rcout << testpop->size_get() << std::endl;
 
   for (int t = 1; t <= steps; t++) {
-    testpop->develop();
+    testpop->develop(popdevel);
   }
 
   double res = testpop->size_get();
