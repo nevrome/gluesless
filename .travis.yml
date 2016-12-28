@@ -30,4 +30,4 @@ r_packages:
   - covr
 
 after_success:
-  - Rscript -e 'library(covr); codecov()'
+  - CODECOV_TOKEN='c554b444-4c92-476c-a383-7fc5a755e398' Rscript -e 'library(covr); codecov()'
