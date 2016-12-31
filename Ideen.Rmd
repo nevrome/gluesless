@@ -1,0 +1,116 @@
+---
+title: "Ideen"
+author: "Clemens Schmid"
+date: "December 31, 2016"
+output: pdf_document
+---
+
+# Warum ABM?
+
+- "Komplexe" Modellierung -> Simulation
+- Zukunft der Modellierung mit immer stärkeren Rechnersystemen
+
+- ontological correspondence & natural environment integration
+- heterogeneous agents & bounded rationality & learning
+- interaction of agents
+
+# Vorüberlegungen/Rahmen
+
+Agenten, Umwelt, Zeit und Zufall müssen an die Fragestellung angepasst werden. 
+
+Komplexitätsniveau: So wenig wie möglich, so viel wie nötig. 
+
+- Agenten: Die Technik (s.u.) erlaubt die Verarbeitung vieler Agenten. Es scheint mir sinnvoll, diesen Vorteil zu nutzen.
+- Umwelt: Wahrscheinlich ist die Projektion in eine realräumliche (geographische) Umwelt sinnvoll. Die Datenkomplexität soll hier aber nicht zu groß werden, da gegenwärtige Zustände ohne gute Paläoumweltrekonstruktion nur schwer in die Vergangenheit projiziert werden können und darüber hinaus die Datenaufbereitung viel Zeit in Anspruch nimmt. 
+- Zeit: Wahrscheinlich ist ein simples Zeitschrittsystem oder ein Event-Time-System sinnvoll. Der Königsweg Absolutzeitsystem scheint mir für die meisten Anwendungen zu viele Vorannahmen zu erfordern. 
+- Zufall: Möglichst wenig Zufallsprozesse, um die Analyse von Chaos zu erleichtern. 
+
+# Fragestellungskontexte abstrakt:
+
+1. Vollständige Beschreibung eines komplexen Realweltsystems (z.B. Neolithische Expansion)
+2. Erfassung einer klar begrenzten Subrelation der Realwelt (Wildbeuter-Beutetier-Beziehung in einem bestimmten Raum zu einer bestimmten Zeit)
+3. Formalisierung eines konkreten, archäologischen Modells (z.B. "wave of advance" nach Ammerman and Cavalli-Sforza)
+
+Realitisch ist 2. und 3. -> 1. ist das langfristige Ziel.
+
+# Fragestellungskontexte konkret:
+
+### Long-Distance Relationships
+
+*Modellierung von Fernkontakten und Handel*
+
+- Spannender Anwendungskontext:
+    - http://www.oxfordhandbooks.com/view/10.1093/oxfordhb/9780199545841.001.0001/oxfordhb-9780199545841-e-014
+
+
+### Rapid Climate Change and Expansion
+
+*Modellierung von Populationsverhalten bei Klima- und Umweltveränderung*
+
+- Populationen als Agenten 
+- Umwelt als Puzzle von naturräumlichen Mikroregionen
+- Fragestellungen
+    - Quantifizierung von Stabilitätszuständen und Veränderungsabläufen
+    - Schwellenwerte von Transformation/Ausbreitung  
+- Hier könnte GLUES als Vorbild dienen
+
+### Diffusion of Innovation 
+
+*Modellierung der Ausbreitung von Innovationen*
+
+- Innovationen/Technologien/Formen/Ideen als Agenten
+    - Haben: 
+        - Individueller Fingerprint (hash)
+          - Ähnlichkeit durch teilweise Übereinstimmung
+        - Position in der Umwelt
+        - Überzeugungspotenz?
+        - Grad der Komplexität?
+        - Grad der unmittelbaren Nutzbarkeit?
+        - Grad der langfristigen Nutzbarkeit?
+        - Bonusfaktor für eine Siedlung?
+    - Können:
+        - Verbreitungsmechanismen
+            - plötzliches Auftauchen (unter bestimmten Bedingungen?)
+            - Wandern (im Netzwerk)
+            - Tod (Zsh. Siedlungstod?)
+        - Evolutionsmechanismen
+            - Mutation (im hash)
+            - Gegenseitige Beeinflussung (Konjugation!)
+            - Konkurrenz von ähnlichen Innovationen?
+        - Wirkmechanismen? (Boni/Mali für Siedlungen?)
+- Umwelt als Netzwerk von bekannten (+ generierte?) Siedlungen
+    - verschiedene Formen der Distanz/Nähe 
+      - räumlich (Pfaddistanz?)
+      - kulturell
+    - Graphanalyse?
+- Weitere (mögliche) Agententypen
+    - Siedlungen als Knoten im Netzwerk 
+        - Fernwirkung (als Ableitung von Größe und Netzwerkzentralität?)
+        - Annahme/Ablehnung von Innovationen (individuelles Paket von implementierten Innovationen)
+    - Distributoren (Menschen), die Innovation verteilen?
+- Theoretische Grundlagen / Literatur: 
+    - Diffusion of Innovation & Technologischer Transfer (weites, aber noch überschaubares Feld, oder?)
+    - Ausbreitung/Mutation von Krankheiten
+- Prüfdaten
+    - Keramikformen
+    - Architektur
+    - Nutztiere/Nutzpflanzen
+    - Bestattungssitten
+    - Profan- und Sakralarchitektur
+    - ...
+- mögliche Fragestellungen mit simplen Antworten für einen bestimmten räumlichen und zeitlichen Kontext
+    - Potentielle Ausbreitungsgeschwindigkeit von Innovationen *(Zahl in km/a)*
+    - Nachhersage von räumlichen Ausbreitungsgrenzen *(Grenzlinie auf einer Karte)*
+    - Welche bekannten Siedlungen könnten aufgrund ihrer Postion im Netzwerk eine Schlüsselrolle in der Diffusion von Innovation gespielt haben? *(Liste von Namen)*
+    - Wie viele Innovationen entstehen, die wir archäolgisch nicht beobachten können, weil sie nie dominant genug aufgetreten sind um nach der Vielzahl verschiedener Filter bis heute zu überdauern. *(Eine Zahl. 3.)*
+    - Wie wirken sich Veränderungen an Umwelt oder Agenten auf die genannten Fragen aus?
+
+# Technik
+
+- R-Package(s) mit Rcpp (R Interface für C++)
+    - Geschwindigkeit und Objektorientierung durch C++
+    - leicht zugängliches R Interface
+    - Modellanalyse und Visualisierung mit R
+    - Entwicklung (u.A. Dokumentation/Veröffentlichung) nach einem klar vorgegebenen und mir bekanntem Schema
+- Textentwicklung mit R-Markdown
+- Kompletter Entwicklungsprozess (nicht Daten und Text?) öffentlich zugänglich (Open Source / Science 2.0) 
