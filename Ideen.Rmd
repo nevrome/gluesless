@@ -1,0 +1,152 @@
+---
+title: "Ideen"
+author: "Clemens Schmid"
+date: "December 31, 2016"
+output: pdf_document
+---
+
+# Warum ABM?
+
+- "Komplexe" Modellierung -> Simulation
+- Zukunft der Modellierung mit Rechnersystemen, deren Stärke v.a. im Multithreading liegt (Verletzung von Moore’s law im Parallel Computing)
+
+- ontological correspondence & natural environment integration
+- heterogeneous agents & bounded rationality & learning
+- interaction of agents
+
+# Vorüberlegungen/Rahmen
+
+Agenten, Umwelt, Zeit und Zufall müssen an die Fragestellung angepasst werden. 
+
+Komplexitätsniveau: So wenig wie möglich, so viel wie nötig. (Occam's razor)
+
+- Agenten: Die Technik (s.u.) erlaubt die Verarbeitung vieler Agenten. Es scheint mir sinnvoll, diesen Vorteil zu nutzen.
+- Umwelt: Die Datenkomplexität darf nicht zu groß werden, da gegenwärtige Zustände ohne gute Paläoumweltrekonstruktion nur schwer in die Vergangenheit projiziert werden können und darüber hinaus die Datenaufbereitung viel (!) Zeit in Anspruch nimmt. 
+- Zeit: Wahrscheinlich ist ein simples Zeitschrittsystem oder ein Event-Time-System sinnvoll. Der Königsweg Absolutzeitsystem scheint mir für die meisten Anwendungen zu viele Vorannahmen zu erfordern. 
+- Zufall: Möglichst wenig Zufallsprozesse, um die Analyse von Chaos zu erleichtern. 
+
+# Vorüberlegung zu Fragestellungen
+
+1. Vollständige Beschreibung eines komplexen Realweltsystems (z.B. Neolithische Expansion)
+2. Erfassung einer klar begrenzten Subrelation der Realwelt (Wildbeuter-Beutetier-Beziehung in einem bestimmten Raum zu einer bestimmten Zeit)
+3. Formalisierung eines konkreten, archäologischen Modells (z.B. "wave of advance" nach Ammerman and Cavalli-Sforza)
+
+Realitisch ist eine Kombination aus 2. und 3. -> 1. ist das langfristige Ziel.
+
+# konkrete Fragestellungskontexte
+
+Aufsteigend sortiert nach der von mir aktuell empfundenen "Machbarkeit".
+
+### Spatial Organization of Settlements and Social Implications
+
+*Modellierung von zwischenmenschlicher Interaktion im Siedlungskontext*
+
+- Zusammenhang
+    - B. Hillier/J. Hanson, The Social Logic of Space (Cambridge 1984).
+
+### Rapid Climate Change and Expansion
+
+*Modellierung von Populationsverhalten bei Klima- und Umweltveränderung*
+
+- Menschen als Agenten
+    - Individuen?
+    - Haushalte?
+    - Populationen?
+- Umwelt als Puzzle von naturräumlichen Mikroregionen
+- Fragestellungen
+    - Quantifizierung von Stabilitätszuständen und Veränderungsabläufen
+    - Schwellenwerte von Transformation/Ausbreitung  
+- Zusammenhang
+    - GLUES
+    - Bernies Aufsätze zu RCC
+    
+### Material Culture as Text
+
+*Modellierung von Objekt-Gesellschaft Interaktion unter Nutzung eines (!) sprachwissenschaftlichen Modells*
+
+- Konkrete Umsetzung der postprozessualen Idee, indem einzelne Objekte durch komplexe Strings repräsentiert werden (vgl. Diffusion of Innovation weiter unten)
+
+### Long-Distance Relationships
+
+*Modellierung von Fernkontakten und Handel*
+
+- Intelligente (!) Händler als Agenten, die selbst Lösungsstrategien für bestimmte Warenverteilungsprobleme finden müssen (in Orientierung an Colin Renfrew)
+- Spannender Anwendungskontext
+    - http://www.oxfordhandbooks.com/view/10.1093/oxfordhb/9780199545841.001.0001/oxfordhb-9780199545841-e-014
+
+### Social Differentiation by Bottleneck Domination
+
+*Modellierung sozialer Aufgliederung/Weiterentwicklung als Funktion von instrumentalisiertem Ressourcenmangel*
+
+- Zusammenhang
+    - Earle 2002: T.K. Earle, Political domination and social evolution. In: T. Ingold (Hrsg.), Companion encyclopedia of anthropology, Routledge world reference (London 2002) 940–961.
+    - Earle/Spriggs 2015: T. Earle/M. Spriggs, Political Economy in Prehistory: A Marxist Approach to Pacific Sequences, Current Anthropology 56 H. 4, 2015, 515–544.
+
+### Migration
+
+*Nachhersage von Migrationsprozessen durch Implementierung klarer Regeln aus der ethno- und soziologischen Forschung*
+
+- Zusammenhang
+    - D. Anthony, Migration in Archaeology: The Baby and the Bathwater. American Anthropologist, New Series, Vol. 92, No. 4 (Dec., 1990), 895-914.
+    - S. Burmeister, Archaeology and Migration. Approaches to an Archaeological Proof of Migration. Current Anthropology 41, 2000, 539–567.
+
+### Diffusion of Innovation 
+
+*Modellierung der Ausbreitung von Innovationen*
+
+- Innovationen/Technologien/Formen/Ideen als Agenten
+    - Haben: 
+        - Individueller Fingerprint (hash)
+          - Ähnlichkeit durch teilweise Übereinstimmung
+        - Position in der Umwelt
+        - Überzeugungspotenz?
+        - Grad der Komplexität?
+        - Grad der unmittelbaren Nutzbarkeit?
+        - Grad der langfristigen Nutzbarkeit?
+        - Bonusfaktor für eine Siedlung?
+    - Können:
+        - Verbreitungsmechanismen
+            - plötzliches Auftauchen (unter bestimmten Bedingungen?)
+            - Wandern (im Netzwerk)
+            - Tod (Zsh. Siedlungstod?)
+        - Evolutionsmechanismen
+            - Mutation (im hash)
+            - Gegenseitige Beeinflussung (Konjugation!)
+            - Konkurrenz von ähnlichen Innovationen?
+        - Wirkmechanismen? (Boni/Mali für Siedlungen?)
+- Umwelt als Netzwerk von bekannten (+ generierte?) Siedlungen
+    - verschiedene Formen der Distanz/Nähe 
+        - räumlich (Pfaddistanz?)
+        - kulturell
+    - Graphanalyse?
+- Weitere (mögliche) Agententypen
+    - Siedlungen als Knoten im Netzwerk 
+        - Fernwirkung (als Ableitung von Größe und Netzwerkzentralität?)
+        - Annahme/Ablehnung von Innovationen (individuelles Paket von implementierten Innovationen -- "Neolithic Package")
+    - Distributoren (Menschen), die Innovation verteilen?
+- Theoretische Grundlagen / Literatur: 
+    - Diffusion of Innovation & Technologischer Transfer (weites, aber noch überschaubares Feld, oder?)
+    - Ausbreitung/Mutation von Krankheiten
+- Prüfdaten
+    - Keramikformen
+    - Architektur
+    - Nutztiere/Nutzpflanzen
+    - Bestattungssitten
+    - Profan- und Sakralarchitektur
+    - ...
+- mögliche Fragestellungen mit simplen Antworten für einen bestimmten räumlichen und zeitlichen Kontext
+    - Potentielle Ausbreitungsgeschwindigkeit von Innovationen *(Zahl in km/a)*
+    - Nachhersage von räumlichen Ausbreitungsgrenzen *(Grenzlinie auf einer Karte)*
+    - Welche bekannten Siedlungen könnten aufgrund ihrer Postion im Netzwerk eine Schlüsselrolle in der Diffusion von Innovation gespielt haben? *(Liste von Namen)*
+    - Wie viele Innovationen entstehen, die wir archäolgisch nicht beobachten können, weil sie nie dominant genug aufgetreten sind um nach der Vielzahl verschiedener Filter bis heute zu überdauern. *(Eine Zahl. 3.)*
+    - Wie wirken sich Veränderungen an Umwelt oder Agenten auf die genannten Fragen aus?
+
+# Technik
+
+- R-Package(s) mit Rcpp (R Interface für C++)
+    - Geschwindigkeit und Objektorientierung durch C++
+    - leicht zugängliches R Interface
+    - Modellanalyse und Visualisierung mit R
+    - Entwicklung (u.A. Dokumentation/Veröffentlichung) nach einem klar vorgegebenen und mir bekanntem Schema
+- Textentwicklung mit R-Markdown
+- Kompletter Entwicklungsprozess (nicht Daten und Text?) öffentlich zugänglich (Open Source / Science 2.0) 
