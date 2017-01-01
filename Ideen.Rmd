@@ -44,14 +44,6 @@ Aufsteigend sortiert nach der von mir aktuell empfundenen "Machbarkeit".
 - Zusammenhang
     - B. Hillier/J. Hanson, The Social Logic of Space (Cambridge 1984).
 
-### Long-Distance Relationships
-
-*Modellierung von Fernkontakten und Handel*
-
-- Intelligente (!) Händler als Agenten, die selbst Lösungsstrategien für bestimmte Warenverteilungsprobleme finden müssen (in Orientierung an Colin Renfrew)
-- Spannender Anwendungskontext:
-    - http://www.oxfordhandbooks.com/view/10.1093/oxfordhb/9780199545841.001.0001/oxfordhb-9780199545841-e-014
-
 ### Rapid Climate Change and Expansion
 
 *Modellierung von Populationsverhalten bei Klima- und Umweltveränderung*
