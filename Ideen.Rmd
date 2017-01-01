@@ -8,7 +8,11 @@ output: pdf_document
 # Warum ABM?
 
 - "Komplexe" Modellierung -> Simulation
+<<<<<<< HEAD
 - Zukunft der Modellierung mit Rechnersystemen, deren Stärke v.a. im Multithreading liegt (Verletzung von Moore’s law im Parallel Computing)
+=======
+- Zukunft der Modellierung mit immer stärkeren Rechnersystemen
+>>>>>>> 867b54543e2f799eb784e3a914d91bf59f07308f
 
 - ontological correspondence & natural environment integration
 - heterogeneous agents & bounded rationality & learning
@@ -18,6 +22,7 @@ output: pdf_document
 
 Agenten, Umwelt, Zeit und Zufall müssen an die Fragestellung angepasst werden. 
 
+<<<<<<< HEAD
 Komplexitätsniveau: So wenig wie möglich, so viel wie nötig. (Occam's razor)
 
 - Agenten: Die Technik (s.u.) erlaubt die Verarbeitung vieler Agenten. Es scheint mir sinnvoll, diesen Vorteil zu nutzen.
@@ -26,11 +31,22 @@ Komplexitätsniveau: So wenig wie möglich, so viel wie nötig. (Occam's razor)
 - Zufall: Möglichst wenig Zufallsprozesse, um die Analyse von Chaos zu erleichtern. 
 
 # Vorüberlegung zu Fragestellungen
+=======
+Komplexitätsniveau: So wenig wie möglich, so viel wie nötig. 
+
+- Agenten: Die Technik (s.u.) erlaubt die Verarbeitung vieler Agenten. Es scheint mir sinnvoll, diesen Vorteil zu nutzen.
+- Umwelt: Wahrscheinlich ist die Projektion in eine realräumliche (geographische) Umwelt sinnvoll. Die Datenkomplexität soll hier aber nicht zu groß werden, da gegenwärtige Zustände ohne gute Paläoumweltrekonstruktion nur schwer in die Vergangenheit projiziert werden können und darüber hinaus die Datenaufbereitung viel Zeit in Anspruch nimmt. 
+- Zeit: Wahrscheinlich ist ein simples Zeitschrittsystem oder ein Event-Time-System sinnvoll. Der Königsweg Absolutzeitsystem scheint mir für die meisten Anwendungen zu viele Vorannahmen zu erfordern. 
+- Zufall: Möglichst wenig Zufallsprozesse, um die Analyse von Chaos zu erleichtern. 
+
+# Fragestellungskontexte abstrakt:
+>>>>>>> 867b54543e2f799eb784e3a914d91bf59f07308f
 
 1. Vollständige Beschreibung eines komplexen Realweltsystems (z.B. Neolithische Expansion)
 2. Erfassung einer klar begrenzten Subrelation der Realwelt (Wildbeuter-Beutetier-Beziehung in einem bestimmten Raum zu einer bestimmten Zeit)
 3. Formalisierung eines konkreten, archäologischen Modells (z.B. "wave of advance" nach Ammerman and Cavalli-Sforza)
 
+<<<<<<< HEAD
 Realitisch ist eine Kombination aus 2. und 3. -> 1. ist das langfristige Ziel.
 
 # konkrete Fragestellungskontexte
@@ -43,19 +59,37 @@ Aufsteigend sortiert nach der von mir aktuell empfundenen "Machbarkeit".
 
 - Zusammenhang
     - B. Hillier/J. Hanson, The Social Logic of Space (Cambridge 1984).
+=======
+Realitisch ist 2. und 3. -> 1. ist das langfristige Ziel.
+
+# Fragestellungskontexte konkret:
+
+### Long-Distance Relationships
+
+*Modellierung von Fernkontakten und Handel*
+
+- Spannender Anwendungskontext:
+    - http://www.oxfordhandbooks.com/view/10.1093/oxfordhb/9780199545841.001.0001/oxfordhb-9780199545841-e-014
+
+>>>>>>> 867b54543e2f799eb784e3a914d91bf59f07308f
 
 ### Rapid Climate Change and Expansion
 
 *Modellierung von Populationsverhalten bei Klima- und Umweltveränderung*
 
+<<<<<<< HEAD
 - Menschen als Agenten
     - Individuen?
     - Haushalte?
     - Populationen?
+=======
+- Populationen als Agenten 
+>>>>>>> 867b54543e2f799eb784e3a914d91bf59f07308f
 - Umwelt als Puzzle von naturräumlichen Mikroregionen
 - Fragestellungen
     - Quantifizierung von Stabilitätszuständen und Veränderungsabläufen
     - Schwellenwerte von Transformation/Ausbreitung  
+<<<<<<< HEAD
 - Zusammenhang
     - GLUES
     - Bernies Aufsätze zu RCC
@@ -89,6 +123,9 @@ Aufsteigend sortiert nach der von mir aktuell empfundenen "Machbarkeit".
 - Zusammenhang
     - D. Anthony, Migration in Archaeology: The Baby and the Bathwater. American Anthropologist, New Series, Vol. 92, No. 4 (Dec., 1990), 895-914.
     - S. Burmeister, Archaeology and Migration. Approaches to an Archaeological Proof of Migration. Current Anthropology 41, 2000, 539–567.
+=======
+- Hier könnte GLUES als Vorbild dienen
+>>>>>>> 867b54543e2f799eb784e3a914d91bf59f07308f
 
 ### Diffusion of Innovation 
 
@@ -116,13 +153,22 @@ Aufsteigend sortiert nach der von mir aktuell empfundenen "Machbarkeit".
         - Wirkmechanismen? (Boni/Mali für Siedlungen?)
 - Umwelt als Netzwerk von bekannten (+ generierte?) Siedlungen
     - verschiedene Formen der Distanz/Nähe 
+<<<<<<< HEAD
         - räumlich (Pfaddistanz?)
         - kulturell
+=======
+      - räumlich (Pfaddistanz?)
+      - kulturell
+>>>>>>> 867b54543e2f799eb784e3a914d91bf59f07308f
     - Graphanalyse?
 - Weitere (mögliche) Agententypen
     - Siedlungen als Knoten im Netzwerk 
         - Fernwirkung (als Ableitung von Größe und Netzwerkzentralität?)
+<<<<<<< HEAD
         - Annahme/Ablehnung von Innovationen (individuelles Paket von implementierten Innovationen -- "Neolithic Package")
+=======
+        - Annahme/Ablehnung von Innovationen (individuelles Paket von implementierten Innovationen)
+>>>>>>> 867b54543e2f799eb784e3a914d91bf59f07308f
     - Distributoren (Menschen), die Innovation verteilen?
 - Theoretische Grundlagen / Literatur: 
     - Diffusion of Innovation & Technologischer Transfer (weites, aber noch überschaubares Feld, oder?)
