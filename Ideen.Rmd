@@ -93,6 +93,20 @@ Aufsteigend sortiert nach der von mir aktuell empfundenen "Machbarkeit".
 *Modellierung von Fernkontakten und Handel*
 
 - Intelligente (!) Händler als Agenten, die selbst Lösungsstrategien für bestimmte Warenverteilungsprobleme finden müssen (in Orientierung an Colin Renfrew)
+- Landschaft als Raster (vielleicht Hexagonalsystem -> mehr Berührungsflächen)
+    - Felder mit Eigenschaften
+        - Durchgangskosten (Terrain, Gewässer)
+        - Eignung für verschiedene Typen von Niederlassungen (temporäre/dauerhafte Handelsposten)
+        - Vernichtungsrisiko (Naturkatastrophen, Raub, politische Instabilität)
+    - Güterinteraktionspunkte mit Angebot und Nachfrage
+        - Ressourcenstellen
+        - Ansieldungen
+        - geschaffene Handelsniederlassungen
+- Händler als Agenten
+    - suchen Punkte von Angebot und Nachfrage und bauen ein Wissen über ein Handelsnetzwerk auf
+    - können das Netzwerk durch Gründung von Niederlassungen und das Etablieren von Wegen manipulieren
+    - können miteinander und mit den Güterinteraktionspunkten interagieren
+- Beobachtung von Landschaftsmanipulation
 - Spannender Anwendungskontext
     - http://www.oxfordhandbooks.com/view/10.1093/oxfordhb/9780199545841.001.0001/oxfordhb-9780199545841-e-014
 
