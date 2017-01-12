@@ -20,12 +20,14 @@ Agenten, Umwelt, Zeit und Zufall müssen an die Fragestellung angepasst werden.
 
 Komplexitätsniveau: So wenig wie möglich, so viel wie nötig. (Occam's razor)
 
-- Agenten: Die Technik (s.u.) erlaubt die Verarbeitung vieler Agenten. Es scheint mir sinnvoll, diesen Vorteil zu nutzen.
-- Umwelt: Die Datenkomplexität darf nicht zu groß werden, da gegenwärtige Zustände ohne gute Paläoumweltrekonstruktion nur schwer in die Vergangenheit projiziert werden können und darüber hinaus die Datenaufbereitung viel (!) Zeit in Anspruch nimmt. 
+## Mechanismen
+
+- Agenten: Die Technik (s.u.) erlaubt die Verarbeitung **vieler** Agenten. Es scheint mir sinnvoll, diesen Vorteil zu nutzen.
+- Umwelt: Die Datenkomplexität darf nicht zu groß werden, da gegenwärtige Zustände ohne gute Paläoumweltrekonstruktion nur schwer in die Vergangenheit projiziert werden können und darüber hinaus die Datenaufbereitung zu viel Zeit in Anspruch nimmt. 
 - Zeit: Wahrscheinlich ist ein simples Zeitschrittsystem oder ein Event-Time-System sinnvoll. Der Königsweg Absolutzeitsystem scheint mir für die meisten Anwendungen zu viele Vorannahmen zu erfordern. 
 - Zufall: Möglichst wenig Zufallsprozesse, um die Analyse von Chaos zu erleichtern. 
 
-# Vorüberlegung zu Fragestellungen
+## Fragestellungen
 
 1. Vollständige Beschreibung eines komplexen Realweltsystems (z.B. Neolithische Expansion)
 2. Erfassung einer klar begrenzten Subrelation der Realwelt (Wildbeuter-Beutetier-Beziehung in einem bestimmten Raum zu einer bestimmten Zeit)
@@ -35,6 +37,8 @@ Realitisch ist eine Kombination aus 2. und 3. -> 1. ist das langfristige Ziel.
 
 # konkrete Fragestellungskontexte
 
+Die folgenden Fragestellungen lassen sich in verschiedene archäologische Kontexte projizieren. Sie müssen für den Anwendungsfall angepasst und konkretisiert werden.
+
 Aufsteigend sortiert nach der von mir aktuell empfundenen "Machbarkeit".
 
 ### Spatial Organization of Settlements and Social Implications
@@ -43,6 +47,16 @@ Aufsteigend sortiert nach der von mir aktuell empfundenen "Machbarkeit".
 
 - Zusammenhang
     - B. Hillier/J. Hanson, The Social Logic of Space (Cambridge 1984).
+- Konstruktion eines Datenobjekts, das den Aufbau einer archäologisch oder ethnologisch untersuchten Siedlung abbilden kann
+    - Infrastruktur (Wege, Plätze)
+    - Gebäude (Eigenschaften, Zugänge, Nutzung/Inhalt)
+    - Areale (soziale Trennung, Viehhaltung)
+    - Grenzen (Mauern, Tore, Zäune, Gräben)
+- Individuen als Agenten, die jeweils zu übergeordneten Einheiten (Familien, Clans, Klassen, Milieus) gehören und im Sieldungsareal agieren
+- Untersuchung der Interkation von Individuen und Gruppen mit der Siedlungslandschaft:
+    - Inwiefern manifestiert sich Trennung und Verknüpfung in der Siedlungsanlage?
+    - Kann Trennung durch Veränderung der Anlage überwunden werden?
+    - Welche Architektur- und Strukturelemente spiegeln welche Ebene sozialer Kohärenz?
 
 ### Rapid Climate Change and Expansion
 
@@ -53,6 +67,7 @@ Aufsteigend sortiert nach der von mir aktuell empfundenen "Machbarkeit".
     - Haushalte?
     - Populationen?
 - Umwelt als Puzzle von naturräumlichen Mikroregionen
+    - http://www.eea.europa.eu/data-and-maps/figures/dmeer-digital-map-of-european-ecological-regions
 - Fragestellungen
     - Quantifizierung von Stabilitätszuständen und Veränderungsabläufen
     - Schwellenwerte von Transformation/Ausbreitung  
@@ -62,9 +77,16 @@ Aufsteigend sortiert nach der von mir aktuell empfundenen "Machbarkeit".
     
 ### Material Culture as Text
 
-*Modellierung von Objekt-Gesellschaft Interaktion unter Nutzung eines (!) sprachwissenschaftlichen Modells*
+*Modellierung von Objekt-Gesellschaft Interaktion unter Nutzung eines sprachwissenschaftlichen Modells*
 
 - Konkrete Umsetzung der postprozessualen Idee, indem einzelne Objekte durch komplexe Strings repräsentiert werden (vgl. Diffusion of Innovation weiter unten)
+- Artefakte als Agenten, die mit anderen, menschlichen Agenten (Konstruktoren, Konsumenten, Destruktoren) interagieren
+    - Konstruktoren bauen Artefakte mit einer Botschaft
+    - Konsumenten akkumulieren Artefakte und werden von Botschaften beeinflusst
+    - Destruktoren vernichten Artefakte mit unliebsamen Botschaften
+    - je mehr Artefakte mit übereinstimmender Botschaft (übereinstimmenden Botschaftsteilen) akkumulieren, desto mehr Einfluss entwickeln sie
+    - Konstruktor, Konsument und Destruktor sind Rollen, die jeweils Zeitweise von Menschen eingenommen werden können. 
+    - Menschen haben ein individuelles "Mindset" an Botschaften und Interessen, das komplexer ist als das der Artefakte
 
 ### Long-Distance Relationships
 
