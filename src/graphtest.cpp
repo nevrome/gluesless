@@ -13,11 +13,11 @@
 
 using namespace boost;
 using namespace Rcpp;
-
+using namespace std;
 
 //' @export
 // [[Rcpp::export]]
-int graphtest()
+std::string graphtest()
 {
   // create a typedef for the Graph type
   typedef adjacency_list<vecS, vecS, bidirectionalS> Graph;
@@ -42,16 +42,10 @@ int graphtest()
     add_edge(edge_array[i].first, edge_array[i].second, g);
   }
 
-  //std::string filename = "test.txt";
-  //std::ofstream fout(filename.c_str());
-
   std::ostringstream fout;
-
-
   write_graphviz(fout,g);
-
   std::string test = fout.str();
-  Rcout << test << std::endl;
-  return 0;
+
+  return test;
 }
 

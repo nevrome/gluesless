@@ -17,7 +17,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // graphtest
-int graphtest();
+std::string graphtest();
 RcppExport SEXP gluesless_graphtest() {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
