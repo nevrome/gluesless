@@ -8,9 +8,12 @@
 #include <boost/graph/graph_traits.hpp>
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/graph/dijkstra_shortest_paths.hpp>
+#include <boost/graph/graphviz.hpp>
+#include <fstream>
 
-using namespace Rcpp;
 using namespace boost;
+using namespace Rcpp;
+
 
 //' @export
 // [[Rcpp::export]]
@@ -35,9 +38,20 @@ int graphtest()
   Graph g(num_vertices);
 
   // add the edges to the graph object
-  for (int i = 0; i < num_edges; ++i)
+  for (int i = 0; i < num_edges; ++i) {
     add_edge(edge_array[i].first, edge_array[i].second, g);
-     //                     ...
-    return 0;
+  }
+
+  //std::string filename = "test.txt";
+  //std::ofstream fout(filename.c_str());
+
+  std::ostringstream fout;
+
+
+  write_graphviz(fout,g);
+
+  std::string test = fout.str();
+  Rcout << test << std::endl;
+  return 0;
 }
 
