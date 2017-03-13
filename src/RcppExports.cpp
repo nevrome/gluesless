@@ -16,6 +16,16 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// graphtest
+int graphtest();
+RcppExport SEXP gluesless_graphtest() {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    rcpp_result_gen = Rcpp::wrap(graphtest());
+    return rcpp_result_gen;
+END_RCPP
+}
 // run
 double run(SEXP modell_builder, int steps);
 RcppExport SEXP gluesless_run(SEXP modell_builderSEXP, SEXP stepsSEXP) {

@@ -11,7 +11,7 @@ Description: gluesless - it's awesome and horrific!
 Date: 2016-11-18
 License: GPL-2
 LazyData: TRUE
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
 URL: https://github.com/nevrome/gluesless
 Suggests:
     devtools (>= 1.12.0),
@@ -24,7 +24,8 @@ VignetteBuilder: knitr
 Depends:
     R (>= 3.2.3),
     Rcpp (>= 0.12.3),
-    methods
+    methods,
+    BH
 LinkingTo: Rcpp
 RcppModules:
     Population_module

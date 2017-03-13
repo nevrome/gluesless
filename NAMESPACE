@@ -2,6 +2,7 @@
 
 export(.onUnload)
 export(cheesecake)
+export(graphtest)
 export(run)
 exportClasses(modell_builder)
 import(Rcpp)
