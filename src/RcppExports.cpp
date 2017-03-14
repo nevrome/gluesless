@@ -27,7 +27,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // run
-double run(SEXP modell_builder, int steps);
+std::string run(SEXP modell_builder, int steps);
 RcppExport SEXP gluesless_run(SEXP modell_builderSEXP, SEXP stepsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;

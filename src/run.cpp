@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <math.h>
 #include "Population.h"
+#include "Networkland.h"
 
 using namespace Rcpp;
 
@@ -38,7 +39,11 @@ using namespace Rcpp;
 //'
 //' @export
 // [[Rcpp::export]]
-double run(SEXP modell_builder, int steps = 100){
+std::string run(SEXP modell_builder, int steps = 100){
+
+  // env test
+  Networkland* landofoz = new Networkland();
+  std::string floet = landofoz->export_graph();
 
   Rcpp::S4 mb(modell_builder);
 
@@ -65,5 +70,5 @@ double run(SEXP modell_builder, int steps = 100){
 
   //double res = 1.0;
 
-  return res;
+  return floet;
 }
