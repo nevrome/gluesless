@@ -1,9 +1,13 @@
+library(igraph)
+
 test <- graphtest()
 
-library(sna)
-gra <- read.dot(textConnection(test))
+graphtrans <- function(inputstring, format = "graphml"){
+  charToRaw(inputstring) %>%
+    rawConnection() %>%
+    igraph::read_graph(., format = format) %>%
+    return()
+}
 
-library(igraph)
-gra2 <- graph_from_adjacency_matrix(gra)
-
-plot(gra2)
+graphtrans(test) %>%
+  plot()

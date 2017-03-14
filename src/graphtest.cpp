@@ -8,7 +8,7 @@
 #include <boost/graph/graph_traits.hpp>
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/graph/dijkstra_shortest_paths.hpp>
-#include <boost/graph/graphviz.hpp>
+#include <boost/graph/graphml.hpp>
 #include <fstream>
 
 using namespace boost;
@@ -42,8 +42,10 @@ std::string graphtest()
     add_edge(edge_array[i].first, edge_array[i].second, g);
   }
 
+  dynamic_properties dp;
+
   std::ostringstream fout;
-  write_graphviz(fout,g);
+  write_graphml(fout,g,dp,false);
   std::string test = fout.str();
 
   return test;
