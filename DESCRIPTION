@@ -24,8 +24,7 @@ VignetteBuilder: knitr
 Depends:
     R (>= 3.2.3),
     Rcpp (>= 0.12.3),
-    methods,
-    BH
-LinkingTo: Rcpp
+    methods
+LinkingTo: Rcpp, BH
 RcppModules:
     Population_module

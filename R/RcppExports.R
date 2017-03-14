@@ -22,6 +22,17 @@ cheesecake <- function(i = 1L) {
     .Call('gluesless_cheesecake', PACKAGE = 'gluesless', i)
 }
 
+#' test graph construction
+#'
+#' @description
+#' test
+#'
+#' @details
+#' test
+#'
+#' @return
+#' test
+#'
 #' @export
 graphtest <- function() {
     .Call('gluesless_graphtest', PACKAGE = 'gluesless')

@@ -1,4 +1,3 @@
-// We can now use the BH package
 // [[Rcpp::depends(BH)]]
 
 #include <Rcpp.h>
@@ -15,6 +14,17 @@ using namespace boost;
 using namespace Rcpp;
 using namespace std;
 
+//' test graph construction
+//'
+//' @description
+//' test
+//'
+//' @details
+//' test
+//'
+//' @return
+//' test
+//'
 //' @export
 // [[Rcpp::export]]
 std::string graphtest()
