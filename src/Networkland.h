@@ -13,6 +13,8 @@ using namespace boost;
 using namespace Rcpp;
 using namespace std;
 
+
+
 struct Vertex
 {
   std::string name, label, shape;
@@ -31,10 +33,11 @@ typedef adjacency_list<listS, vecS, bidirectionalS,
                        Complete_Graph>
         graph_t;
 
+
+
 class Networkland {
 
-
-  public:
+    public:
     //constructor
     //Networkland();
     Networkland(std::string graphstring);
@@ -44,10 +47,6 @@ class Networkland {
 
     // R-exporter
     std::string export_graph();
-
-    // develop functions
-    //void develop();
-    //void develop_udef(Function pop_develop_udef);
 
   private:
     // attributes

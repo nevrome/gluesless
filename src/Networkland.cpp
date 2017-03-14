@@ -58,12 +58,7 @@ Networkland::Networkland(std::string graphstring) {
 
   read_graphml(is, graph, dp/*, "node_id"*/);
   std::cout << "Graph name: '" << get_property(graph, graph_name) << "'\n";
-  get_property(graph, graph_name) = "Let's give it a name";
-  write_graphviz_dp(std::cout, graph, dp/*, "node_id"*/);
 
-
-  //std::istringstream is(graphstring);
-  //read_graphml(is, g, dp);
   this->env = graph;
 }
 
@@ -83,26 +78,12 @@ std::string Networkland::export_graph() {
   return test;
 }
 
-// develop functions
-// void Population::develop() {
-//   size = size + size*birthrate - size*deathrate;
-//   return;
-// }
-
-// void Population::develop_udef(Function pop_develop_udef) {
-//   size = as<double>(pop_develop_udef(size, birthrate, deathrate));
-//   return;
-// }
-
 // RCPP_Module definition
 RCPP_MODULE(Networkland_module) {
   using namespace Rcpp;
 
   class_<Networkland>("Networkland")
-    //.constructor()
     .constructor<std::string>()
     .method("export_graph", &Networkland::export_graph)
-    // .method("develop", &Population::develop)
-    // .method("develop_udef", &Population::develop_udef)
   ;
 }
