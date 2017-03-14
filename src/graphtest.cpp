@@ -1,14 +1,9 @@
 // [[Rcpp::depends(BH)]]
 
 #include <Rcpp.h>
-#include <iostream>                  // for std::cout
-#include <utility>                   // for std::pair
-#include <algorithm>                 // for std::for_each
 #include <boost/graph/graph_traits.hpp>
 #include <boost/graph/adjacency_list.hpp>
-#include <boost/graph/dijkstra_shortest_paths.hpp>
 #include <boost/graph/graphml.hpp>
-#include <fstream>
 
 using namespace boost;
 using namespace Rcpp;
@@ -38,7 +33,7 @@ std::string graphtest()
   const char* name = "ABCDE";
 
   // writing out the edges in the graph
-  typedef std::pair<int, int> Edge;
+  typedef pair<int, int> Edge;
   Edge edge_array[] =
     { Edge(A,B), Edge(A,D), Edge(C,A), Edge(D,C),
       Edge(C,E), Edge(B,D), Edge(D,E) };
@@ -54,9 +49,9 @@ std::string graphtest()
 
   dynamic_properties dp;
 
-  std::ostringstream fout;
+  ostringstream fout;
   write_graphml(fout,g,dp,false);
-  std::string test = fout.str();
+  string test = fout.str();
 
   return test;
 }
