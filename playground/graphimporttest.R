@@ -6,13 +6,12 @@ test <- graphtest()
 graphread <- function(inputstring, format = "graphml"){
   inputstring %>%
     charToRaw() %>%
-    rawConnection() -> zz
-  igraph::read_graph(zz, format = format) -> graph
-  close(zz)
-  return(graph)
+    rawConnection() %>%
+    igraph::read_graph(., format = format) %>%
+    return()
 }
 
-graphtrans(test) %>%
+graphread(test) %>%
   plot()
 
 #####
@@ -26,9 +25,8 @@ graphwrite <- function(igraphobj, format = "graphml"){
   rawConnection(raw(0), "r+") -> zz
   write_graph(igraphobj, file = zz, format = format)
   rawConnectionValue(zz) %>%
-    rawToChar() -> graph
-  close(zz)
-  return(graph)
+    rawToChar() %>%
+    return()
 }
 
 hununu <- graphwrite(g)
@@ -41,4 +39,6 @@ test_builder <- new(
   networkland_env = hununu
 )
 
-run(test_builder)
+run(test_builder) -> fluut
+
+fluut %>% graphread() %>% plot()
