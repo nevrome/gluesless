@@ -25,7 +25,9 @@ Depends:
     R (>= 3.2.3),
     Rcpp (>= 0.12.3),
     methods
-LinkingTo: Rcpp, BH
+LinkingTo: Rcpp
 RcppModules:
     Population_module,
     Networkland_module
+SystemRequirements:
+    boost

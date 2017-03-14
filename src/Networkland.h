@@ -1,8 +1,6 @@
 #ifndef _gluesless_RCPP_Networkland_H
 #define _gluesless_RCPP_Networkland_H
 
-// [[Rcpp::depends(BH)]]
-
 #include <Rcpp.h>
 #include <boost/graph/graph_traits.hpp>
 #include <boost/graph/adjacency_list.hpp>
@@ -12,7 +10,6 @@
 using namespace boost;
 using namespace Rcpp;
 using namespace std;
-
 
 
 struct Vertex
