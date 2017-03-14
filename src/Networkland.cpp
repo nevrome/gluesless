@@ -57,7 +57,7 @@ Networkland::Networkland(std::string graphstring) {
   std::istringstream is(graphstring);
 
   read_graphml(is, graph, dp/*, "node_id"*/);
-  std::cout << "Graph name: '" << get_property(graph, graph_name) << "'\n";
+  Rcout << "Graph name: '" << get_property(graph, graph_name) << "'\n";
 
   this->env = graph;
 }

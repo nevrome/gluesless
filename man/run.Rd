@@ -20,21 +20,3 @@ test
 \details{
 test
 }
-\examples{
-f <- function(size,birthrate,deathrate) {
-  res <- size + size*birthrate*2 - size*deathrate*2
-  return(res)
-}
-
-test_builder <- new(
-  "modell_builder",
-  pop_size = 200,
-  pop_birthrate = 0.01,
-  pop_deathrate = 0.005,
-  pop_develop_udef_decision = FALSE,
-  pop_develop_udef = f
-)
-
-run(test_builder)
-
-}

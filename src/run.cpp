@@ -20,9 +20,6 @@ using namespace Rcpp;
 //' @return
 //' test
 //'
-//' @examples
-//' test
-//'
 //' @export
 // [[Rcpp::export]]
 std::string run(SEXP modell_builder, int steps = 100){

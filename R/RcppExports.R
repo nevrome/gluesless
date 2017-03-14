@@ -52,9 +52,6 @@ graphtest <- function() {
 #' @return
 #' test
 #'
-#' @examples
-#' test
-#'
 #' @export
 run <- function(modell_builder, steps = 100L) {
     .Call('gluesless_run', PACKAGE = 'gluesless', modell_builder, steps)
