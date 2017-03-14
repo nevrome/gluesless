@@ -27,4 +27,5 @@ Depends:
     methods
 LinkingTo: Rcpp, BH
 RcppModules:
-    Population_module
+    Population_module,
+    Networkland_module
