@@ -5,6 +5,10 @@ using namespace Rcpp;
 
 
 // constructor
+Population::Population(double size_) {
+  this->size = size_;
+}
+
 Population::Population(double size_, double birthrate_, double deathrate_) {
   this->size = size_;
   this->birthrate = birthrate_;
@@ -32,6 +36,7 @@ RCPP_MODULE(Population_module) {
   using namespace Rcpp;
 
   class_<Population>("Population")
+    .constructor<double>()
     .constructor<double,double,double>()
     .method("size_get", &Population::size_get)
     .method("develop", &Population::develop)

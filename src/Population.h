@@ -7,6 +7,7 @@ using namespace Rcpp;
 class Population {
 public:
   //constructor
+  Population(double size_);
   Population(double size_, double birthrate_, double deathrate_);
 
   // getter

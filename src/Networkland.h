@@ -7,23 +7,40 @@
 #include <boost/graph/graph_traits.hpp>
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/graph/graphml.hpp>
-#include "Networkland.h"
+#include <boost/graph/properties.hpp>
 
 using namespace boost;
 using namespace Rcpp;
 using namespace std;
 
-typedef adjacency_list<vecS, vecS, bidirectionalS> Graph;
+struct Vertex
+{
+  std::string name, label, shape;
+};
+
+struct Edge
+{
+  std::string label;
+  double weight;
+};
+
+typedef property<graph_name_t, std::string> Complete_Graph;
+typedef adjacency_list<listS, vecS, bidirectionalS,
+                       Vertex,
+                       Edge,
+                       Complete_Graph>
+        graph_t;
 
 class Networkland {
 
 
   public:
     //constructor
-    Networkland();
+    //Networkland();
+    Networkland(std::string graphstring);
 
     // getter
-    Graph get_graph();
+    graph_t get_graph();
 
     // R-exporter
     std::string export_graph();
@@ -34,7 +51,7 @@ class Networkland {
 
   private:
     // attributes
-    Graph env;
+    graph_t env;
 };
 
 #endif
