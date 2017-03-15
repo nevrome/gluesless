@@ -14,17 +14,18 @@ using namespace std;
 
 struct Vertex
 {
-  std::string name, label, shape;
+  std::string name, gender;
+  double age;
 };
 
 struct Edge
 {
-  std::string label;
-  double weight;
+  double friendship;
+  double advice;
 };
 
 typedef property<graph_name_t, std::string> Complete_Graph;
-typedef adjacency_list<listS, vecS, bidirectionalS,
+typedef adjacency_list<listS, vecS, undirectedS,
                        Vertex,
                        Edge,
                        Complete_Graph>
@@ -41,6 +42,7 @@ class Networkland {
 
     // getter
     graph_t get_graph();
+    //dynamic_properties get_graph_properties();
 
     // R-exporter
     std::string export_graph();
@@ -48,6 +50,7 @@ class Networkland {
   private:
     // attributes
     graph_t env;
+    //dynamic_properties prop;
 };
 
 #endif
