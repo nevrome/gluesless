@@ -44,7 +44,6 @@ hununu <- graphwrite(g)
 
 test_builder <- new(
   "modell_builder",
-  population_size = 20,
   networkland_env = hununu
 )
 

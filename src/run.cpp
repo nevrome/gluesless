@@ -1,7 +1,7 @@
 #include <Rcpp.h>
 #include <cstdlib>
 #include <math.h>
-#include "Population.h"
+#include "Idea.h"
 #include "Networkland.h"
 
 using namespace Rcpp;
@@ -38,16 +38,10 @@ std::string run(SEXP modell_builder, int steps = 100){
   std::string floet = landofoz->export_graph();
 
   //double si = wrap(mb.slot("population_size"));
-  double size = Rcpp::as<double>(mb.slot("population_size"));
-
-  //create testpopulation
-  Population* testpop = new Population(
-    size
-  );
+  //double size = Rcpp::as<double>(mb.slot("population_size"));
 
 
-
-  delete testpop;
+  //delete testpop;
 
   return floet;
 }

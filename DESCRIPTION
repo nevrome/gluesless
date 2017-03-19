@@ -27,7 +27,7 @@ Depends:
     methods
 LinkingTo: Rcpp
 RcppModules:
-    Population_module,
+    Idea_module,
     Networkland_module
 SystemRequirements:
     boost

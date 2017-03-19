@@ -8,4 +8,5 @@
 }
 
 # load modules
-loadModule("Population_module", TRUE)
+loadModule("Networkland_module", TRUE)
+loadModule("Idea_module", TRUE)
