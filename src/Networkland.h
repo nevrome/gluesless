@@ -51,7 +51,7 @@ class Networkland {
     // R-exporter
     std::string export_graph();
 
-  private:
+    private:
     // attributes
     graph_t env;
     //dynamic_properties prop;

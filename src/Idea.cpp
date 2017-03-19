@@ -1,6 +1,8 @@
 #include <Rcpp.h>
-using namespace Rcpp;
+
 #include "Idea.h"
+
+using namespace Rcpp;
 
 // constructor
 Idea::Idea() {

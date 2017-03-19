@@ -9,9 +9,10 @@
 using namespace Rcpp;
 
 class Timeline {
-public:
+
+  public:
   //constructor
-  Timeline();
+  Timeline(Networkland startland);
 
   // getter
   // double size_get();
@@ -19,7 +20,7 @@ public:
   // develop functions
   // void develop();
 
-private:
+  private:
   // attributes
   vector<Networkland> spacetime;
 };

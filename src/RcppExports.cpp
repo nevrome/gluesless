@@ -27,14 +27,12 @@ BEGIN_RCPP
 END_RCPP
 }
 // run
-std::string run(SEXP modell_builder, int steps);
-RcppExport SEXP gluesless_run(SEXP modell_builderSEXP, SEXP stepsSEXP) {
+void run(SEXP modell_builder);
+RcppExport SEXP gluesless_run(SEXP modell_builderSEXP) {
 BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type modell_builder(modell_builderSEXP);
-    Rcpp::traits::input_parameter< int >::type steps(stepsSEXP);
-    rcpp_result_gen = Rcpp::wrap(run(modell_builder, steps));
-    return rcpp_result_gen;
+    run(modell_builder);
+    return R_NilValue;
 END_RCPP
 }

@@ -1,8 +1,10 @@
 #include <Rcpp.h>
 #include <cstdlib>
 #include <math.h>
+
 #include "Idea.h"
 #include "Networkland.h"
+#include "Timeline.h"
 
 using namespace Rcpp;
 
@@ -22,7 +24,7 @@ using namespace Rcpp;
 //'
 //' @export
 // [[Rcpp::export]]
-std::string run(SEXP modell_builder, int steps = 100){
+void run(SEXP modell_builder){
 
   // load modell builder
   Rcpp::S4 mb(modell_builder);
@@ -30,18 +32,15 @@ std::string run(SEXP modell_builder, int steps = 100){
   SEXP graphstr = wrap(mb.slot("networkland_env"));
   std::string graphstring = Rcpp::as<std::string>(graphstr);
 
-
-  // create environment
+  // create start environment
   Networkland* landofoz = new Networkland(
     graphstring
   );
-  std::string floet = landofoz->export_graph();
 
-  //double si = wrap(mb.slot("population_size"));
-  //double size = Rcpp::as<double>(mb.slot("population_size"));
+  // create timeline
+  Timeline* thyme = new Timeline(*landofoz);
 
 
-  //delete testpop;
 
-  return floet;
+  return;
 }
