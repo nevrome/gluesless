@@ -28,6 +28,7 @@ Depends:
 LinkingTo: Rcpp
 RcppModules:
     Idea_module,
-    Networkland_module
+    Networkland_module,
+    Timeline_module
 SystemRequirements:
     boost
