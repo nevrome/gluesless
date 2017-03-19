@@ -6,6 +6,9 @@
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/graph/graphml.hpp>
 #include <boost/graph/properties.hpp>
+#include <vector>
+
+#include "Idea.h"
 
 using namespace boost;
 using namespace Rcpp;
@@ -16,6 +19,7 @@ struct Vertex
 {
   std::string name, gender;
   double age;
+  vector<Idea> mind;
 };
 
 struct Edge

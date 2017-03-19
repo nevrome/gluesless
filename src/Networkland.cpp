@@ -3,7 +3,9 @@
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/graph/graphml.hpp>
 #include <boost/graph/graph_mutability_traits.hpp>
+
 #include "Networkland.h"
+#include "Idea.h"
 
 using namespace boost;
 using namespace Rcpp;
