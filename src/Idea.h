@@ -2,8 +2,10 @@
 #define _gluesless_RCPP_Idea_H
 
 #include <Rcpp.h>
+#include <string>
 
 using namespace Rcpp;
+using namespace std;
 
 class Idea {
 
@@ -12,14 +14,14 @@ class Idea {
   Idea();
 
   // getter
-
+  string get_identity();
 
   // develop functions
 
 
-  //private:
+  private:
   // attributes
-  // double test;
+  string identity;
 
 };
 

@@ -28,10 +28,15 @@ void run(SEXP modell_builder){
   // load modell builder
   Rcpp::S4 mb(modell_builder);
 
+  // create idea
+  Idea* testidea = new Idea();
+
+  Rcout << testidea->get_identity() << endl;
+
+  // create start environment
   SEXP graphstr = wrap(mb.slot("networkland_env"));
   std::string graphstring = Rcpp::as<std::string>(graphstr);
 
-  // create start environment
   Networkland* landofoz = new Networkland(
     graphstring
   );
@@ -39,6 +44,7 @@ void run(SEXP modell_builder){
   // create timeline
   Timeline* thyme = new Timeline(*landofoz);
 
+  // develope
   thyme->develop();
 
   return;
