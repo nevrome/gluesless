@@ -1,5 +1,3 @@
-// [[Rcpp::plugins(cpp11)]]
-
 #include <Rcpp.h>
 #include <string>
 #include <algorithm>

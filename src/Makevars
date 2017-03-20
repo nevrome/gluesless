@@ -1,1 +1,2 @@
 PKG_LIBS = -lboost_graph
+CXX_STD = CXX11
