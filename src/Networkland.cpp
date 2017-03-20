@@ -94,13 +94,3 @@ std::string Networkland::export_graph() {
 
   return test;
 }
-
-// RCPP_Module definition
-RCPP_MODULE(Networkland_module) {
-  using namespace Rcpp;
-
-  class_<Networkland>("Networkland")
-    .constructor<std::string>()
-    .method("export_graph", &Networkland::export_graph)
-  ;
-}

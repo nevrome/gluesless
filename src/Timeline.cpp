@@ -11,13 +11,3 @@ using namespace std;
 Timeline::Timeline(Networkland startland) {
   this->spacetime.push_back(startland);
 }
-
-
-// // RCPP_Module definition
-// RCPP_MODULE(Timeline_module) {
-//   using namespace Rcpp;
-//
-//   class_<Timeline>("Timeline")
-//     .constructor<Networkland>();
-//     ;
-// }
