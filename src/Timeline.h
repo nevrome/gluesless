@@ -15,10 +15,13 @@ class Timeline {
   Timeline(Networkland startland);
 
   // getter
-  // double size_get();
+  vector<Networkland> get_spacetime();
 
-  // develop functions
-  // void develop();
+  // setter
+  void set_spacetime(vector<Networkland> newspace);
+
+  // developer
+  void develop();
 
   private:
   // attributes

@@ -51,6 +51,9 @@ class Networkland {
     // R-exporter
     std::string export_graph();
 
+    // developer
+    Networkland develop();
+
     private:
     // attributes
     graph_t env;
