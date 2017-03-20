@@ -17,7 +17,6 @@ using namespace Rcpp;
 //' test
 //'
 //' @param modell_builder test
-//' @param steps test
 //'
 //' @return
 //' test

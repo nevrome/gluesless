@@ -4,12 +4,10 @@
 \alias{run}
 \title{run model}
 \usage{
-run(modell_builder, steps = 100L)
+run(modell_builder)
 }
 \arguments{
 \item{modell_builder}{test}
-
-\item{steps}{test}
 }
 \value{
 test
