@@ -29,6 +29,7 @@ struct Edge
 };
 
 typedef property<graph_name_t, std::string> Complete_Graph;
+
 typedef adjacency_list<listS, vecS, undirectedS,
                        Vertex,
                        Edge,

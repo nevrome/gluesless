@@ -64,5 +64,12 @@ std::string Networkland::export_graph() {
 // developer
 Networkland Networkland::develop() {
   Networkland newland = *this;
+
+  graph_t flupp = newland.get_graph();
+
+  graph_t::vertex_descriptor v = *vertices(flupp).first;
+
+  Rcout << flupp[v].name;
+
   return newland;
 }

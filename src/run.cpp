@@ -39,7 +39,7 @@ void run(SEXP modell_builder){
   // create timeline
   Timeline* thyme = new Timeline(*landofoz);
 
-
+  thyme->develop();
 
   return;
 }
