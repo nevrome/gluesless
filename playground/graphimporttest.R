@@ -1,15 +1,8 @@
 library(igraph)
 library(magrittr)
+library(gluesless)
 
 test <- graphtest()
-
-graphread <- function(inputstring, format = "graphml"){
-  inputstring %>%
-    charToRaw() %>%
-    rawConnection() %>%
-    igraph::read_graph(., format = format) %>%
-    return()
-}
 
 graphread(test) %>%
   plot()
@@ -18,6 +11,7 @@ graphread(test) %>%
 
 library(igraph)
 library(magrittr)
+library(gluesless)
 
 actors <- data.frame(name=c("Alice", "Bob", "Cecil", "David",
                             "Esmeralda"),
@@ -30,14 +24,6 @@ relations <- data.frame(from=c("Bob", "Cecil", "Cecil", "David",
                         friendship=c(4,5,5,2,1,1), advice=c(4,5,5,4,2,3))
 g <- graph_from_data_frame(relations, directed=FALSE, vertices=actors)
 
-graphwrite <- function(igraphobj, format = "graphml"){
-  rawConnection(raw(0), "r+") -> zz
-  write_graph(igraphobj, file = zz, format = format)
-  rawConnectionValue(zz) %>%
-    rawToChar() %>%
-    return()
-}
-
 hununu <- graphwrite(g)
 
 #####
@@ -47,15 +33,15 @@ test_builder <- new(
   networkland_env = hununu
 )
 
-run(test_builder) -> fluut
-
-fluut %>% graphread() -> h
-
-summary(g)
-summary(h)
-plot(g)
-plot(h)
-
-#####
-
-
+run(test_builder) #-> fluut
+#
+# fluut %>% graphread() -> h
+#
+# summary(g)
+# summary(h)
+# plot(g)
+# plot(h)
+#
+# #####
+#
+#

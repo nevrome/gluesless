@@ -2,9 +2,12 @@
 
 export(.onUnload)
 export(cheesecake)
+export(graphread)
 export(graphtest)
+export(graphwrite)
 export(run)
 exportClasses(modell_builder)
 import(Rcpp)
 import(methods)
+importFrom(magrittr,"%>%")
 useDynLib(gluesless)
