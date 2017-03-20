@@ -69,7 +69,15 @@ Networkland Networkland::develop() {
 
   graph_t::vertex_descriptor v = *vertices(flupp).first;
 
-  Rcout << flupp[v].name;
+  Rcout << flupp[v].name << " " << num_vertices(flupp) << std::endl;
+
+  graph_t g = flupp;
+
+  typedef graph_traits<graph_t>::vertex_iterator vertex_iter;
+  std::pair<vertex_iter, vertex_iter> vp;
+  for (vp = vertices(g); vp.first != vp.second; ++vp.first)
+    Rcout << g[*vp.first].name << " " << g[*vp.first].gender << std::endl;
+  Rcout << std::endl;
 
   return newland;
 }
