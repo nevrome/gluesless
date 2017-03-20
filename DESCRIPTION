@@ -3,8 +3,7 @@ Type: Package
 Title: gluesless - it's awesome!
 Version: 0.0.1
 Authors@R: c(
-  person("Clemens", "Schmid", email = "clemens@nevrome.de", role = c("cre", "cph", "aut")),
-  person("Daniel", "Knitter", email = "knitter@geographie.uni-kiel.de", role = c("ctb"))
+  person("Clemens", "Schmid", email = "clemens@nevrome.de", role = c("cre", "cph", "aut"))
   )
 Maintainer: Clemens Schmid <clemens@nevrome.de>
 Description: gluesless - it's awesome and horrific!
