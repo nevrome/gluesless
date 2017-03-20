@@ -42,12 +42,10 @@ class Networkland {
 
     public:
     //constructor
-    //Networkland();
     Networkland(std::string graphstring);
 
     // getter
     graph_t get_graph();
-    //dynamic_properties get_graph_properties();
 
     // R-exporter
     std::string export_graph();
@@ -58,7 +56,6 @@ class Networkland {
     private:
     // attributes
     graph_t env;
-    //dynamic_properties prop;
 };
 
 #endif

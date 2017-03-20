@@ -6,19 +6,21 @@
 using namespace Rcpp;
 
 class Idea {
-public:
+
+  public:
   //constructor
   Idea();
 
   // getter
-  // double size_get();
+
 
   // develop functions
-  // void develop();
 
-//private:
+
+  //private:
   // attributes
   // double test;
+
 };
 
 #endif
