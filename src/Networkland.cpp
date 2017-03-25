@@ -63,20 +63,26 @@ std::string Networkland::export_graph() {
 
 // developer
 Networkland Networkland::develop() {
+
+  // copy Networkland object to prepare a successor in the timeline
   Networkland newland = *this;
 
-  graph_t flupp = newland.get_graph();
+  // extract graph from Networkland
+  graph_t g = newland.get_graph();
 
-  graph_t::vertex_descriptor v = *vertices(flupp).first;
-
-  Rcout << flupp[v].name << " " << num_vertices(flupp) << std::endl;
-
-  graph_t g = flupp;
-
+  // define vertex iterator object
   typedef graph_traits<graph_t>::vertex_iterator vertex_iter;
+
+  // create a pair to store the vertex iterators
   std::pair<vertex_iter, vertex_iter> vp;
-  for (vp = vertices(g); vp.first != vp.second; ++vp.first)
+
+  vp = vertices(g);
+
+  // iterate over all vertices
+  for (vp; vp.first != vp.second; ++vp.first) {
+
     Rcout << g[*vp.first].name << " " << g[*vp.first].gender << std::endl;
+  }
   Rcout << std::endl;
 
   return newland;
