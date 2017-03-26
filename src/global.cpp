@@ -7,7 +7,7 @@
 using namespace Rcpp;
 using namespace std;
 
-int randunif(int start, int stop) {
+int randunifrange(int start, int stop) {
   int x = (int)round(R::runif(start,stop));
   return x;
 }
@@ -20,7 +20,7 @@ std::string random_string(size_t length) {
       "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
       "abcdefghijklmnopqrstuvwxyz";
     const int max_index = (sizeof(charset) - 2);
-    return charset[randunif(0, max_index)];
+    return charset[randunifrange(0, max_index)];
   };
   std::string str(length, 'a');
   std::generate_n(str.begin(), length, randchar);

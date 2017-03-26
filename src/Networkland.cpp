@@ -3,9 +3,13 @@
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/graph/graphml.hpp>
 #include <boost/graph/graph_mutability_traits.hpp>
+#include <boost/range/iterator_range.hpp>
+#include <algorithm>    // std::random_shuffle
+#include <vector>       // std::vector
 
 #include "Networkland.h"
 #include "Idea.h"
+#include "global.h"
 
 using namespace boost;
 using namespace Rcpp;
@@ -76,12 +80,23 @@ Networkland Networkland::develop() {
   // create a pair to store the vertex iterators
   std::pair<vertex_iter, vertex_iter> vp;
 
+  // keep vp.first at the start
   vp = vertices(g);
 
-  // iterate over all vertices
-  for (vp; vp.first != vp.second; ++vp.first) {
+  // create offset vector
+  std::vector<int> myvector;
+  for (int i=0; i<num_vertices(g); ++i) {
+    myvector.push_back(i);
+  }
 
-    Rcout << g[*vp.first].name << " " << g[*vp.first].gender << std::endl;
+  // using randWrapper to shuffle offset vector
+  std::random_shuffle(myvector.begin(), myvector.end(), randWrapper);
+
+  // iterate over the vertices effectively shuffled by the offset
+  vertex_iter dummy_iter;
+  for (std::vector<int>::iterator it=myvector.begin(); it!=myvector.end(); ++it) {
+    dummy_iter = vp.first + *it;
+    Rcout << g[*dummy_iter].name << " " << g[*dummy_iter].gender << std::endl;
   }
   Rcout << std::endl;
 
