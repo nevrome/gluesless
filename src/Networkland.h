@@ -37,6 +37,7 @@ class Networkland {
     public:
     //constructor
     Networkland(std::string graphstring);
+    Networkland(graph_t newenv);
 
     // getter
     graph_t get_graph();

@@ -35,6 +35,10 @@ Networkland::Networkland(std::string graphstring) {
   this->env = graph;
 }
 
+Networkland::Networkland(graph_t newenv) {
+  this->env = newenv;
+}
+
 // getter
 graph_t Networkland::get_graph() {
   return env;
@@ -65,11 +69,8 @@ graph_t Networkland::get_graph() {
 // developer
 Networkland Networkland::develop() {
 
-  // copy Networkland object to prepare a successor in the timeline
-  Networkland newland = *this;
-
   // extract graph from Networkland
-  graph_t g = newland.get_graph();
+  graph_t g = this->env;
 
   // define vertex iterator object
   typedef graph_traits<graph_t>::vertex_iterator vertex_iter;
@@ -100,10 +101,10 @@ Networkland Networkland::develop() {
     // birth of ideas
     double prop_birth = 0.5; //probabilities here are just dummies
 
-    if (randunifrange(1, 2) == 1) {
+    //if (randunifrange(1, 2) == 1) {
       Idea* newidea = new Idea();
       g[*dummy_iter].mind.push_back(newidea);
-    }
+    //}
 
     std::vector<Idea*> v = g[*dummy_iter].mind;
 
@@ -123,7 +124,9 @@ Networkland Networkland::develop() {
     double prop_infect = 0.1;
 
   }
-  Rcout << std::endl;
 
-  return newland;
+  // create new Networkland object
+  Networkland* newland = new Networkland(g);
+
+  return *newland;
 }

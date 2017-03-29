@@ -32,8 +32,6 @@ void run(SEXP modell_builder){
   Idea* a = new Idea();
   Idea* b = new Idea();
 
-  Rcout << a->get_identity() << endl;
-
   // create start environment
   SEXP graphstr = wrap(mb.slot("networkland_env"));
   std::string graphstring = Rcpp::as<std::string>(graphstr);
@@ -46,7 +44,10 @@ void run(SEXP modell_builder){
   Timeline* thyme = new Timeline(*landofoz);
 
   // develop
-  thyme->develop();
+  for (int i = 0; i < 5; i++) {
+    thyme->develop();
+    Rcout << std::endl;
+  }
 
   compare_ideas(a, b);
 
