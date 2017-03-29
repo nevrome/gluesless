@@ -29,9 +29,10 @@ void run(SEXP modell_builder){
   Rcpp::S4 mb(modell_builder);
 
   // create idea
-  Idea* testidea = new Idea();
+  Idea* a = new Idea();
+  Idea* b = new Idea();
 
-  Rcout << testidea->get_identity() << endl;
+  Rcout << a->get_identity() << endl;
 
   // create start environment
   SEXP graphstr = wrap(mb.slot("networkland_env"));
@@ -46,6 +47,8 @@ void run(SEXP modell_builder){
 
   // develop
   thyme->develop();
+
+  compare_ideas(a, b);
 
   return;
 }
