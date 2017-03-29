@@ -16,3 +16,4 @@ Idea::Idea() {
 string Idea::get_identity() {
   return identity;
 }
+

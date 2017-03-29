@@ -93,7 +93,35 @@ Networkland Networkland::develop() {
   vertex_iter dummy_iter;
   for (std::vector<int>::iterator it=myvector.begin(); it!=myvector.end(); ++it) {
     dummy_iter = vp.first + *it;
-    Rcout << g[*dummy_iter].name << std::endl;
+    //Rcout << g[*dummy_iter].name << std::endl;
+
+    // idea act and interact here:
+
+    // birth of ideas
+    double prop_birth = 0.5; //probabilities here are just dummies
+
+    if (randunifrange(1, 2) == 1) {
+      Idea* newidea = new Idea();
+      g[*dummy_iter].mind.push_back(newidea);
+    }
+
+    std::vector<Idea*> v = g[*dummy_iter].mind;
+
+    for(std::vector<Idea*>::size_type i = 0; i != v.size(); i++) {
+      Rcout << v[i]->get_identity() << std::endl;
+    }
+
+    // mutate
+    double prop_mutate = 0.1;
+
+
+
+    // conjugate
+    double prop_conjugate = 0.1;
+
+    // infect
+    double prop_infect = 0.1;
+
   }
   Rcout << std::endl;
 

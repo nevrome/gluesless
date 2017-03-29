@@ -17,7 +17,9 @@ class Idea {
   string get_identity();
 
   // develop functions
-
+  // mutate();
+  // conjugate();
+  // infect();
 
   private:
   // attributes

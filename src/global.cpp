@@ -7,11 +7,6 @@
 using namespace Rcpp;
 using namespace std;
 
-int randunifrange(int start, int stop) {
-  int x = (int)round(R::runif(start,stop));
-  return x;
-}
-
 // http://stackoverflow.com/questions/440133/how-do-i-create-a-random-alpha-numeric-string-in-c
 std::string random_string(size_t length) {
   auto randchar = []() -> char {

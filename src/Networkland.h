@@ -17,7 +17,7 @@ using namespace std;
 // define graph
 struct Vertex {
   std::string name;
-  vector<Idea> mind;
+  vector<Idea*> mind;
 };
 
 struct Edge {
