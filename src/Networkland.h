@@ -14,18 +14,14 @@ using namespace boost;
 using namespace Rcpp;
 using namespace std;
 
-
-struct Vertex
-{
-  std::string name, gender;
-  double age;
+// define graph
+struct Vertex {
+  std::string name;
   vector<Idea> mind;
 };
 
-struct Edge
-{
-  double friendship;
-  double advice;
+struct Edge {
+  double distance;
 };
 
 typedef property<graph_name_t, std::string> Complete_Graph;
@@ -35,8 +31,6 @@ typedef adjacency_list<listS, vecS, undirectedS,
                        Edge,
                        Complete_Graph>
         graph_t;
-
-
 
 class Networkland {
 
@@ -48,7 +42,7 @@ class Networkland {
     graph_t get_graph();
 
     // R-exporter
-    std::string export_graph();
+    // std::string export_graph();
 
     // developer
     Networkland develop();
