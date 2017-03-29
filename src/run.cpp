@@ -46,7 +46,7 @@ void run(SEXP modell_builder){
   // develop
   for (int i = 0; i < 5; i++) {
     thyme->develop();
-    Rcout << std::endl;
+    Rcout << "##################################" << std::endl;
   }
 
   compare_ideas(a, b);

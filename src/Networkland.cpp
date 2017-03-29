@@ -101,21 +101,20 @@ Networkland Networkland::develop() {
     // birth of ideas
     double prop_birth = 0.5; //probabilities here are just dummies
 
-    //if (randunifrange(1, 2) == 1) {
+    if (randunifrange(1, 2) == 1) {
       Idea* newidea = new Idea();
       g[*dummy_iter].mind.push_back(newidea);
-    //}
+    }
 
     std::vector<Idea*> v = g[*dummy_iter].mind;
 
     for(std::vector<Idea*>::size_type i = 0; i != v.size(); i++) {
       Rcout << v[i]->get_identity() << std::endl;
     }
+    if (it+1 != myvector.end()) {Rcout << "***" << std::endl;}
 
     // mutate
     double prop_mutate = 0.1;
-
-
 
     // conjugate
     double prop_conjugate = 0.1;
