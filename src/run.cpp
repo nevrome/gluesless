@@ -40,12 +40,14 @@ void run(SEXP modell_builder){
     graphstring
   );
 
+  Aether* overmind = new Aether();
+
   // create timeline
-  Timeline* thyme = new Timeline(*landofoz);
+  Timeline* thyme = new Timeline(overmind);
 
   // develop
   for (int i = 0; i < 5; i++) {
-    thyme->develop();
+    thyme->develop(overmind);
     Rcout << "##################################" << std::endl;
   }
 

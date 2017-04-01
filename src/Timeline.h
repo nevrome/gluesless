@@ -4,7 +4,7 @@
 #include <Rcpp.h>
 #include <vector>
 
-#include "Networkland.h"
+#include "Aether.h"
 
 using namespace Rcpp;
 
@@ -12,20 +12,20 @@ class Timeline {
 
   public:
   //constructor
-  Timeline(Networkland startland);
+  Timeline(Aether* start);
 
   // getter
-  vector<Networkland> get_spacetime();
+  //vector<Networkland> get_spacetime();
 
   // setter
-  void set_spacetime(vector<Networkland> newspace);
+  //void set_spacetime(vector<Networkland> newspace);
 
   // developer
-  void develop();
+  void develop(Aether* current);
 
   private:
   // attributes
-  vector<Networkland> spacetime;
+  std::vector<int> ideanumber;
 };
 
 #endif
