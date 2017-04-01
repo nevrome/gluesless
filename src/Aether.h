@@ -17,9 +17,6 @@ class Aether {
   // getter
   int get_ideanumber();
 
-  // setter
-  //
-
   // developer
   void develop();
 

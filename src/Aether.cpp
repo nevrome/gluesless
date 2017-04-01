@@ -17,14 +17,11 @@ int Aether::get_ideanumber() {
   return this->mindspace.size();
 }
 
-// setter
-// void Aether::set_spacetime(vector<Networkland> newspace) {
-//   spacetime = newspace;
-// }
-
 // developer
 void Aether::develop() {
   vector<Idea*> *v = &this->mindspace;
+
+  std::random_shuffle(v->begin(), v->end(), randWrapper);
 
   if (randunifrange(1, 2) == 1) {
     Idea* newidea = new Idea();
