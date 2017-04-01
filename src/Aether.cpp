@@ -33,6 +33,7 @@ void Aether::develop() {
 
   for(std::vector<Idea*>::iterator it = v->begin(); it != v->end(); ++it) {
     Rcout << (*it)->get_identity() << endl;
-    (*it)->get_pos();
+    // (*it)->get_pos();
+    (*it)->infect();
   }
 }

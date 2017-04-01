@@ -30,6 +30,11 @@ typedef adjacency_list<listS, vecS, undirectedS,
                        Complete_Graph>
         graph_t;
 
+typedef graph_traits<graph_t>::vertex_iterator vertex_iter;
+typedef graph_traits<graph_t>::vertex_descriptor Vertexdesc;
+typedef graph_traits<graph_t> GraphTraits;
+typedef property_map<graph_t, vertex_index_t>::type IndexMap;
+
 class Networkland {
 
     public:
@@ -40,6 +45,7 @@ class Networkland {
     // getter
     graph_t get_graph();
     int get_number_of_vertices();
+    vector<int> get_adjacent_vertices(Vertexdesc v);
 
     // R-exporter
     // std::string export_graph();

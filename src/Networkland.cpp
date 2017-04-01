@@ -47,6 +47,25 @@ int Networkland::get_number_of_vertices() {
   return num_vertices(env);
 }
 
+vector<int> Networkland::get_adjacent_vertices(Vertexdesc v) {
+
+  vector<int> res;
+
+  IndexMap index = get(vertex_index, env);
+
+  typename graph_traits<graph_t>::adjacency_iterator ai;
+  typename graph_traits<graph_t>::adjacency_iterator ai_end;
+
+  Rcout << "adjacent vertices: ";
+  for (tie(ai, ai_end) = adjacent_vertices(v, env); ai != ai_end; ++ai) {
+    Rcout << index[*ai] <<  " ";
+    res.push_back(index[*ai]);
+  }
+  Rcout << endl;
+
+  return res;
+}
+
 // R-exporter
 // std::string Networkland::export_graph() {
 //

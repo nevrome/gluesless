@@ -10,10 +10,12 @@ using namespace Rcpp;
 using namespace std;
 
 // constructor
-Idea::Idea(Networkland* space) {
+Idea::Idea(Networkland* real) {
   this->identity = create_random_string(30);
 
-  int randpos = randunifrange(0, (space->get_number_of_vertices() - 1));
+  this->realworld = real;
+
+  int randpos = randunifrange(0, (realworld->get_number_of_vertices() - 1));
 
   this->vertices.push_back(randpos);
 }
@@ -22,10 +24,17 @@ Idea::Idea(Networkland* space) {
 string Idea::get_identity() {
   return identity;
 }
-void Idea::get_pos() {
-  for(std::vector<int>::iterator it = vertices.begin(); it != vertices.end(); ++it) {
-    Rcout << *it << endl;
-  }
+// void Idea::get_pos() {
+//   for(std::vector<int>::iterator it = vertices.begin(); it != vertices.end(); ++it) {
+//     Rcout << *it << endl;
+//   }
+// }
+
+// developer
+void Idea::infect() {
+
+  realworld->get_adjacent_vertices(vertices.front());
+
 }
 
 

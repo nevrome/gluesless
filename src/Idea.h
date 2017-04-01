@@ -18,16 +18,17 @@ class Idea {
 
   // getter
   string get_identity();
-  void get_pos();
+  //void get_pos();
 
-  // develop functions
+  // developer
   // mutate();
   // conjugate();
-  // infect();
+  void infect();
 
   private:
   // attributes
   string identity;
+  Networkland* realworld;
   vector<int> vertices;
 };
 
