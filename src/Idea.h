@@ -3,8 +3,9 @@
 
 #include <Rcpp.h>
 #include <string>
+#include <vector>
 
-#include "Idea.h"
+#include "Networkland.h"
 
 using namespace Rcpp;
 using namespace std;
@@ -13,10 +14,11 @@ class Idea {
 
   public:
   //constructor
-  Idea();
+  Idea(Networkland* space);
 
   // getter
   string get_identity();
+  void get_pos();
 
   // develop functions
   // mutate();
@@ -26,7 +28,7 @@ class Idea {
   private:
   // attributes
   string identity;
-
+  vector<int> vertices;
 };
 
 std::string create_random_string(size_t length);

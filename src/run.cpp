@@ -28,21 +28,17 @@ void run(SEXP modell_builder){
   // load modell builder
   Rcpp::S4 mb(modell_builder);
 
-  // create idea
-  Idea* a = new Idea();
-  Idea* b = new Idea();
-
   // create start environment
   SEXP graphstr = wrap(mb.slot("networkland_env"));
   std::string graphstring = Rcpp::as<std::string>(graphstr);
 
-  Networkland* landofoz = new Networkland(
-    graphstring
-  );
+  // Realwelt
+  Networkland* real = new Networkland(graphstring);
 
-  Aether* overmind = new Aether();
+  // Geistwelt
+  Aether* overmind = new Aether(real);
 
-  // create timeline
+  // Zeit
   Timeline* thyme = new Timeline(overmind);
 
   // develop
@@ -50,8 +46,6 @@ void run(SEXP modell_builder){
     thyme->develop(overmind);
     Rcout << "##################################" << std::endl;
   }
-
-  compare_ideas(a, b);
 
   return;
 }

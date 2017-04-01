@@ -8,8 +8,6 @@
 #include <boost/graph/properties.hpp>
 #include <vector>
 
-#include "Idea.h"
-
 using namespace boost;
 using namespace Rcpp;
 using namespace std;
@@ -17,7 +15,7 @@ using namespace std;
 // define graph
 struct Vertex {
   std::string name;
-  vector<Idea*> mind;
+  //vector<Idea*> mind;
 };
 
 struct Edge {
@@ -41,12 +39,13 @@ class Networkland {
 
     // getter
     graph_t get_graph();
+    int get_number_of_vertices();
 
     // R-exporter
     // std::string export_graph();
 
     // developer
-    Networkland develop();
+    //Networkland develop();
 
     private:
     // attributes

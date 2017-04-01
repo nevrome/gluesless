@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "Idea.h"
+#include "Networkland.h"
 
 using namespace Rcpp;
 
@@ -12,7 +13,7 @@ class Aether {
 
   public:
   //constructor
-  Aether();
+  Aether(Networkland* real);
 
   // getter
   int get_ideanumber();
@@ -23,6 +24,7 @@ class Aether {
   private:
   // attributes
   std::vector<Idea*> mindspace;
+  Networkland* realworld;
 };
 
 #endif

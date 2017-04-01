@@ -4,19 +4,30 @@
 
 #include "Idea.h"
 #include "global.h"
+#include "Networkland.h"
 
 using namespace Rcpp;
 using namespace std;
 
 // constructor
-Idea::Idea() {
+Idea::Idea(Networkland* space) {
   this->identity = create_random_string(30);
+
+  int randpos = randunifrange(0, (space->get_number_of_vertices() - 1));
+
+  this->vertices.push_back(randpos);
 }
 
 // getter
 string Idea::get_identity() {
   return identity;
 }
+void Idea::get_pos() {
+  for(std::vector<int>::iterator it = vertices.begin(); it != vertices.end(); ++it) {
+    Rcout << *it << endl;
+  }
+}
+
 
 // http://stackoverflow.com/questions/440133/how-do-i-create-a-random-alpha-numeric-string-in-c
 std::string create_random_string(size_t length) {
