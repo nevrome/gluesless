@@ -15,7 +15,7 @@ Idea::Idea(Networkland* real) {
 
   this->realworld = real;
 
-  int randpos = randunifrange(0, (realworld->get_number_of_vertices() - 1));
+  Vertexdesc randpos = randunifrange(0, (realworld->get_number_of_vertices() - 1));
 
   this->vertices.push_back(randpos);
 }
@@ -33,7 +33,22 @@ string Idea::get_identity() {
 // developer
 void Idea::infect() {
 
-  realworld->get_adjacent_vertices(vertices.front());
+  vector<Vertexdesc> adjacentvecs;
+
+  adjacentvecs = realworld->get_adjacent_vertices(vertices.front());
+
+  Rcout << "distance to adjacent vertices: ";
+
+  for (std::vector<Vertexdesc>::iterator p1=vertices.begin(); p1!=vertices.end(); ++p1) {
+    for (std::vector<Vertexdesc>::iterator p2=adjacentvecs.begin(); p2!=adjacentvecs.end(); ++p2) {
+      double tempdist = realworld->get_distance_between_two_vertices(*p1, *p2);
+
+      Rcout << tempdist << " ";
+
+    }
+  }
+
+  Rcout << endl;
 
 }
 

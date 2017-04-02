@@ -32,6 +32,7 @@ typedef adjacency_list<listS, vecS, undirectedS,
 
 typedef graph_traits<graph_t>::vertex_iterator vertex_iter;
 typedef graph_traits<graph_t>::vertex_descriptor Vertexdesc;
+typedef graph_traits<graph_t>::edge_descriptor Edgedesc;
 typedef graph_traits<graph_t> GraphTraits;
 typedef property_map<graph_t, vertex_index_t>::type IndexMap;
 
@@ -45,7 +46,8 @@ class Networkland {
     // getter
     graph_t get_graph();
     int get_number_of_vertices();
-    vector<int> get_adjacent_vertices(Vertexdesc v);
+    vector<Vertexdesc> get_adjacent_vertices(Vertexdesc v);
+    double get_distance_between_two_vertices(Vertexdesc a, Vertexdesc b);
 
     // R-exporter
     // std::string export_graph();

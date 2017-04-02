@@ -29,7 +29,7 @@ class Idea {
   // attributes
   string identity;
   Networkland* realworld;
-  vector<int> vertices;
+  vector<Vertexdesc> vertices;
 };
 
 std::string create_random_string(size_t length);

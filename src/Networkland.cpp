@@ -47,9 +47,9 @@ int Networkland::get_number_of_vertices() {
   return num_vertices(env);
 }
 
-vector<int> Networkland::get_adjacent_vertices(Vertexdesc v) {
+vector<Vertexdesc> Networkland::get_adjacent_vertices(Vertexdesc v) {
 
-  vector<int> res;
+  vector<Vertexdesc> res;
 
   IndexMap index = get(vertex_index, env);
 
@@ -64,6 +64,16 @@ vector<int> Networkland::get_adjacent_vertices(Vertexdesc v) {
   Rcout << endl;
 
   return res;
+}
+
+double Networkland::get_distance_between_two_vertices(Vertexdesc a, Vertexdesc b) {
+
+  // create a pair to store the edge iterators
+  pair<Edgedesc, bool> edgepair;
+
+  edgepair = edge(a, b, env);
+
+  return env[edgepair.first].distance;
 }
 
 // R-exporter
