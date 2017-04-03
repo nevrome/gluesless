@@ -24,11 +24,10 @@ Idea::Idea(Networkland* real) {
 string Idea::get_identity() {
   return identity;
 }
-// void Idea::get_pos() {
-//   for(std::vector<int>::iterator it = vertices.begin(); it != vertices.end(); ++it) {
-//     Rcout << *it << endl;
-//   }
-// }
+
+vector<Vertexdesc> Idea::get_vertices() {
+  return this->vertices;
+}
 
 // developer
 void Idea::infect() {

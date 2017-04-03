@@ -42,7 +42,7 @@ SEXP run(SEXP modell_builder){
   Timeline* thyme = new Timeline(overmind);
 
   // develop
-  for (int i = 0; i < 5; i++) {
+  for (int i = 0; i < 100; i++) {
     thyme->develop(overmind);
   }
 

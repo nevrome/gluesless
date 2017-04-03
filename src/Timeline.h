@@ -32,7 +32,7 @@ class Timeline {
   // attributes
   vector<int> ideanumber;
   vector< vector<string> > ideas;
-  //vector< vector<int> > ide;
+  vector< vector< vector<Vertexdesc> > > idea_vertices;
 };
 
 #endif

@@ -18,7 +18,7 @@ class Idea {
 
   // getter
   string get_identity();
-  //void get_pos();
+  vector<Vertexdesc> get_vertices();
 
   // developer
   // mutate();
