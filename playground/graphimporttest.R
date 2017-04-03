@@ -40,15 +40,20 @@ test_builder <- new(
   networkland_env = hununu
 )
 
-run(test_builder) #-> fluut
+run(test_builder) -> flut
 #
-# fluut %>% graphread() -> h
+# library(ggraph)
 #
-# summary(g)
-# summary(h)
-# plot(g)
-# plot(h)
+# n1 <- length(flut$idea_timesteps$identity)
 #
-# #####
+# tidy <- data.frame()
 #
-#
+# for (p1 in 1:n1) {
+#   t <- flut$idea_timesteps$identity
+#   n2 <- length(t[[p1]])
+#   for (p2 in 1: n2) {
+#     tidy[]
+#   }
+# }
+
+
