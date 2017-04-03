@@ -27,12 +27,13 @@ BEGIN_RCPP
 END_RCPP
 }
 // run
-void run(SEXP modell_builder);
+SEXP run(SEXP modell_builder);
 RcppExport SEXP gluesless_run(SEXP modell_builderSEXP) {
 BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type modell_builder(modell_builderSEXP);
-    run(modell_builder);
-    return R_NilValue;
+    rcpp_result_gen = Rcpp::wrap(run(modell_builder));
+    return rcpp_result_gen;
 END_RCPP
 }

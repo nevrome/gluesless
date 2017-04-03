@@ -3,6 +3,7 @@
 
 #include <Rcpp.h>
 #include <vector>
+#include <string>
 
 #include "Idea.h"
 #include "Networkland.h"
@@ -17,6 +18,8 @@ class Aether {
 
   // getter
   int get_ideanumber();
+  vector<string> get_ideas();
+
 
   // developer
   void develop();

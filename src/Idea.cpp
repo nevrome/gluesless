@@ -37,18 +37,18 @@ void Idea::infect() {
 
   adjacentvecs = realworld->get_adjacent_vertices(vertices.front());
 
-  Rcout << "distance to adjacent vertices: ";
+  //Rcout << "distance to adjacent vertices: ";
 
   for (std::vector<Vertexdesc>::iterator p1=vertices.begin(); p1!=vertices.end(); ++p1) {
     for (std::vector<Vertexdesc>::iterator p2=adjacentvecs.begin(); p2!=adjacentvecs.end(); ++p2) {
       double tempdist = realworld->get_distance_between_two_vertices(*p1, *p2);
 
-      Rcout << tempdist << " ";
+      //Rcout << tempdist << " ";
 
     }
   }
 
-  Rcout << endl;
+  //Rcout << endl;
 
 }
 

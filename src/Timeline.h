@@ -3,10 +3,12 @@
 
 #include <Rcpp.h>
 #include <vector>
+#include <string>
 
 #include "Aether.h"
 
 using namespace Rcpp;
+using namespace std;
 
 class Timeline {
 
@@ -20,12 +22,17 @@ class Timeline {
   // setter
   //void set_spacetime(vector<Networkland> newspace);
 
+  // R-exporter
+  SEXP export_as_R_list();
+
   // developer
   void develop(Aether* current);
 
   private:
   // attributes
-  std::vector<int> ideanumber;
+  vector<int> ideanumber;
+  vector< vector<string> > ideas;
+  //vector< vector<int> > ide;
 };
 
 #endif

@@ -53,6 +53,6 @@ graphtest <- function() {
 #'
 #' @export
 run <- function(modell_builder) {
-    invisible(.Call('gluesless_run', PACKAGE = 'gluesless', modell_builder))
+    .Call('gluesless_run', PACKAGE = 'gluesless', modell_builder)
 }
 

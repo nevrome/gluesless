@@ -29,7 +29,7 @@ Networkland::Networkland(std::string graphstring) {
   std::istringstream is(graphstring);
 
   read_graphml(is, graph, dp);
-  Rcout << "I created a new graph: '" << get_property(graph, graph_name) << "'\n";
+  //Rcout << "I created a new graph: '" << get_property(graph, graph_name) << "'\n";
 
   this->env = graph;
 }
@@ -56,12 +56,12 @@ vector<Vertexdesc> Networkland::get_adjacent_vertices(Vertexdesc v) {
   typename graph_traits<graph_t>::adjacency_iterator ai;
   typename graph_traits<graph_t>::adjacency_iterator ai_end;
 
-  Rcout << "adjacent vertices: ";
+  //Rcout << "adjacent vertices: ";
   for (tie(ai, ai_end) = adjacent_vertices(v, env); ai != ai_end; ++ai) {
-    Rcout << index[*ai] <<  " ";
+    //Rcout << index[*ai] <<  " ";
     res.push_back(index[*ai]);
   }
-  Rcout << endl;
+  //Rcout << endl;
 
   return res;
 }
