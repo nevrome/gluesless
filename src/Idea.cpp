@@ -24,32 +24,41 @@ Idea::Idea(Networkland* real) {
 string Idea::get_identity() {
   return identity;
 }
-// void Idea::get_pos() {
-//   for(std::vector<int>::iterator it = vertices.begin(); it != vertices.end(); ++it) {
-//     Rcout << *it << endl;
-//   }
-// }
+
+vector<Vertexdesc> Idea::get_vertices() {
+  return this->vertices;
+}
 
 // developer
 void Idea::infect() {
 
   vector<Vertexdesc> adjacentvecs;
+  Vertexdesc victim;
+  double mindist;
+  bool check = false;
 
-  adjacentvecs = realworld->get_adjacent_vertices(vertices.front());
-
-  //Rcout << "distance to adjacent vertices: ";
-
-  for (std::vector<Vertexdesc>::iterator p1=vertices.begin(); p1!=vertices.end(); ++p1) {
-    for (std::vector<Vertexdesc>::iterator p2=adjacentvecs.begin(); p2!=adjacentvecs.end(); ++p2) {
-      double tempdist = realworld->get_distance_between_two_vertices(*p1, *p2);
-
-      //Rcout << tempdist << " ";
-
+  for (vector<Vertexdesc>::iterator p1=vertices.begin(); p1!=vertices.end(); ++p1) {
+    adjacentvecs = realworld->get_adjacent_vertices(*p1);
+    for (vector<Vertexdesc>::iterator p2=adjacentvecs.begin(); p2!=adjacentvecs.end(); ++p2) {
+      if (find(vertices.begin(), vertices.end(), *p2) != vertices.end()) {
+        break;
+      } else {
+        double tempdist = realworld->get_distance_between_two_vertices(*p1, *p2);
+        if (!check) {
+          mindist = tempdist;
+          victim = *p2;
+          check = true;
+        } else if (tempdist <= mindist) {
+          mindist = tempdist;
+          victim = *p2;
+        }
+      }
     }
   }
 
-  //Rcout << endl;
-
+  if (check) {
+    vertices.push_back(victim);
+  }
 }
 
 

@@ -20,7 +20,7 @@ actors <- data.frame(
 relations <- data.frame(
   from = c("Bob", "Cecil", "Cecil", "David", "David", "Esmeralda"),
   to = c("Alice", "Bob", "Alice", "Alice", "Bob", "Alice"),
-  distance = c(4, 5, 5, 2, 1, 1)
+  distance = c(101, 102, 103, 104, 105, 106)
 )
 
 g <- graph_from_data_frame(

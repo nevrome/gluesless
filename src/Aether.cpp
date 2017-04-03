@@ -21,18 +21,22 @@ int Aether::get_ideanumber() {
 }
 
 vector<string> Aether::get_ideas() {
-
   vector<string> res;
-
   vector<Idea*> *v = &this->mindspace;
-
   for(std::vector<Idea*>::iterator it = v->begin(); it != v->end(); ++it) {
     res.push_back((*it)->get_identity());
   }
-
   return res;
 }
 
+vector< vector<Vertexdesc> > Aether::get_idea_vertices(){
+  vector< vector <Vertexdesc> > res;
+  vector<Idea*> *v = &this->mindspace;
+  for(std::vector<Idea*>::iterator it = v->begin(); it != v->end(); ++it) {
+    res.push_back((*it)->get_vertices());
+  }
+  return res;
+}
 
 // developer
 void Aether::develop() {
