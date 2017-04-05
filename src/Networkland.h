@@ -14,8 +14,9 @@ using namespace std;
 
 // define graph
 struct Vertex {
-  std::string name;
-  //vector<Idea*> mind;
+  int id;
+  double x;
+  double y;
 };
 
 struct Edge {
@@ -53,7 +54,7 @@ class Networkland {
     // std::string export_graph();
 
     // developer
-    //Networkland develop();
+    // Networkland develop();
 
     private:
     // attributes
