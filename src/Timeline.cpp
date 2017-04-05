@@ -79,17 +79,19 @@ SEXP Timeline::export_as_R_list() {
       for (vector<Vertexdesc>::iterator it_vert_3=(*it_vert_2).begin();
            it_vert_3!=(*it_vert_2).end(); ++it_vert_3) {
 
-        Rcout << count << " ";
-
         timestep.push_back(count);
         id.push_back(*it_id_2);
         vert.push_back(*it_vert_3);
+
       }
 
     it_id_2++;
+
     }
+
   it_id_1++;
   count++;
+
   }
 
   res["number_of_ideas"] = ideanumber_nv;
