@@ -25,6 +25,11 @@ g <- graph_from_data_frame(
 
 g <- set.graph.attribute(g, "graph_name", "testgraph")
 
+new(
+  "modell_builder",
+  networkland_env = graphwrite(g)
+) %>% run()
+
 x <- data.frame(id = NA, nodes = NA)
 
 for (i in 1:10) {
