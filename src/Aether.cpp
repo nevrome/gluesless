@@ -20,8 +20,8 @@ int Aether::get_ideanumber() {
   return this->mindspace.size();
 }
 
-vector<string> Aether::get_ideas() {
-  vector<string> res;
+vector<int> Aether::get_ideas() {
+  vector<int> res;
   vector<Idea*> *v = &this->mindspace;
   for(std::vector<Idea*>::iterator it = v->begin(); it != v->end(); ++it) {
     res.push_back((*it)->get_identity());

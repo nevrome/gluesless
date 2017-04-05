@@ -17,7 +17,8 @@ class Idea {
   Idea(Networkland* space);
 
   // getter
-  string get_identity();
+  //string get_identity();
+  int get_identity();
   vector<Vertexdesc> get_vertices();
 
   // developer
@@ -27,7 +28,8 @@ class Idea {
 
   private:
   // attributes
-  string identity;
+  //string identity;
+  int identity;
   Networkland* realworld;
   vector<Vertexdesc> vertices;
 };

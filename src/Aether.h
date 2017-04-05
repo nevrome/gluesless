@@ -18,7 +18,7 @@ class Aether {
 
   // getter
   int get_ideanumber();
-  vector<string> get_ideas();
+  vector<int> get_ideas();
   vector< vector<Vertexdesc> > get_idea_vertices();
 
 

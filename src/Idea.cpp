@@ -11,7 +11,8 @@ using namespace std;
 
 // constructor
 Idea::Idea(Networkland* real) {
-  this->identity = create_random_string(30);
+  //this->identity = create_random_string(30);
+  this->identity = randunifrange(0, 100);
 
   this->realworld = real;
 
@@ -21,7 +22,7 @@ Idea::Idea(Networkland* real) {
 }
 
 // getter
-string Idea::get_identity() {
+int Idea::get_identity() {
   return identity;
 }
 
@@ -78,17 +79,17 @@ std::string create_random_string(size_t length) {
   return str;
 }
 
-size_t compare_ideas(Idea* a, Idea* b) {
-  std::string s0 = a->get_identity();
-  std::string s1 = b->get_identity();
-
-  size_t res = compare_strings(s0, s1);
-
-  Rcout << "distance between " << s0 << " and " << s1 << " : "
-        << res << std::endl;
-
-  return res;
-}
+// size_t compare_ideas(Idea* a, Idea* b) {
+//   std::string s0 = a->get_identity();
+//   std::string s1 = b->get_identity();
+//
+//   size_t res = compare_strings(s0, s1);
+//
+//   Rcout << "distance between " << s0 << " and " << s1 << " : "
+//         << res << std::endl;
+//
+//   return res;
+// }
 
 // https://rosettacode.org/wiki/Levenshtein_distance#C.2B.2B
 size_t compare_strings(const std::string &s1, const std::string &s2) {

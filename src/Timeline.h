@@ -31,7 +31,7 @@ class Timeline {
   private:
   // attributes
   vector<int> ideanumber;
-  vector< vector<string> > ideas;
+  vector< vector<int> > ideas;
   vector< vector< vector<Vertexdesc> > > idea_vertices;
 };
 
