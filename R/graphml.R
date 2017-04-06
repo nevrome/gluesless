@@ -32,6 +32,7 @@ graphwrite <- function(igraphobj, format = "graphml"){
   rawConnection(raw(0), "r+") -> zz
   igraph::write_graph(igraphobj, file = zz, format = format)
   rawConnectionValue(zz) %>%
-    rawToChar() %>%
-    return()
+    rawToChar() -> res
+  close.connection(zz)
+  res %>% return()
 }
