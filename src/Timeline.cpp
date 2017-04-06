@@ -24,11 +24,13 @@ Timeline::Timeline(Aether* start) {
 
 // developer
 void Timeline::develop(Aether* current) {
-  current->develop();
-
   this->ideanumber.push_back(current->get_ideanumber());
   this->ideas.push_back(current->get_ideas());
   this->idea_vertices.push_back(current->get_idea_vertices());
+
+  current->develop();
+
+  Rcout << "Zeitschritt vorwärts! " << endl;
 }
 
 // R-exporter

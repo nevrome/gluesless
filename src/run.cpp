@@ -31,6 +31,8 @@ SEXP run(SEXP modell_builder){
   // create start environment
   SEXP graphstr = wrap(mb.slot("networkland_env"));
   std::string graphstring = Rcpp::as<std::string>(graphstr);
+  SEXP iterations = wrap(mb.slot("number_iterations"));
+  int iter = Rcpp::as<int>(iterations);
 
   // Realwelt
   Networkland* real = new Networkland(graphstring);
@@ -42,7 +44,7 @@ SEXP run(SEXP modell_builder){
   Timeline* thyme = new Timeline(overmind);
 
   // develop
-  for (int i = 0; i < 20; i++) {
+  for (int i = 0; i < iter; i++) {
     thyme->develop(overmind);
   }
 

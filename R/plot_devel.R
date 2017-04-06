@@ -22,7 +22,10 @@ plot_devel <- function(graph, runres, path = "../modevel/") {
       as.data.frame()
 
     graphplot <- ggraph(graph, layout = 'manual', node.positions = vertices) +
-      geom_edge_fan() +
+      geom_edge_fan(
+        aes(edge_alpha = distance)
+      ) +
+      scale_edge_alpha(trans = "reverse") +
       geom_node_point(
         shape = 21,
         size = (maxx-minx)*1/23,
@@ -48,7 +51,7 @@ plot_devel <- function(graph, runres, path = "../modevel/") {
       scale_color_continuous(
         low = "#e6e6e6",
         high = "#000000",
-        limits = c(1, 10)
+        limits = c(1, 100)
       ) +
       scale_fill_gradient2(
         low = "#ffffff",

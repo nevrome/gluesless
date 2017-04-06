@@ -6,6 +6,7 @@
 setClass(
   Class = "modell_builder",
   slots = c(
-    networkland_env = "character"
+    networkland_env = "character",
+    number_iterations = "numeric"
   )
 )

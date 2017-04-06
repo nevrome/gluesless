@@ -41,9 +41,7 @@ void Idea::infect() {
   for (vector<Vertexdesc>::iterator p1=vertices.begin(); p1!=vertices.end(); ++p1) {
     adjacentvecs = realworld->get_adjacent_vertices(*p1);
     for (vector<Vertexdesc>::iterator p2=adjacentvecs.begin(); p2!=adjacentvecs.end(); ++p2) {
-      if (find(vertices.begin(), vertices.end(), *p2) != vertices.end()) {
-        break;
-      } else {
+      if (!(find(vertices.begin(), vertices.end(), *p2) != vertices.end())) {
         double tempdist = realworld->get_distance_between_two_vertices(*p1, *p2);
         if (!check) {
           mindist = tempdist;
@@ -56,6 +54,8 @@ void Idea::infect() {
       }
     }
   }
+
+  Rcout << "mindist: " << mindist << endl;
 
   if (check) {
     vertices.push_back(victim);
