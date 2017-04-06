@@ -2,18 +2,18 @@
 % Please edit documentation in R/graphml.R
 \name{graphwrite}
 \alias{graphwrite}
-\title{test}
+\title{igraph->string}
 \usage{
 graphwrite(igraphobj, format = "graphml")
 }
 \arguments{
-\item{igraphobj}{test}
+\item{igraphobj}{igraph object}
 
-\item{format}{test}
+\item{format}{format of the string}
 }
 \value{
-test
+string
 }
 \description{
-test
+create string from igraph object
 }
