@@ -37,7 +37,7 @@ new(
   run() %$%
   idea_exp -> runres
 
-plot_devel(g, runres)
+plot_devel(g, runres, store = TRUE)
 
 
 
