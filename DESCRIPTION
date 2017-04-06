@@ -32,4 +32,5 @@ Depends:
     methods
 LinkingTo: Rcpp
 SystemRequirements:
-    boost
+    boost,
+    udunits2
