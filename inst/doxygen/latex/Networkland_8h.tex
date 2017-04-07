@@ -1,0 +1,79 @@
+\hypertarget{Networkland_8h}{}\section{src/\+Networkland.h File Reference}
+\label{Networkland_8h}\index{src/\+Networkland.\+h@{src/\+Networkland.\+h}}
+{\ttfamily \#include $<$Rcpp.\+h$>$}\newline
+{\ttfamily \#include $<$boost/graph/graph\+\_\+traits.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/graph/adjacency\+\_\+list.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/graph/graphml.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/graph/properties.\+hpp$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structVertex}{Vertex}
+\item 
+struct \hyperlink{structEdge}{Edge}
+\item 
+class \hyperlink{classNetworkland}{Networkland}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef property$<$ graph\+\_\+name\+\_\+t, std\+::string $>$ \hyperlink{Networkland_8h_a52bfd6f41ff9c0b207f53871bab612e6}{Complete\+\_\+\+Graph}
+\item 
+typedef adjacency\+\_\+list$<$ listS, vecS, undirectedS, \hyperlink{structVertex}{Vertex}, \hyperlink{structEdge}{Edge}, \hyperlink{Networkland_8h_a52bfd6f41ff9c0b207f53871bab612e6}{Complete\+\_\+\+Graph} $>$ \hyperlink{Networkland_8h_a15c13903d8f520e4339ca612a1ee2652}{graph\+\_\+t}
+\item 
+typedef graph\+\_\+traits$<$ \hyperlink{Networkland_8h_a15c13903d8f520e4339ca612a1ee2652}{graph\+\_\+t} $>$\+::vertex\+\_\+iterator \hyperlink{Networkland_8h_adc90eae5c1421f91cd002e840f60a9ec}{vertex\+\_\+iter}
+\item 
+typedef graph\+\_\+traits$<$ \hyperlink{Networkland_8h_a15c13903d8f520e4339ca612a1ee2652}{graph\+\_\+t} $>$\+::vertex\+\_\+descriptor \hyperlink{Networkland_8h_af340ced64bd0b6914662d1b26be70b41}{Vertexdesc}
+\item 
+typedef graph\+\_\+traits$<$ \hyperlink{Networkland_8h_a15c13903d8f520e4339ca612a1ee2652}{graph\+\_\+t} $>$\+::edge\+\_\+descriptor \hyperlink{Networkland_8h_ab51af057b7e9ba28d06cad49c4ca3c96}{Edgedesc}
+\item 
+typedef graph\+\_\+traits$<$ \hyperlink{Networkland_8h_a15c13903d8f520e4339ca612a1ee2652}{graph\+\_\+t} $>$ \hyperlink{Networkland_8h_a46fed4df845877a073a7c638a6cbbc37}{Graph\+Traits}
+\item 
+typedef property\+\_\+map$<$ \hyperlink{Networkland_8h_a15c13903d8f520e4339ca612a1ee2652}{graph\+\_\+t}, vertex\+\_\+index\+\_\+t $>$\+::type \hyperlink{Networkland_8h_a6e9430ba49a329a468865d6ac5168ae1}{Index\+Map}
+\end{DoxyCompactItemize}
+
+
+\subsection{Typedef Documentation}
+\mbox{\Hypertarget{Networkland_8h_a52bfd6f41ff9c0b207f53871bab612e6}\label{Networkland_8h_a52bfd6f41ff9c0b207f53871bab612e6}} 
+\index{Networkland.\+h@{Networkland.\+h}!Complete\+\_\+\+Graph@{Complete\+\_\+\+Graph}}
+\index{Complete\+\_\+\+Graph@{Complete\+\_\+\+Graph}!Networkland.\+h@{Networkland.\+h}}
+\subsubsection{\texorpdfstring{Complete\+\_\+\+Graph}{Complete\_Graph}}
+{\footnotesize\ttfamily typedef property$<$graph\+\_\+name\+\_\+t, std\+::string$>$ \hyperlink{Networkland_8h_a52bfd6f41ff9c0b207f53871bab612e6}{Complete\+\_\+\+Graph}}
+
+\mbox{\Hypertarget{Networkland_8h_ab51af057b7e9ba28d06cad49c4ca3c96}\label{Networkland_8h_ab51af057b7e9ba28d06cad49c4ca3c96}} 
+\index{Networkland.\+h@{Networkland.\+h}!Edgedesc@{Edgedesc}}
+\index{Edgedesc@{Edgedesc}!Networkland.\+h@{Networkland.\+h}}
+\subsubsection{\texorpdfstring{Edgedesc}{Edgedesc}}
+{\footnotesize\ttfamily typedef graph\+\_\+traits$<$\hyperlink{Networkland_8h_a15c13903d8f520e4339ca612a1ee2652}{graph\+\_\+t}$>$\+::edge\+\_\+descriptor \hyperlink{Networkland_8h_ab51af057b7e9ba28d06cad49c4ca3c96}{Edgedesc}}
+
+\mbox{\Hypertarget{Networkland_8h_a15c13903d8f520e4339ca612a1ee2652}\label{Networkland_8h_a15c13903d8f520e4339ca612a1ee2652}} 
+\index{Networkland.\+h@{Networkland.\+h}!graph\+\_\+t@{graph\+\_\+t}}
+\index{graph\+\_\+t@{graph\+\_\+t}!Networkland.\+h@{Networkland.\+h}}
+\subsubsection{\texorpdfstring{graph\+\_\+t}{graph\_t}}
+{\footnotesize\ttfamily typedef adjacency\+\_\+list$<$listS, vecS, undirectedS, \hyperlink{structVertex}{Vertex}, \hyperlink{structEdge}{Edge}, \hyperlink{Networkland_8h_a52bfd6f41ff9c0b207f53871bab612e6}{Complete\+\_\+\+Graph}$>$ \hyperlink{Networkland_8h_a15c13903d8f520e4339ca612a1ee2652}{graph\+\_\+t}}
+
+\mbox{\Hypertarget{Networkland_8h_a46fed4df845877a073a7c638a6cbbc37}\label{Networkland_8h_a46fed4df845877a073a7c638a6cbbc37}} 
+\index{Networkland.\+h@{Networkland.\+h}!Graph\+Traits@{Graph\+Traits}}
+\index{Graph\+Traits@{Graph\+Traits}!Networkland.\+h@{Networkland.\+h}}
+\subsubsection{\texorpdfstring{Graph\+Traits}{GraphTraits}}
+{\footnotesize\ttfamily typedef graph\+\_\+traits$<$\hyperlink{Networkland_8h_a15c13903d8f520e4339ca612a1ee2652}{graph\+\_\+t}$>$ \hyperlink{Networkland_8h_a46fed4df845877a073a7c638a6cbbc37}{Graph\+Traits}}
+
+\mbox{\Hypertarget{Networkland_8h_a6e9430ba49a329a468865d6ac5168ae1}\label{Networkland_8h_a6e9430ba49a329a468865d6ac5168ae1}} 
+\index{Networkland.\+h@{Networkland.\+h}!Index\+Map@{Index\+Map}}
+\index{Index\+Map@{Index\+Map}!Networkland.\+h@{Networkland.\+h}}
+\subsubsection{\texorpdfstring{Index\+Map}{IndexMap}}
+{\footnotesize\ttfamily typedef property\+\_\+map$<$\hyperlink{Networkland_8h_a15c13903d8f520e4339ca612a1ee2652}{graph\+\_\+t}, vertex\+\_\+index\+\_\+t$>$\+::type \hyperlink{Networkland_8h_a6e9430ba49a329a468865d6ac5168ae1}{Index\+Map}}
+
+\mbox{\Hypertarget{Networkland_8h_adc90eae5c1421f91cd002e840f60a9ec}\label{Networkland_8h_adc90eae5c1421f91cd002e840f60a9ec}} 
+\index{Networkland.\+h@{Networkland.\+h}!vertex\+\_\+iter@{vertex\+\_\+iter}}
+\index{vertex\+\_\+iter@{vertex\+\_\+iter}!Networkland.\+h@{Networkland.\+h}}
+\subsubsection{\texorpdfstring{vertex\+\_\+iter}{vertex\_iter}}
+{\footnotesize\ttfamily typedef graph\+\_\+traits$<$\hyperlink{Networkland_8h_a15c13903d8f520e4339ca612a1ee2652}{graph\+\_\+t}$>$\+::vertex\+\_\+iterator \hyperlink{Networkland_8h_adc90eae5c1421f91cd002e840f60a9ec}{vertex\+\_\+iter}}
+
+\mbox{\Hypertarget{Networkland_8h_af340ced64bd0b6914662d1b26be70b41}\label{Networkland_8h_af340ced64bd0b6914662d1b26be70b41}} 
+\index{Networkland.\+h@{Networkland.\+h}!Vertexdesc@{Vertexdesc}}
+\index{Vertexdesc@{Vertexdesc}!Networkland.\+h@{Networkland.\+h}}
+\subsubsection{\texorpdfstring{Vertexdesc}{Vertexdesc}}
+{\footnotesize\ttfamily typedef graph\+\_\+traits$<$\hyperlink{Networkland_8h_a15c13903d8f520e4339ca612a1ee2652}{graph\+\_\+t}$>$\+::vertex\+\_\+descriptor \hyperlink{Networkland_8h_af340ced64bd0b6914662d1b26be70b41}{Vertexdesc}}
+
