@@ -21,7 +21,7 @@ plot_devel <- function(
   # extract vertices table from igraph object
   vertices <- igraph::get.vertex.attribute(graph) %>%
     as.data.frame(stringsAsFactors = FALSE) %>%
-    mutate(name = as.numeric(name))
+    dplyr::mutate_("name" = ~as.numeric(name))
 
   # calculate extend of graph
   minx = min(vertices$x)
@@ -47,34 +47,34 @@ plot_devel <- function(
     # prepare data.frame for individual timestep
     res <- dplyr::inner_join(
       vertices, timelist[[p1]], by = c("name" = "vertices")) %>%
-      group_by(ideas) %>%
-      mutate(n = n()) %>%
+      dplyr::group_by_("ideas") %>%
+      dplyr::mutate_("n" = ~n()) %>%
       as.data.frame()
 
     # plot
-    plotlist[[p1]] <- ggraph(
+    plotlist[[p1]] <- ggraph::ggraph(
       graph, layout = 'manual',
       node.positions = vertices
       ) +
-      geom_edge_fan(
-        aes(edge_alpha = distance)
+      ggraph::geom_edge_fan(
+        ggplot2::aes_string(edge_alpha = "distance")
       ) +
-      scale_edge_alpha(trans = "reverse") +
-      geom_node_point(
+      ggraph::scale_edge_alpha(trans = "reverse") +
+      ggraph::geom_node_point(
         shape = 21,
         size = extx*1/23,
         fill = "white"
       ) +
-      geom_node_text(
-        aes(label = name),
+      ggraph::geom_node_text(
+        ggplot2::aes_string(label = "name"),
         size = extx*1/32
       ) +
-      geom_jitter(
+      ggplot2::geom_jitter(
         data = res,
-        aes(
-          x = x, y = y,
-          fill = ideas,
-          colour = n
+        ggplot2::aes_string(
+          x = "x", y = "y",
+          fill = "ideas",
+          colour = "n"
         ),
         shape = 21,
         size = extx*1/40,
@@ -82,27 +82,27 @@ plot_devel <- function(
         width = extx*1/30,
         height = exty*1/30
       ) +
-      scale_color_continuous(
+      ggplot2::scale_color_continuous(
         low = "#e6e6e6",
         high = "#000000",
         limits = c(1, 100)
       ) +
-      scale_fill_gradient2(
+      ggplot2::scale_fill_gradient2(
         low = "#ffffff",
         mid = "#ffff00",
         high = "#990000",
         limits = c(0, 100),
         midpoint = 50
       ) +
-      theme_bw() +
-      xlim(minx, maxx) +
-      ylim(miny, maxy)
+      ggplot2::theme_bw() +
+      ggplot2::xlim(minx, maxx) +
+      ggplot2::ylim(miny, maxy)
   }
 
   # user triggered plots
   if (!store) {
     for (p3 in 1:length(plotlist)) {
-      plotlist[[p3]] %>% plot
+      plotlist[[p3]] %>% ggplot2::ggplot()
       readline(prompt="Press [enter] to continue with the next plot.")
     }
   }
@@ -111,7 +111,7 @@ plot_devel <- function(
   if (store) {
     do.call(file.remove, list(list.files(path, full.names = TRUE)))
     for(p2 in 1:length(plotlist)) {
-      ggsave(
+      ggplot2::ggsave(
         filename = paste0(path, p2),
         plot = plotlist[[p2]],
         device = "png",
