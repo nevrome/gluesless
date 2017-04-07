@@ -13,23 +13,13 @@ using namespace std;
 class Timeline {
 
   public:
-  //constructor
   Timeline(Aether* start);
 
-  // getter
-  //vector<Networkland> get_spacetime();
-
-  // setter
-  //void set_spacetime(vector<Networkland> newspace);
-
-  // R-exporter
   SEXP export_as_R_list();
 
-  // developer
   void develop(Aether* current);
 
   private:
-  // attributes
   vector<int> ideanumber;
   vector< vector<int> > ideas;
   vector< vector< vector<Vertexdesc> > > idea_vertices;

@@ -50,7 +50,11 @@ void Aether::develop() {
   for (int i=0; i<v->size(); ++i) {
     offset.push_back(i);
   }
-  random_shuffle(offset.begin(), offset.end(), randWrapper);
+  random_shuffle(
+    offset.begin(),
+    offset.end(),
+    randWrapper
+  );
 
   // iterate over the ideas effectively shuffled by the offset
   vector<Idea*>::iterator dummy_iter;

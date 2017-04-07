@@ -12,7 +12,6 @@ using namespace boost;
 using namespace Rcpp;
 using namespace std;
 
-// define graph
 struct Vertex {
   int id;
   double x;
@@ -40,11 +39,9 @@ typedef property_map<graph_t, vertex_index_t>::type IndexMap;
 class Networkland {
 
     public:
-    //constructor
     Networkland(std::string graphstring);
     Networkland(graph_t newenv);
 
-    // getter
     graph_t get_graph();
     int get_number_of_vertices();
     vector<Vertexdesc> get_adjacent_vertices(Vertexdesc v);
@@ -53,11 +50,7 @@ class Networkland {
     // R-exporter
     // std::string export_graph();
 
-    // developer
-    // Networkland develop();
-
     private:
-    // attributes
     graph_t env;
 };
 

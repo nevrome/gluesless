@@ -13,21 +13,17 @@ using namespace std;
 class Idea {
 
   public:
-  //constructor
   Idea(Networkland* space);
 
-  // getter
   //string get_identity();
   int get_identity();
   vector<Vertexdesc> get_vertices();
 
-  // developer
   // mutate();
   // conjugate();
   void infect();
 
   private:
-  // attributes
   //string identity;
   int identity;
   Networkland* realworld;
