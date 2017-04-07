@@ -23,33 +23,32 @@ using namespace Rcpp;
 //'
 //' @export
 // [[Rcpp::export]]
-void run(SEXP modell_builder){
+SEXP run(SEXP modell_builder){
 
   // load modell builder
   Rcpp::S4 mb(modell_builder);
 
-  // create idea
-  Idea* a = new Idea();
-  Idea* b = new Idea();
-
   // create start environment
   SEXP graphstr = wrap(mb.slot("networkland_env"));
   std::string graphstring = Rcpp::as<std::string>(graphstr);
+  SEXP iterations = wrap(mb.slot("number_iterations"));
+  int iter = Rcpp::as<int>(iterations);
 
-  Networkland* landofoz = new Networkland(
-    graphstring
-  );
+  // Realwelt
+  Networkland* real = new Networkland(graphstring);
 
-  // create timeline
-  Timeline* thyme = new Timeline(*landofoz);
+  // Geistwelt
+  Aether* overmind = new Aether(real);
+
+  // Zeit
+  Timeline* thyme = new Timeline(overmind);
 
   // develop
-  for (int i = 0; i < 5; i++) {
-    thyme->develop();
-    Rcout << "##################################" << std::endl;
+  for (int i = 0; i < iter; i++) {
+    thyme->develop(overmind);
   }
 
-  compare_ideas(a, b);
+  List res = thyme->export_as_R_list();
 
-  return;
+  return res;
 }

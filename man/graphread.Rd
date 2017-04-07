@@ -2,18 +2,18 @@
 % Please edit documentation in R/graphml.R
 \name{graphread}
 \alias{graphread}
-\title{test}
+\title{string->igraph}
 \usage{
 graphread(inputstring, format = "graphml")
 }
 \arguments{
-\item{inputstring}{test}
+\item{inputstring}{string that describes a graph}
 
-\item{format}{test}
+\item{format}{format of the string}
 }
 \value{
-test
+igraph object
 }
 \description{
-test
+create igraph object from string
 }

@@ -4,19 +4,64 @@
 
 #include "Idea.h"
 #include "global.h"
+#include "Networkland.h"
 
 using namespace Rcpp;
 using namespace std;
 
 // constructor
-Idea::Idea() {
-  this->identity = create_random_string(30);
+Idea::Idea(Networkland* real) {
+  //this->identity = create_random_string(30);
+  this->identity = randunifrange(0, 100);
+
+  this->realworld = real;
+
+  Vertexdesc randpos = randunifrange(0, (realworld->get_number_of_vertices() - 1));
+
+  this->vertices.push_back(randpos);
 }
 
 // getter
-string Idea::get_identity() {
+int Idea::get_identity() {
   return identity;
 }
+
+vector<Vertexdesc> Idea::get_vertices() {
+  return this->vertices;
+}
+
+// developer
+void Idea::infect() {
+
+  vector<Vertexdesc> adjacentvecs;
+  Vertexdesc victim;
+  double mindist;
+  bool check = false;
+
+  for (vector<Vertexdesc>::iterator p1=vertices.begin(); p1!=vertices.end(); ++p1) {
+    adjacentvecs = realworld->get_adjacent_vertices(*p1);
+    for (vector<Vertexdesc>::iterator p2=adjacentvecs.begin(); p2!=adjacentvecs.end(); ++p2) {
+      if (!(find(vertices.begin(), vertices.end(), *p2) != vertices.end())) {
+        double tempdist = realworld->get_distance_between_two_vertices(*p1, *p2);
+        if (!check) {
+          mindist = tempdist;
+          victim = *p2;
+          check = true;
+        } else if (tempdist <= mindist) {
+          mindist = tempdist;
+          victim = *p2;
+        }
+      }
+    }
+  }
+
+  Rcout << "mindist: " << mindist << endl;
+
+  if (check) {
+    vertices.push_back(victim);
+  }
+}
+
 
 // http://stackoverflow.com/questions/440133/how-do-i-create-a-random-alpha-numeric-string-in-c
 std::string create_random_string(size_t length) {
@@ -24,7 +69,8 @@ std::string create_random_string(size_t length) {
     const char charset[] =
       //"0123456789"
       //"ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-      "abcdefghijklmnopqrstuvwxyz";
+      //"abcdefghijklmnopqrstuvwxyz";
+      "abc";
     const int max_index = (sizeof(charset) - 2);
     return charset[randunifrange(0, max_index)];
   };
@@ -33,17 +79,17 @@ std::string create_random_string(size_t length) {
   return str;
 }
 
-size_t compare_ideas(Idea* a, Idea* b) {
-  std::string s0 = a->get_identity();
-  std::string s1 = b->get_identity();
-
-  size_t res = compare_strings(s0, s1);
-
-  Rcout << "distance between " << s0 << " and " << s1 << " : "
-        << res << std::endl;
-
-  return res;
-}
+// size_t compare_ideas(Idea* a, Idea* b) {
+//   std::string s0 = a->get_identity();
+//   std::string s1 = b->get_identity();
+//
+//   size_t res = compare_strings(s0, s1);
+//
+//   Rcout << "distance between " << s0 << " and " << s1 << " : "
+//         << res << std::endl;
+//
+//   return res;
+// }
 
 // https://rosettacode.org/wiki/Levenshtein_distance#C.2B.2B
 size_t compare_strings(const std::string &s1, const std::string &s2) {

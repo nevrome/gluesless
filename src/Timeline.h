@@ -3,29 +3,26 @@
 
 #include <Rcpp.h>
 #include <vector>
+#include <string>
 
-#include "Networkland.h"
+#include "Aether.h"
 
 using namespace Rcpp;
+using namespace std;
 
 class Timeline {
 
   public:
-  //constructor
-  Timeline(Networkland startland);
+  Timeline(Aether* start);
 
-  // getter
-  vector<Networkland> get_spacetime();
+  SEXP export_as_R_list();
 
-  // setter
-  void set_spacetime(vector<Networkland> newspace);
-
-  // developer
-  void develop();
+  void develop(Aether* current);
 
   private:
-  // attributes
-  vector<Networkland> spacetime;
+  vector<int> ideanumber;
+  vector< vector<int> > ideas;
+  vector< vector< vector<Vertexdesc> > > idea_vertices;
 };
 
 #endif

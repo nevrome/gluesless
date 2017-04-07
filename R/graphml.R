@@ -1,11 +1,11 @@
-#' test
+#' string->igraph
 #'
-#' test
+#' create igraph object from string
 #'
-#' @param inputstring test
-#' @param format test
+#' @param inputstring string that describes a graph
+#' @param format format of the string
 #'
-#' @return test
+#' @return igraph object
 #'
 #' @importFrom magrittr "%>%"
 #'
@@ -18,20 +18,21 @@ graphread <- function(inputstring, format = "graphml"){
     return()
 }
 
-#' test
+#' igraph->string
 #'
-#' test
+#' create string from igraph object
 #'
-#' @param igraphobj test
-#' @param format test
+#' @param igraphobj igraph object
+#' @param format format of the string
 #'
-#' @return test
+#' @return string
 #'
 #' @export
 graphwrite <- function(igraphobj, format = "graphml"){
   rawConnection(raw(0), "r+") -> zz
   igraph::write_graph(igraphobj, file = zz, format = format)
   rawConnectionValue(zz) %>%
-    rawToChar() %>%
-    return()
+    rawToChar() -> res
+  close.connection(zz)
+  res %>% return()
 }
