@@ -2,7 +2,7 @@
 \label{classAether}\index{Aether@{Aether}}
 
 
-Environment, where ideas exist.  
+World where ideas exist.  
 
 
 
@@ -26,15 +26,15 @@ void \hyperlink{classAether_aa26ea89dc9dc145479f8c2065121e76d}{develop} ()
 \begin{DoxyCompactItemize}
 \item 
 std\+::vector$<$ \hyperlink{classIdea}{Idea} $\ast$ $>$ \hyperlink{classAether_ac58cc20fc4eddd732cfe22b2557060b1}{mindspace}
-\item 
+\begin{DoxyCompactList}\small\item\em vector that stores references to \hyperlink{classIdea}{Idea} instances \end{DoxyCompactList}\item 
 \hyperlink{classNetworkland}{Networkland} $\ast$ \hyperlink{classAether_ad7e88c3d473a78ba840eab68adc06d04}{realworld}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em reference to \hyperlink{classNetworkland}{Networkland} \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
-Environment, where ideas exist. 
+World where ideas exist. 
 
-Some kind of ghostworld, where ideas life and interact. The status of the \hyperlink{classAether}{Aether} can be queried with multiple getter functions. 
+An \hyperlink{classAether}{Aether} is a world, where \hyperlink{classIdea}{Idea} instances life and interact. The status of an \hyperlink{classAether}{Aether} can be queried with multiple getter functions. Every \hyperlink{classAether}{Aether} is linked to a \hyperlink{classNetworkland}{Networkland}. 
 
 \subsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{classAether_adb65b2b9dec23ddd4b29c2cbe364b764}\label{classAether_adb65b2b9dec23ddd4b29c2cbe364b764}} 
@@ -95,11 +95,19 @@ Returns vector of idea identities of currently present ideas.
 \subsubsection{\texorpdfstring{mindspace}{mindspace}}
 {\footnotesize\ttfamily std\+::vector$<$\hyperlink{classIdea}{Idea}$\ast$$>$ Aether\+::mindspace\hspace{0.3cm}{\ttfamily [private]}}
 
+
+
+vector that stores references to \hyperlink{classIdea}{Idea} instances 
+
 \mbox{\Hypertarget{classAether_ad7e88c3d473a78ba840eab68adc06d04}\label{classAether_ad7e88c3d473a78ba840eab68adc06d04}} 
 \index{Aether@{Aether}!realworld@{realworld}}
 \index{realworld@{realworld}!Aether@{Aether}}
 \subsubsection{\texorpdfstring{realworld}{realworld}}
 {\footnotesize\ttfamily \hyperlink{classNetworkland}{Networkland}$\ast$ Aether\+::realworld\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+reference to \hyperlink{classNetworkland}{Networkland} 
 
 
 

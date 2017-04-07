@@ -10,11 +10,12 @@
 
 using namespace Rcpp;
 
-//! Environment, where ideas exist
+//! World where ideas exist
 /*!
- Some kind of ghostworld, where ideas life and interact.
- The status of the Aether can be queried with multiple
- getter functions.
+ An Aether is a world, where Idea instances life and
+ interact. The status of an Aether can be queried with
+ multiple getter functions.
+ Every Aether is linked to a Networkland.
  */
 
 class Aether {
@@ -44,7 +45,9 @@ class Aether {
   void develop();
 
   private:
+  //! vector that stores references to Idea instances
   std::vector<Idea*> mindspace;
+  //! reference to Networkland
   Networkland* realworld;
 };
 

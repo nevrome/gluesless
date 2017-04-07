@@ -10,12 +10,10 @@
 using namespace Rcpp;
 using namespace std;
 
-// constructor
 Aether::Aether(Networkland* real) {
   this->realworld = real;
 }
 
-// getter
 int Aether::get_ideanumber() {
   return this->mindspace.size();
 }
@@ -38,7 +36,6 @@ vector< vector<Vertexdesc> > Aether::get_idea_vertices(){
   return res;
 }
 
-// developer
 void Aether::develop() {
 
   vector<Idea*> *v = &this->mindspace;
