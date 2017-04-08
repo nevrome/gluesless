@@ -10,7 +10,7 @@
 
 using namespace Rcpp;
 
-//! World where ideas exist
+//! World where Idea instances exist
 /*!
  An Aether is a world, where Idea instances life and
  interact. The status of an Aether can be queried with

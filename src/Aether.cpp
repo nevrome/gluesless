@@ -21,7 +21,8 @@ int Aether::get_ideanumber() {
 vector<int> Aether::get_ideas() {
   vector<int> res;
   vector<Idea*> *v = &this->mindspace;
-  for(std::vector<Idea*>::iterator it = v->begin(); it != v->end(); ++it) {
+  for(std::vector<Idea*>::iterator it = v->begin();
+      it != v->end(); ++it) {
     res.push_back((*it)->get_identity());
   }
   return res;
@@ -30,7 +31,8 @@ vector<int> Aether::get_ideas() {
 vector< vector<Vertexdesc> > Aether::get_idea_vertices(){
   vector< vector <Vertexdesc> > res;
   vector<Idea*> *v = &this->mindspace;
-  for(std::vector<Idea*>::iterator it = v->begin(); it != v->end(); ++it) {
+  for(std::vector<Idea*>::iterator it = v->begin();
+      it != v->end(); ++it) {
     res.push_back((*it)->get_vertices());
   }
   return res;
@@ -56,9 +58,11 @@ void Aether::develop() {
     randWrapper
   );
 
-  // iterate over the ideas effectively shuffled by the offset
+  // iterate over the ideas effectively shuffled by the
+  // offset
   vector<Idea*>::iterator dummy_iter;
-  for (vector<int>::iterator it=offset.begin(); it!=offset.end(); ++it) {
+  for (vector<int>::iterator it=offset.begin();
+       it!=offset.end(); ++it) {
     dummy_iter = v->begin() + *it;
     //infect
     (*dummy_iter)->infect();

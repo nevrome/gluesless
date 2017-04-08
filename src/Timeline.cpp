@@ -14,18 +14,22 @@ Timeline::Timeline(Aether* start) {
 void Timeline::develop(Aether* current) {
   this->ideanumber.push_back(current->get_ideanumber());
   this->ideas.push_back(current->get_ideas());
-  this->idea_vertices.push_back(current->get_idea_vertices());
+  this->idea_vertices.push_back(
+      current->get_idea_vertices()
+    );
 
   current->develop();
 
   Rcout << "Zeitschritt vorwärts! " << endl;
 }
 
-// R-exporter
 SEXP Timeline::export_as_R_list() {
   List res;
 
-  NumericVector ideanumber_nv(ideanumber.begin(), ideanumber.end());
+  NumericVector ideanumber_nv(
+      ideanumber.begin(),
+      ideanumber.end()
+    );
 
   NumericVector timestep;
   NumericVector id;
@@ -34,15 +38,18 @@ SEXP Timeline::export_as_R_list() {
   int count = 0;
   vector< vector<int> >::iterator it_id_1=ideas.begin();
 
-  for (vector< vector< vector<Vertexdesc> > >::iterator it_vert_1=idea_vertices.begin();
+  for (vector< vector< vector<Vertexdesc> > >::iterator
+         it_vert_1=idea_vertices.begin();
        it_vert_1!=idea_vertices.end(); ++it_vert_1) {
 
     vector<int>::iterator it_id_2=(*it_id_1).begin();
 
-    for (vector< vector<Vertexdesc> >::iterator it_vert_2=(*it_vert_1).begin();
+    for (vector< vector<Vertexdesc> >::iterator
+           it_vert_2=(*it_vert_1).begin();
          it_vert_2!=(*it_vert_1).end(); ++it_vert_2) {
 
-      for (vector<Vertexdesc>::iterator it_vert_3=(*it_vert_2).begin();
+      for (vector<Vertexdesc>::iterator
+             it_vert_3=(*it_vert_2).begin();
            it_vert_3!=(*it_vert_2).end(); ++it_vert_3) {
 
         timestep.push_back(count);
