@@ -3,19 +3,17 @@
 
 #' run model
 #'
-#' @description
-#' test
+#' General run method. Something like the main function of a usual
+#' c++-program. Runs model with input parameters and gives results
+#' directly back to R.
 #'
-#' @details
-#' test
-#'
-#' @param modell_builder test
+#' @param model_builder model_builder-object with parameters
 #'
 #' @return
-#' test
+#' List with different diagnostic values
 #'
 #' @export
-run <- function(modell_builder) {
-    .Call('gluesless_run', PACKAGE = 'gluesless', modell_builder)
+run <- function(model_builder) {
+    .Call('gluesless_run', PACKAGE = 'gluesless', model_builder)
 }
 

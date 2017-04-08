@@ -6,13 +6,13 @@
 using namespace Rcpp;
 
 // run
-SEXP run(SEXP modell_builder);
-RcppExport SEXP gluesless_run(SEXP modell_builderSEXP) {
+SEXP run(SEXP model_builder);
+RcppExport SEXP gluesless_run(SEXP model_builderSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< SEXP >::type modell_builder(modell_builderSEXP);
-    rcpp_result_gen = Rcpp::wrap(run(modell_builder));
+    Rcpp::traits::input_parameter< SEXP >::type model_builder(model_builderSEXP);
+    rcpp_result_gen = Rcpp::wrap(run(model_builder));
     return rcpp_result_gen;
 END_RCPP
 }

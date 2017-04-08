@@ -10,23 +10,21 @@ using namespace Rcpp;
 
 //' run model
 //'
-//' @description
-//' test
+//' General run method. Something like the main function of a usual
+//' c++-program. Runs model with input parameters and gives results
+//' directly back to R.
 //'
-//' @details
-//' test
-//'
-//' @param modell_builder test
+//' @param model_builder model_builder-object with parameters
 //'
 //' @return
-//' test
+//' List with different diagnostic values
 //'
 //' @export
 // [[Rcpp::export]]
-SEXP run(SEXP modell_builder){
+SEXP run(SEXP model_builder){
 
   // load modell builder
-  Rcpp::S4 mb(modell_builder);
+  Rcpp::S4 mb(model_builder);
 
   // create start environment
   SEXP graphstr = wrap(mb.slot("networkland_env"));

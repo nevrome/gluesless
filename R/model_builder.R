@@ -1,10 +1,13 @@
-#' modell_builder class
+#' model_builder class
 #'
-#' test
+#' class to store values that should be passed to the model
+#'
+#' @slot networkland_env string: Description of input graph in graphml format
+#' @slot number_iterations integer: Number of model iterations
 #'
 #' @export
 setClass(
-  Class = "modell_builder",
+  Class = "model_builder",
   slots = c(
     networkland_env = "character",
     number_iterations = "numeric"

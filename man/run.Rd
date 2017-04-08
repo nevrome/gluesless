@@ -4,17 +4,16 @@
 \alias{run}
 \title{run model}
 \usage{
-run(modell_builder)
+run(model_builder)
 }
 \arguments{
-\item{modell_builder}{test}
+\item{model_builder}{model_builder-object with parameters}
 }
 \value{
-test
+List with different diagnostic values
 }
 \description{
-test
-}
-\details{
-test
+General run method. Something like the main function of a usual
+c++-program. Runs model with input parameters and gives results
+directly back to R.
 }
