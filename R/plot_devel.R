@@ -88,7 +88,7 @@ plot_devel <- function(
         limits = c(1, 100)
       ) +
       ggplot2::scale_fill_gradient2(
-        low = "#ffffff",
+        low = "#218203",
         mid = "#ffff00",
         high = "#990000",
         limits = c(0, 100),
