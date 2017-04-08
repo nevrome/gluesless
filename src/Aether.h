@@ -25,16 +25,16 @@ class Aether {
 
   //! get number of ideas
   int get_ideanumber();
-  //! get identities of ideas
+  //! get identities of Idea instances
   /*!
-   Returns vector of idea identities of currently present
-   ideas.
+   Returns vector of identities of currently present
+   Idea instances.
    */
   vector<int> get_ideas();
-  //! get positions of ideas in the Networkland
+  //! get positions of Idea instances in the Networkland
   /*!
    Returns vector of vector of occupied vertices of
-   currently present ideas.
+   currently present Idea instances.
    */
   vector< vector<Vertexdesc> > get_idea_vertices();
 

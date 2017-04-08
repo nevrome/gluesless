@@ -14,7 +14,6 @@ using namespace boost;
 using namespace Rcpp;
 using namespace std;
 
-// constructor
 Networkland::Networkland(std::string graphstring) {
 
   graph_t graph(0);
@@ -25,7 +24,9 @@ Networkland::Networkland(std::string graphstring) {
   dp.property("y",        get(&Vertex::y,      graph));
   dp.property("distance", get(&Edge::distance, graph));
 
-  boost::ref_property_map<graph_t *, std::string> gname(get_property(graph, graph_name));
+  boost::ref_property_map<graph_t *, std::string> gname(
+      get_property(graph, graph_name)
+    );
   dp.property("graph_name", gname);
 
   std::istringstream is(graphstring);
@@ -39,7 +40,6 @@ Networkland::Networkland(graph_t newenv) {
   this->env = newenv;
 }
 
-// getter
 graph_t Networkland::get_graph() {
   return env;
 }
@@ -66,11 +66,12 @@ double Networkland::get_distance_between_two_vertices(Vertexdesc a, Vertexdesc b
 
   edgepair = edge(a, b, env);
 
-  Rcout << "Diff between: " << a << " and " << b << " is " << env[edgepair.first].distance << endl;
+  Rcout << "Diff between: " << a << " and " << b << " is " <<
+    env[edgepair.first].distance << endl;
+
   return env[edgepair.first].distance;
 }
 
-// R-exporter
 // std::string Networkland::export_graph() {
 //
 //   graph_t graph = this->get_graph();

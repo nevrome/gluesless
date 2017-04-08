@@ -9,19 +9,19 @@
 using namespace Rcpp;
 using namespace std;
 
-// constructor
 Idea::Idea(Networkland* real) {
   //this->identity = create_random_string(30);
   this->identity = randunifrange(0, 100);
 
   this->realworld = real;
 
-  Vertexdesc randpos = randunifrange(0, (realworld->get_number_of_vertices() - 1));
+  Vertexdesc randpos = randunifrange(
+    0, (realworld->get_number_of_vertices() - 1)
+    );
 
   this->vertices.push_back(randpos);
 }
 
-// getter
 int Idea::get_identity() {
   return identity;
 }
@@ -30,7 +30,6 @@ vector<Vertexdesc> Idea::get_vertices() {
   return this->vertices;
 }
 
-// developer
 void Idea::infect() {
 
   vector<Vertexdesc> adjacentvecs;
@@ -38,10 +37,14 @@ void Idea::infect() {
   double mindist;
   bool check = false;
 
-  for (vector<Vertexdesc>::iterator p1=vertices.begin(); p1!=vertices.end(); ++p1) {
+  for (vector<Vertexdesc>::iterator
+         p1=vertices.begin(); p1!=vertices.end(); ++p1) {
     adjacentvecs = realworld->get_adjacent_vertices(*p1);
-    for (vector<Vertexdesc>::iterator p2=adjacentvecs.begin(); p2!=adjacentvecs.end(); ++p2) {
-      if (!(find(vertices.begin(), vertices.end(), *p2) != vertices.end())) {
+    for (vector<Vertexdesc>::iterator
+           p2=adjacentvecs.begin();
+         p2!=adjacentvecs.end(); ++p2) {
+      if (!(find(vertices.begin(), vertices.end(), *p2) !=
+          vertices.end())) {
         double tempdist = realworld->get_distance_between_two_vertices(*p1, *p2);
         if (!check) {
           mindist = tempdist;
