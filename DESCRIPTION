@@ -18,7 +18,8 @@ Imports:
     magrittr (>= 1.5),
     ggplot2 (>= 2.2.1),
     ggraph (>= 1.0.0),
-    plyr (>= 1.8.4)
+    plyr (>= 1.8.4),
+    maps (>= 3.1.1)
 Suggests:
     devtools (>= 1.12.0),
     knitr,

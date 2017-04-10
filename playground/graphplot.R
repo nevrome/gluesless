@@ -30,7 +30,7 @@ g <- set.graph.attribute(g, "graph_name", "testgraph")
 #plot(g)
 
 new(
-  "modell_builder",
+  "model_builder",
   networkland_env = graphwrite(g),
   number_iterations = 40
 ) %>%

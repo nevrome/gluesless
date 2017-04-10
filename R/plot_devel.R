@@ -11,12 +11,17 @@
 #'             \bold{Other files in this directory are deleted.}
 #'             Default: "../modevel/"
 #'
-#' @return nothing - just called for side effects
+#' @return NULL - just called for side effects
 #'
 #' @export
 plot_devel <- function(
   graph, runres, store = FALSE, path = "../modevel/"
 ) {
+
+  # check if runres is empty
+  if (nrow(runres) == 0) {
+    return(NULL)
+  }
 
   # extract vertices table from igraph object
   vertices <- igraph::get.vertex.attribute(graph) %>%
@@ -31,6 +36,7 @@ plot_devel <- function(
 
   extx = maxx - minx
   exty = maxy - miny
+  mext = min(c(extx, exty))
 
   minx = minx - extx/10
   maxx = maxx + extx/10
@@ -51,10 +57,21 @@ plot_devel <- function(
       dplyr::mutate_("n" = ~n()) %>%
       as.data.frame()
 
+    # load world map
+    world <- ggplot2::map_data("world")
+
     # plot
     plotlist[[p1]] <- ggraph::ggraph(
       graph, layout = 'manual',
       node.positions = vertices
+      ) +
+      geom_polygon(
+        data = world,
+        aes(
+         x = long, y = lat,
+         group = group
+        ),
+        fill = "#ffffff", colour = "#a0a0a0"
       ) +
       ggraph::geom_edge_fan(
         ggplot2::aes_string(edge_alpha = "distance")
@@ -62,12 +79,12 @@ plot_devel <- function(
       ggraph::scale_edge_alpha(trans = "reverse") +
       ggraph::geom_node_point(
         shape = 21,
-        size = extx*1/23,
+        size = mext*1/23,
         fill = "white"
       ) +
       ggraph::geom_node_text(
         ggplot2::aes_string(label = "name"),
-        size = extx*1/32
+        size = mext*1/32
       ) +
       ggplot2::geom_jitter(
         data = res,
@@ -77,10 +94,10 @@ plot_devel <- function(
           colour = "n"
         ),
         shape = 21,
-        size = extx*1/40,
-        stroke = 1.5,
-        width = extx*1/30,
-        height = exty*1/30
+        size = mext*1/30,
+        stroke = 1,
+        width = extx*1/35,
+        height = exty*1/35
       ) +
       ggplot2::scale_color_continuous(
         low = "#e6e6e6",
@@ -96,7 +113,12 @@ plot_devel <- function(
       ) +
       ggplot2::theme_bw() +
       ggplot2::xlim(minx, maxx) +
-      ggplot2::ylim(miny, maxy)
+      ggplot2::ylim(miny, maxy) +
+      coord_map(
+        "ortho", orientation = c(48, 9, 0)
+        # xlim = c(minx, maxx),
+        # ylim = c(miny, maxy)
+      )
   }
 
   # user triggered plots
@@ -123,4 +145,5 @@ plot_devel <- function(
     }
   }
 
+  return(NULL)
 }
