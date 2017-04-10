@@ -19,7 +19,7 @@ file system. Default: FALSE}
 Default: "../modevel/"}
 }
 \value{
-nothing - just called for side effects
+NULL - just called for side effects
 }
 \description{
 Creates graph plots for a model run.
