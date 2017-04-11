@@ -65,11 +65,11 @@ plot_devel <- function(
       graph, layout = 'manual',
       node.positions = vertices
       ) +
-      geom_polygon(
+      ggplot2::geom_polygon(
         data = world,
-        aes(
-         x = long, y = lat,
-         group = group
+        ggplot2::aes_string(
+         x = "long", y = "lat",
+         group = "group"
         ),
         fill = "#ffffff", colour = "#a0a0a0"
       ) +
@@ -114,7 +114,7 @@ plot_devel <- function(
       ggplot2::theme_bw() +
       ggplot2::xlim(minx, maxx) +
       ggplot2::ylim(miny, maxy) +
-      coord_map(
+      ggplot2::coord_map(
         "ortho", orientation = c(48, 9, 0)
         # xlim = c(minx, maxx),
         # ylim = c(miny, maxy)
