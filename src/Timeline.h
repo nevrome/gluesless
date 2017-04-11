@@ -1,14 +1,11 @@
-#ifndef _gluesless_RCPP_Timeline_H
-#define _gluesless_RCPP_Timeline_H
+#pragma once
 
-#include <Rcpp.h>
 #include <vector>
 #include <string>
 
-#include "Aether.h"
+#include <Rcpp.h>
 
-using namespace Rcpp;
-using namespace std;
+#include "Aether.h"
 
 //! Sequence of Aether statuses
 /*!
@@ -40,11 +37,9 @@ class Timeline {
 
   private:
   //! stores number of Idea instances over time
-  vector<int> ideanumber;
+  std::vector<int> ideanumber;
   //! stores Idea identities over time
-  vector< vector<int> > ideas;
+  std::vector< std::vector<int> > ideas;
   //! stores Idea positions over time
-  vector< vector< vector<Vertexdesc> > > idea_vertices;
+  std::vector< std::vector< std::vector<Vertexdesc> > > idea_vertices;
 };
-
-#endif

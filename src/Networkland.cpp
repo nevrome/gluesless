@@ -1,20 +1,16 @@
-#include <Rcpp.h>
-#include <boost/graph/graph_traits.hpp>
-#include <boost/graph/adjacency_list.hpp>
-#include <boost/graph/graphml.hpp>
+#include "Networkland.h"
+
+#include <algorithm>
+#include <vector>
+
 #include <boost/graph/graph_mutability_traits.hpp>
 #include <boost/range/iterator_range.hpp>
-#include <algorithm>    // std::random_shuffle
-#include <vector>       // std::vector
 
-#include "Networkland.h"
 #include "global.h"
 
 using namespace boost;
-using namespace Rcpp;
-using namespace std;
 
-Networkland::Networkland(std::string graphstring) {
+Networkland::Networkland(const std::string& graphstring) {
 
   graph_t graph(0);
 
@@ -24,7 +20,7 @@ Networkland::Networkland(std::string graphstring) {
   dp.property("y",        get(&Vertex::y,      graph));
   dp.property("distance", get(&Edge::distance, graph));
 
-  boost::ref_property_map<graph_t *, std::string> gname(
+  ref_property_map<graph_t *, std::string> gname(
       get_property(graph, graph_name)
     );
   dp.property("graph_name", gname);
@@ -48,8 +44,8 @@ int Networkland::get_number_of_vertices() {
   return num_vertices(env);
 }
 
-vector<Vertexdesc> Networkland::get_adjacent_vertices(Vertexdesc v) {
-  vector<Vertexdesc> res;
+std::vector<Vertexdesc> Networkland::get_adjacent_vertices(Vertexdesc v) {
+  std::vector<Vertexdesc> res;
   IndexMap index = get(vertex_index, env);
   typename graph_traits<graph_t>::adjacency_iterator ai;
   typename graph_traits<graph_t>::adjacency_iterator ai_end;
@@ -62,12 +58,12 @@ vector<Vertexdesc> Networkland::get_adjacent_vertices(Vertexdesc v) {
 double Networkland::get_distance_between_two_vertices(Vertexdesc a, Vertexdesc b) {
 
   // create a pair to store the edge iterators
-  pair<Edgedesc, bool> edgepair;
+  std::pair<Edgedesc, bool> edgepair;
 
   edgepair = edge(a, b, env);
 
-  Rcout << "Diff between: " << a << " and " << b << " is " <<
-    env[edgepair.first].distance << endl;
+  Rcpp::Rcout << "Diff between: " << a << " and " << b << " is " <<
+    env[edgepair.first].distance << std::endl;
 
   return env[edgepair.first].distance;
 }

@@ -1,14 +1,6 @@
-#include <Rcpp.h>
-#include <vector>
-#include <string>
-
 #include "Aether.h"
-#include "Idea.h"
-#include "global.h"
-#include "Networkland.h"
 
-using namespace Rcpp;
-using namespace std;
+#include "global.h"
 
 Aether::Aether(Networkland* real) {
   this->realworld = real;
@@ -18,38 +10,37 @@ int Aether::get_ideanumber() {
   return this->mindspace.size();
 }
 
-vector<int> Aether::get_ideas() {
-  vector<int> res;
-  vector<Idea*> *v = &this->mindspace;
-  for(std::vector<Idea*>::iterator it = v->begin();
-      it != v->end(); ++it) {
-    res.push_back((*it)->get_identity());
+std::vector<int> Aether::get_ideas() {
+  std::vector<int> res;
+  std::vector<Idea*>& v = this->mindspace;
+  for(auto& idx : v) {
+    res.push_back(idx->get_identity());
   }
   return res;
 }
 
-vector< vector<Vertexdesc> > Aether::get_idea_vertices(){
-  vector< vector <Vertexdesc> > res;
-  vector<Idea*> *v = &this->mindspace;
-  for(std::vector<Idea*>::iterator it = v->begin();
-      it != v->end(); ++it) {
-    res.push_back((*it)->get_vertices());
+std::vector< std::vector<Vertexdesc> > Aether::get_idea_vertices(){
+  std::vector< std::vector <Vertexdesc> > res;
+  std::vector<Idea*>& v = this->mindspace;
+  for(auto& idx : v) {
+    res.push_back(idx->get_vertices());
   }
   return res;
 }
 
 void Aether::develop() {
 
-  vector<Idea*> *v = &this->mindspace;
+  auto& v = this->mindspace;
 
   if (randunifrange(1, 5) == 1) {
     Idea* newidea = new Idea(realworld);
-    v->push_back(newidea);
+    v.push_back(newidea);
   }
 
   // create offset vector
-  vector<int> offset;
-  for (int i=0; i<v->size(); ++i) {
+  std::vector<int> offset;
+  offset.reserve(v.size());
+  for (size_t i=0u; i<v.size(); ++i) {
     offset.push_back(i);
   }
   random_shuffle(
@@ -60,12 +51,10 @@ void Aether::develop() {
 
   // iterate over the ideas effectively shuffled by the
   // offset
-  vector<Idea*>::iterator dummy_iter;
-  for (vector<int>::iterator it=offset.begin();
-       it!=offset.end(); ++it) {
-    dummy_iter = v->begin() + *it;
+  for (auto& idx : offset) {
+    auto it = v.begin() + idx;
     //infect
-    (*dummy_iter)->infect();
+    (*it)->infect();
   }
 
 

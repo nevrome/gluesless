@@ -1,14 +1,12 @@
-#ifndef _gluesless_RCPP_Aether_H
-#define _gluesless_RCPP_Aether_H
+#pragma once
 
-#include <Rcpp.h>
 #include <vector>
 #include <string>
 
+#include <Rcpp.h>
+
 #include "Idea.h"
 #include "Networkland.h"
-
-using namespace Rcpp;
 
 //! World where Idea instances exist
 /*!
@@ -30,13 +28,13 @@ class Aether {
    Returns vector of identities of currently present
    Idea instances.
    */
-  vector<int> get_ideas();
+  std::vector<int> get_ideas();
   //! get positions of Idea instances in the Networkland
   /*!
    Returns vector of vector of occupied vertices of
    currently present Idea instances.
    */
-  vector< vector<Vertexdesc> > get_idea_vertices();
+  std::vector< std::vector<Vertexdesc> > get_idea_vertices();
 
   //! go to the next timestep
   /*!
@@ -50,5 +48,3 @@ class Aether {
   //! reference to Networkland
   Networkland* realworld;
 };
-
-#endif

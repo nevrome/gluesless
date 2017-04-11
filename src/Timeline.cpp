@@ -1,11 +1,6 @@
-#include <Rcpp.h>
-#include <vector>
-
 #include "Timeline.h"
-#include "Aether.h"
 
-using namespace Rcpp;
-using namespace std;
+#include "Aether.h"
 
 Timeline::Timeline(Aether* start) {
   this->ideanumber.push_back(start->get_ideanumber());
@@ -20,10 +15,13 @@ void Timeline::develop(Aether* current) {
 
   current->develop();
 
-  Rcout << "Zeitschritt vorwärts! " << endl;
+  Rcpp::Rcout << "Zeitschritt vorwärts! " << std::endl;
 }
 
 SEXP Timeline::export_as_R_list() {
+
+  using namespace Rcpp;
+
   List res;
 
   NumericVector ideanumber_nv(
@@ -36,25 +34,19 @@ SEXP Timeline::export_as_R_list() {
   NumericVector vert;
 
   int count = 0;
-  vector< vector<int> >::iterator it_id_1=ideas.begin();
+  std::vector< std::vector<int> >::iterator it_id_1=ideas.begin();
 
-  for (vector< vector< vector<Vertexdesc> > >::iterator
-         it_vert_1=idea_vertices.begin();
-       it_vert_1!=idea_vertices.end(); ++it_vert_1) {
+  for (auto& it_vert_1 : idea_vertices) {
 
-    vector<int>::iterator it_id_2=(*it_id_1).begin();
+    std::vector<int>::iterator it_id_2=(*it_id_1).begin();
 
-    for (vector< vector<Vertexdesc> >::iterator
-           it_vert_2=(*it_vert_1).begin();
-         it_vert_2!=(*it_vert_1).end(); ++it_vert_2) {
+    for (auto& it_vert_2 : it_vert_1) {
 
-      for (vector<Vertexdesc>::iterator
-             it_vert_3=(*it_vert_2).begin();
-           it_vert_3!=(*it_vert_2).end(); ++it_vert_3) {
+      for (auto& it_vert_3 : it_vert_2) {
 
         timestep.push_back(count);
         id.push_back(*it_id_2);
-        vert.push_back(*it_vert_3);
+        vert.push_back(it_vert_3);
 
       }
 
@@ -68,7 +60,7 @@ SEXP Timeline::export_as_R_list() {
   }
 
   res["number_of_ideas"] = ideanumber_nv;
-  res["idea_exp"] = DataFrame::create(
+  res["idea_exp"] = Rcpp::DataFrame::create(
     _["timestep"] = timestep,
     _["ideas"] = id,
     _["vertices"] = vert

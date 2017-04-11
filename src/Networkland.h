@@ -1,17 +1,12 @@
-#ifndef _gluesless_RCPP_Networkland_H
-#define _gluesless_RCPP_Networkland_H
+#pragma once
 
-#include <Rcpp.h>
+#include <vector>
+
 #include <boost/graph/graph_traits.hpp>
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/graph/graphml.hpp>
 #include <boost/graph/properties.hpp>
-#include <vector>
-
-using namespace boost;
-using namespace Rcpp;
-using namespace std;
-
+#include <Rcpp.h>
 
 //! Node in the graph of a Networkland
 /*!
@@ -38,19 +33,22 @@ struct Edge {
   double distance;
 };
 
-typedef property<graph_name_t, std::string> Complete_Graph;
+typedef boost::property<boost::graph_name_t, std::string> Complete_Graph;
 
-typedef adjacency_list<listS, vecS, undirectedS,
-                       Vertex,
-                       Edge,
-                       Complete_Graph>
+typedef boost::adjacency_list<
+          boost::listS,
+          boost::vecS,
+          boost::undirectedS,
+          Vertex,
+          Edge,
+          Complete_Graph>
         graph_t;
 
-typedef graph_traits<graph_t>::vertex_iterator vertex_iter;
-typedef graph_traits<graph_t>::vertex_descriptor Vertexdesc;
-typedef graph_traits<graph_t>::edge_descriptor Edgedesc;
-typedef graph_traits<graph_t> GraphTraits;
-typedef property_map<graph_t, vertex_index_t>::type IndexMap;
+typedef boost::graph_traits<graph_t>::vertex_iterator vertex_iter;
+typedef boost::graph_traits<graph_t>::vertex_descriptor Vertexdesc;
+typedef boost::graph_traits<graph_t>::edge_descriptor Edgedesc;
+typedef boost::graph_traits<graph_t> GraphTraits;
+typedef boost::property_map<graph_t, boost::vertex_index_t>::type IndexMap;
 
 //! Real world represented with a network - ABM environment
 /*!
@@ -60,7 +58,7 @@ typedef property_map<graph_t, vertex_index_t>::type IndexMap;
 class Networkland {
 
     public:
-    Networkland(std::string graphstring);
+    Networkland(const std::string& graphstring);
     Networkland(graph_t newenv);
 
     //! get graph
@@ -68,7 +66,7 @@ class Networkland {
     //! get number of vertices of graph
     int get_number_of_vertices();
     //! get adjacent vertices of an input vertex in graph
-    vector<Vertexdesc> get_adjacent_vertices(Vertexdesc v);
+    std::vector<Vertexdesc> get_adjacent_vertices(Vertexdesc v);
     //! get distance value between two input vertices in graph
     double get_distance_between_two_vertices(
         Vertexdesc a, Vertexdesc b
@@ -80,5 +78,3 @@ class Networkland {
     //! stores graph (from boost graph library)
     graph_t env;
 };
-
-#endif

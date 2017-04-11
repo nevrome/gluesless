@@ -1,14 +1,11 @@
-#ifndef _gluesless_RCPP_Idea_H
-#define _gluesless_RCPP_Idea_H
+#pragma once
 
-#include <Rcpp.h>
 #include <string>
 #include <vector>
 
-#include "Networkland.h"
+#include <Rcpp.h>
 
-using namespace Rcpp;
-using namespace std;
+#include "Networkland.h"
 
 //! Idea/Innovation - ABM agent
 /*!
@@ -33,7 +30,7 @@ class Idea {
   /*!
    Returns vector of vertices that are occupied by an Idea.
    */
-  vector<Vertexdesc> get_vertices();
+  std::vector<Vertexdesc> get_vertices();
 
   //! Interaction between Idea an Networkland
   /*!
@@ -51,7 +48,7 @@ class Idea {
   //! reference to Networkland
   Networkland* realworld;
   //! vector that stores vertices occupied by an Idea
-  vector<Vertexdesc> vertices;
+  std::vector<Vertexdesc> vertices;
 };
 
 std::string create_random_string(size_t length);
@@ -60,5 +57,3 @@ size_t compare_strings(
     const std::string &s2
   );
 size_t compare_ideas(Idea* a, Idea* b);
-
-#endif
