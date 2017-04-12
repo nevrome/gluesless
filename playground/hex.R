@@ -1,5 +1,6 @@
 library(ggplot2)
 library(magrittr)
+library(igraph)
 
 area <- rgdal::readOGR(
   dsn = "/home/clemens/nevcloud/geodata/generalshapes/ne_110m_land.shp"
@@ -32,15 +33,30 @@ rsa_hex_df %>%
   ) %>%
   dplyr::select(name, x, y) -> nodes
 
-######
-
-library(igraph)
-
-edges <- data.frame(
-  from = sample(nodes$name, 30, replace = TRUE),
-  to = sample(nodes$name, 30, replace = TRUE),
-  distance = runif(30, 0, 100) %>% round(0)
+nodes_spdf <- SpatialPointsDataFrame(
+  coords = dplyr::select_(nodes, "x", "y"), data = nodes,
+  proj4string = CRS("+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0")
+) %>% sp::spTransform(
+  sp::CRS("+proj=moll +lon_0=0 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m +no_defs")
 )
+
+distmat <- rgeos::gDistance(nodes_spdf, byid = TRUE)
+
+edges <- apply(distmat, 1, function(x) {
+  order(x, decreasing=F)[c(2:6)] - 1
+  }) %>% t %>%
+  as.data.frame() %>%
+  set_names(paste0("n_", 1:5)) %>%
+  dplyr::mutate(nodes = as.numeric(row.names(.)) - 1) %>%
+  tidyr::gather(
+    ., key = schnupp, value = neighs,
+    n_1, n_2, n_3, n_4, n_5
+  ) %>%
+  dplyr::select(nodes, neighs) %>%
+  dplyr::rename(from = nodes, to = neighs) %>%
+  dplyr::mutate(distance = runif(nrow(.), 0, 100) %>% round(0))
+
+#####
 
 g <- graph_from_data_frame(
   edges,
