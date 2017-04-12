@@ -1,22 +1,28 @@
 library(ggplot2)
 library(magrittr)
 
+area <- rgdal::readOGR(
+  dsn = "/home/clemens/nevcloud/geodata/generalshapes/ne_110m_land.shp"
+)
+
+research_area_border <- rgdal::readOGR(
+  dsn = "data_raw/extent.shp"
+)
+
+research_area <- rgeos::gIntersection(
+  area, research_area_border, byid = TRUE,
+  drop_lower_td = TRUE
+)
+
+rsa_df <- ggplot2::fortify(research_area)
+
 rsa_hex_df <- hexify(
-  areapath = "/home/clemens/nevcloud/geodata/generalshapes/ne_110m_land.shp",
-  clippath = "data_raw/extent.shp",
+  area = research_area,
   hexproj  = "+proj=moll +lon_0=0 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m +no_defs",
   bufferwidth = 2000,
   hexcellsize = 75000
-)
-
-ggplot() +
-  geom_polygon(
-    data = rsa_hex_df,
-    aes(
-      long,
-      lat,
-      group = group)
-  )
+  ) %>%
+  ggplot2::fortify(region = "id")
 
 rsa_hex_df %>%
   dplyr::group_by_("id") %>%
@@ -57,4 +63,4 @@ new(
   run() %$%
   idea_exp -> runres
 
-plot_devel(g, runres, store = TRUE)
+plot_devel(g, runres, store = TRUE, world = rsa_df, hex = rsa_hex_df)

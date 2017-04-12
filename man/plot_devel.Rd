@@ -4,7 +4,7 @@
 \alias{plot_devel}
 \title{plot function - network development}
 \usage{
-plot_devel(graph, runres, store = FALSE, path = "../modevel/")
+plot_devel(graph, runres, store = FALSE, path = "../modevel/", world, hex)
 }
 \arguments{
 \item{graph}{igraph graph object}
@@ -17,6 +17,10 @@ file system. Default: FALSE}
 \item{path}{directory in file system, where the plots are stored.
 \bold{Other files in this directory are deleted.}
 Default: "../modevel/"}
+
+\item{world}{test}
+
+\item{hex}{test}
 }
 \value{
 NULL - just called for side effects

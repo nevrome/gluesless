@@ -8,6 +8,7 @@
 #' @return igraph object
 #'
 #' @importFrom magrittr "%>%"
+#' @importFrom magrittr "%<>%"
 #'
 #' @export
 graphread <- function(inputstring, format = "graphml"){

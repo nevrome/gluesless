@@ -2,8 +2,7 @@
 #'
 #' test
 #'
-#' @param areapath test
-#' @param clippath test
+#' @param area test
 #' @param hexproj test
 #' @param bufferwidth test
 #' @param hexcellsize test
@@ -12,33 +11,21 @@
 #'
 #' @export
 hexify <- function(
-  areapath,
-  clippath,
+  area,
   hexproj,
   bufferwidth,
   hexcellsize
 ) {
 
-  area <- rgdal::readOGR(
-    dsn = areapath
-  )
-
   inCRS <- rgdal::CRSargs(area@proj4string)
 
-  research_area_border <- rgdal::readOGR(
-    dsn = clippath
-  )
-
-  research_area <- rgeos::gIntersection(
-    area, research_area_border, byid = TRUE,
-    drop_lower_td = TRUE
-  ) %>%
+  area %<>%
     sp::spTransform(
       sp::CRS(hexproj)
     )
 
   rgeos::gBuffer(
-    research_area,
+    area,
     width = bufferwidth
   ) %>% sp::spsample(
     type = "hexagonal",
@@ -50,12 +37,10 @@ hexify <- function(
   #plot(research_area)
   #plot(research_area_hex, add=TRUE)
 
-  research_area_hex %>%
+  research_area_hex %<>%
     sp::spTransform(
       sp::CRS(inCRS)
-    ) -> research_area_hex_re
+    )
 
-  rsa_hex_df <- ggplot2::fortify(research_area_hex_re, region = "id")
-
-  return(rsa_hex_df)
+  return(research_area_hex)
 }

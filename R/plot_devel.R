@@ -10,12 +10,14 @@
 #' @param path directory in file system, where the plots are stored.
 #'             \bold{Other files in this directory are deleted.}
 #'             Default: "../modevel/"
+#' @param world test
+#' @param hex test
 #'
 #' @return NULL - just called for side effects
 #'
 #' @export
 plot_devel <- function(
-  graph, runres, store = FALSE, path = "../modevel/"
+  graph, runres, store = FALSE, path = "../modevel/", world, hex
 ) {
 
   # check if runres is empty
@@ -57,54 +59,45 @@ plot_devel <- function(
       dplyr::mutate_("n" = ~n()) %>%
       as.data.frame()
 
-    # load world map
-    world <- ggplot2::map_data("world")
-
     # plot
     plotlist[[p1]] <- ggraph::ggraph(
       graph, layout = 'manual',
       node.positions = vertices
       ) +
       ggplot2::geom_polygon(
+        data = hex,
+        ggplot2::aes_string(
+          x = "long", y = "lat",
+          group = "group"
+        ),
+        fill = NA, colour = "#a0a0a0"
+      ) +
+      ggplot2::geom_polygon(
         data = world,
         ggplot2::aes_string(
-         x = "long", y = "lat",
-         group = "group"
+          x = "long", y = "lat",
+          group = "group"
         ),
-        fill = "#ffffff", colour = "#a0a0a0"
+        fill = NA, colour = "black"
       ) +
       ggraph::geom_edge_fan(
         ggplot2::aes_string(edge_alpha = "distance")
       ) +
-      ggraph::scale_edge_alpha(trans = "reverse") +
-      ggraph::geom_node_point(
-        shape = 21,
-        size = mext*1/23,
-        fill = "white"
-      ) +
-      ggraph::geom_node_text(
-        ggplot2::aes_string(label = "name"),
-        size = mext*1/32
+      ggraph::scale_edge_alpha(
+        trans = "reverse"
       ) +
       ggplot2::geom_jitter(
         data = res,
         ggplot2::aes_string(
           x = "x", y = "y",
-          fill = "ideas",
-          colour = "n"
+          colour = "ideas"
         ),
-        shape = 21,
+        shape = 20,
         size = mext*1/30,
-        stroke = 1,
-        width = extx*1/35,
-        height = exty*1/35
+        width = extx*1/200,
+        height = exty*1/200
       ) +
-      ggplot2::scale_color_continuous(
-        low = "#e6e6e6",
-        high = "#000000",
-        limits = c(1, 100)
-      ) +
-      ggplot2::scale_fill_gradient2(
+      ggplot2::scale_color_gradient2(
         low = "#218203",
         mid = "#ffff00",
         high = "#990000",
@@ -112,10 +105,10 @@ plot_devel <- function(
         midpoint = 50
       ) +
       ggplot2::theme_bw() +
-      ggplot2::xlim(minx, maxx) +
-      ggplot2::ylim(miny, maxy) +
+      #ggplot2::xlim(minx, maxx) +
+      #ggplot2::ylim(miny, maxy) +
       ggplot2::coord_map(
-        "ortho", orientation = c(48, 9, 0)
+        "ortho", orientation = c(48, 13, 0)
         # xlim = c(minx, maxx),
         # ylim = c(miny, maxy)
       )

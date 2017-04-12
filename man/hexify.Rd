@@ -4,12 +4,10 @@
 \alias{hexify}
 \title{test}
 \usage{
-hexify(areapath, clippath, hexproj, bufferwidth, hexcellsize)
+hexify(area, hexproj, bufferwidth, hexcellsize)
 }
 \arguments{
-\item{areapath}{test}
-
-\item{clippath}{test}
+\item{area}{test}
 
 \item{hexproj}{test}
 
