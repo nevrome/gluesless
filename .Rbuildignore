@@ -4,3 +4,4 @@
 ^codecov\.yml$
 ^Ideen\.Rmd$
 ^playground$
+^data_raw$

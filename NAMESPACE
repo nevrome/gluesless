@@ -3,6 +3,7 @@
 export(.onUnload)
 export(graphread)
 export(graphwrite)
+export(hexify)
 export(plot_devel)
 export(run)
 exportClasses(model_builder)
