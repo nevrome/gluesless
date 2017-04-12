@@ -18,7 +18,7 @@ addons:
     - libboost-all-dev
     - libudunits2-dev
     - gdal-bin
-    - proj
+    - proj-bin
 
 warnings_are_errors: true
 
