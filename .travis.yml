@@ -17,8 +17,8 @@ addons:
     - valgrind
     - libboost-all-dev
     - libudunits2-dev
-    - gdal-bin
-    - proj-bin
+    - libgdal-dev
+    - libproj-dev
 
 warnings_are_errors: true
 
