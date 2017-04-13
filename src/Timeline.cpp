@@ -34,11 +34,11 @@ SEXP Timeline::export_as_R_list() {
   NumericVector vert;
 
   int count = 0;
-  std::vector< std::vector<int> >::iterator it_id_1=ideas.begin();
+  auto it_id_1 = ideas.cbegin();
 
   for (auto& it_vert_1 : idea_vertices) {
 
-    std::vector<int>::iterator it_id_2=(*it_id_1).begin();
+    auto it_id_2=(*it_id_1).cbegin();
 
     for (auto& it_vert_2 : it_vert_1) {
 

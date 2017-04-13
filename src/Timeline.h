@@ -41,5 +41,5 @@ class Timeline {
   //! stores Idea identities over time
   std::vector< std::vector<int> > ideas;
   //! stores Idea positions over time
-  std::vector< std::vector< std::vector<Vertexdesc> > > idea_vertices;
+  std::vector< std::vector< std::vector<vertex_desc> > > idea_vertices;
 };

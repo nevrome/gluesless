@@ -33,7 +33,7 @@ struct Edge {
   double distance;
 };
 
-typedef boost::property<boost::graph_name_t, std::string> Complete_Graph;
+typedef boost::property<boost::graph_name_t, std::string> complete_graph;
 
 typedef boost::adjacency_list<
           boost::listS,
@@ -41,14 +41,14 @@ typedef boost::adjacency_list<
           boost::undirectedS,
           Vertex,
           Edge,
-          Complete_Graph>
+          complete_graph>
         graph_t;
 
-typedef boost::graph_traits<graph_t>::vertex_iterator vertex_iter;
-typedef boost::graph_traits<graph_t>::vertex_descriptor Vertexdesc;
-typedef boost::graph_traits<graph_t>::edge_descriptor Edgedesc;
-typedef boost::graph_traits<graph_t> GraphTraits;
-typedef boost::property_map<graph_t, boost::vertex_index_t>::type IndexMap;
+typedef boost::graph_traits<graph_t> graph_trs;
+typedef graph_trs::vertex_iterator vertex_iter;
+typedef graph_trs::vertex_descriptor vertex_desc;
+typedef graph_trs::edge_descriptor edge_desc;
+typedef boost::property_map<graph_t, boost::vertex_index_t>::type index_map;
 
 //! Real world represented with a network - ABM environment
 /*!
@@ -66,10 +66,10 @@ class Networkland {
     //! get number of vertices of graph
     int get_number_of_vertices();
     //! get adjacent vertices of an input vertex in graph
-    std::vector<Vertexdesc> get_adjacent_vertices(Vertexdesc v);
+    std::vector<vertex_desc> get_adjacent_vertices(vertex_desc v);
     //! get distance value between two input vertices in graph
     double get_distance_between_two_vertices(
-        Vertexdesc a, Vertexdesc b
+        const vertex_desc& a, const vertex_desc& b
       );
 
     // std::string export_graph();

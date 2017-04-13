@@ -2,8 +2,6 @@
 
 #include <algorithm>
 
-#include <Rcpp.h>
-
 #include "global.h"
 
 Idea::Idea(Networkland* real) {
@@ -12,7 +10,7 @@ Idea::Idea(Networkland* real) {
 
   this->realworld = real;
 
-  Vertexdesc randpos = randunifrange(
+  vertex_desc randpos = randunifrange(
     0, (realworld->get_number_of_vertices() - 1)
     );
 
@@ -23,14 +21,14 @@ int Idea::get_identity() {
   return identity;
 }
 
-std::vector<Vertexdesc> Idea::get_vertices() {
+std::vector<vertex_desc> Idea::get_vertices() {
   return this->vertices;
 }
 
 void Idea::infect() {
 
-  std::vector<Vertexdesc> adjacentvecs;
-  Vertexdesc victim;
+  std::vector<vertex_desc> adjacentvecs;
+  vertex_desc victim;
   double mindist;
   bool check = false;
 

@@ -34,7 +34,7 @@ class Aether {
    Returns vector of vector of occupied vertices of
    currently present Idea instances.
    */
-  std::vector< std::vector<Vertexdesc> > get_idea_vertices();
+  std::vector< std::vector<vertex_desc> > get_idea_vertices();
 
   //! go to the next timestep
   /*!

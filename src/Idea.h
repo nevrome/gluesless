@@ -30,7 +30,7 @@ class Idea {
   /*!
    Returns vector of vertices that are occupied by an Idea.
    */
-  std::vector<Vertexdesc> get_vertices();
+  std::vector<vertex_desc> get_vertices();
 
   //! Interaction between Idea an Networkland
   /*!
@@ -48,7 +48,7 @@ class Idea {
   //! reference to Networkland
   Networkland* realworld;
   //! vector that stores vertices occupied by an Idea
-  std::vector<Vertexdesc> vertices;
+  std::vector<vertex_desc> vertices;
 };
 
 std::string create_random_string(size_t length);

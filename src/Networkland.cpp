@@ -44,21 +44,24 @@ int Networkland::get_number_of_vertices() {
   return num_vertices(env);
 }
 
-std::vector<Vertexdesc> Networkland::get_adjacent_vertices(Vertexdesc v) {
-  std::vector<Vertexdesc> res;
-  IndexMap index = get(vertex_index, env);
-  typename graph_traits<graph_t>::adjacency_iterator ai;
-  typename graph_traits<graph_t>::adjacency_iterator ai_end;
+std::vector<vertex_desc> Networkland::get_adjacent_vertices(vertex_desc v) {
+  std::vector<vertex_desc> res;
+  res.reserve(10);
+  index_map index = get(vertex_index, env);
+  typename graph_trs::adjacency_iterator ai;
+  typename graph_trs::adjacency_iterator ai_end;
   for (tie(ai, ai_end) = adjacent_vertices(v, env); ai != ai_end; ++ai) {
     res.push_back(index[*ai]);
   }
   return res;
 }
 
-double Networkland::get_distance_between_two_vertices(Vertexdesc a, Vertexdesc b) {
+double Networkland::get_distance_between_two_vertices(
+    const vertex_desc& a, const vertex_desc& b
+  ) {
 
   // create a pair to store the edge iterators
-  std::pair<Edgedesc, bool> edgepair;
+  std::pair<edge_desc, bool> edgepair;
 
   edgepair = edge(a, b, env);
 

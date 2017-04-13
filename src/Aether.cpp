@@ -12,17 +12,16 @@ int Aether::get_ideanumber() {
 
 std::vector<int> Aether::get_ideas() {
   std::vector<int> res;
-  std::vector<Idea*>& v = this->mindspace;
-  for(auto& idx : v) {
+  for(auto& idx : this->mindspace) {
     res.push_back(idx->get_identity());
   }
   return res;
 }
 
-std::vector< std::vector<Vertexdesc> > Aether::get_idea_vertices(){
-  std::vector< std::vector <Vertexdesc> > res;
-  std::vector<Idea*>& v = this->mindspace;
-  for(auto& idx : v) {
+std::vector< std::vector<vertex_desc> > Aether::get_idea_vertices(){
+  std::vector< std::vector <vertex_desc> > res;
+  res.reserve(this->mindspace.size());
+  for(auto& idx : this->mindspace) {
     res.push_back(idx->get_vertices());
   }
   return res;
