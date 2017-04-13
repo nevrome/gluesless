@@ -15,7 +15,6 @@ void Timeline::develop(Aether* current) {
 
   current->develop();
 
-  Rcpp::Rcout << "Zeitschritt vorwärts! " << std::endl;
 }
 
 SEXP Timeline::export_as_R_list() {

@@ -65,9 +65,6 @@ double Networkland::get_distance_between_two_vertices(
 
   edgepair = edge(a, b, env);
 
-  Rcpp::Rcout << "Diff between: " << a << " and " << b << " is " <<
-    env[edgepair.first].distance << std::endl;
-
   return env[edgepair.first].distance;
 }
 

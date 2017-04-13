@@ -50,8 +50,6 @@ void Idea::infect() {
     }
   }
 
-  Rcpp::Rcout << "mindist: " << mindist << std::endl;
-
   if (check) {
     vertices.push_back(victim);
   }
