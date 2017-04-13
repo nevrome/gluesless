@@ -12,6 +12,7 @@ int Aether::get_ideanumber() {
 
 std::vector<int> Aether::get_ideas() {
   std::vector<int> res;
+  res.reserve(this->mindspace.size());
   for(auto& idx : this->mindspace) {
     res.push_back(idx->get_identity());
   }

@@ -29,9 +29,12 @@ SEXP Timeline::export_as_R_list() {
       ideanumber.end()
     );
 
-  NumericVector timestep;
-  NumericVector id;
-  NumericVector vert;
+  std::vector<int> timestep;
+  timestep.reserve(1000);
+  std::vector<int> id;
+  id.reserve(1000);
+  std::vector<int> vert;
+  vert.reserve(1000);
 
   int count = 0;
   auto it_id_1 = ideas.cbegin();
