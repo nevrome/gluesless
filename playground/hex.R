@@ -43,14 +43,14 @@ nodes_spdf <- SpatialPointsDataFrame(
 distmat <- rgeos::gDistance(nodes_spdf, byid = TRUE)
 
 edges <- apply(distmat, 1, function(x) {
-  order(x, decreasing=F)[c(2:6)] - 1
+  order(x, decreasing=F)[c(2:7)] - 1
   }) %>% t %>%
   as.data.frame() %>%
-  set_names(paste0("n_", 1:5)) %>%
+  set_names(paste0("n_", 1:6)) %>%
   dplyr::mutate(nodes = as.numeric(row.names(.)) - 1) %>%
   tidyr::gather(
     ., key = schnupp, value = neighs,
-    n_1, n_2, n_3, n_4, n_5
+    n_1, n_2, n_3, n_4, n_5, n_6
   ) %>%
   dplyr::select(nodes, neighs) %>%
   dplyr::rename(from = nodes, to = neighs) %>%
