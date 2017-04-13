@@ -60,18 +60,7 @@ plot_devel <- function(
       as.data.frame()
 
     # plot
-    plotlist[[p1]] <- ggraph::ggraph(
-      graph, layout = 'manual',
-      node.positions = vertices
-      ) +
-      ggplot2::geom_polygon(
-        data = hex,
-        ggplot2::aes_string(
-          x = "long", y = "lat",
-          group = "group"
-        ),
-        fill = NA, colour = "#a0a0a0"
-      ) +
+    plotlist[[p1]] <- ggplot2::ggplot() +
       ggplot2::geom_polygon(
         data = world,
         ggplot2::aes_string(
@@ -79,12 +68,6 @@ plot_devel <- function(
           group = "group"
         ),
         fill = NA, colour = "black"
-      ) +
-      ggraph::geom_edge_fan(
-        ggplot2::aes_string(edge_alpha = "distance")
-      ) +
-      ggraph::scale_edge_alpha(
-        trans = "reverse"
       ) +
       ggplot2::geom_jitter(
         data = res,
@@ -105,12 +88,8 @@ plot_devel <- function(
         midpoint = 50
       ) +
       ggplot2::theme_bw() +
-      #ggplot2::xlim(minx, maxx) +
-      #ggplot2::ylim(miny, maxy) +
       ggplot2::coord_map(
         "ortho", orientation = c(48, 13, 0)
-        # xlim = c(minx, maxx),
-        # ylim = c(miny, maxy)
       )
   }
 

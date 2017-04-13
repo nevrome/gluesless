@@ -79,4 +79,7 @@ new(
   run() %$%
   idea_exp -> runres
 
+plot_world(g, world = rsa_df, hex = rsa_hex_df)
+plot_world(g, world = rsa_df, plotedges = TRUE)
+
 plot_devel(g, runres, store = TRUE, world = rsa_df, hex = rsa_hex_df)

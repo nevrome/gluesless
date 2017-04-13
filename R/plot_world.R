@@ -1,0 +1,77 @@
+#' plot function - world
+#'
+#' @description
+#' Creates graph plots for a model run.
+#'
+#' @param graph igraph graph object
+#' @param world test
+#' @param hex test
+#' @param plotedges test
+#'
+#' @return resplot
+#'
+#' @export
+plot_world <- function(
+  graph, world, hex = NULL, plotedges = FALSE
+) {
+
+  # extract vertices table from igraph object
+  vertices <- igraph::get.vertex.attribute(graph) %>%
+    as.data.frame(stringsAsFactors = FALSE) %>%
+    dplyr::mutate_("name" = ~as.numeric(name))
+
+  # calculate extend of graph
+  minx = min(vertices$x)
+  maxx = max(vertices$x)
+  miny = min(vertices$y)
+  maxy = max(vertices$y)
+
+  extx = maxx - minx
+  exty = maxy - miny
+  mext = min(c(extx, exty))
+
+  minx = minx - extx/10
+  maxx = maxx + extx/10
+  miny = miny - exty/10
+  maxy = maxy + exty/10
+
+  # plot
+  resplot <- ggraph::ggraph(
+    graph, layout = 'manual',
+    node.positions = vertices
+    ) +
+    ggplot2::geom_polygon(
+      data = world,
+      ggplot2::aes_string(
+        x = "long", y = "lat",
+        group = "group"
+      ),
+      fill = NA, colour = "red"
+    ) +
+    ggplot2::theme_bw() +
+    ggplot2::coord_map(
+      "ortho", orientation = c(48, 13, 0)
+    )
+
+  if (!is.null(hex)) {
+    resplot <- resplot + ggplot2::geom_polygon(
+      data = hex,
+      ggplot2::aes_string(
+        x = "long", y = "lat",
+        group = "group"
+      ),
+      fill = NA, colour = "#a0a0a0"
+    )
+  }
+
+  if (plotedges) {
+    resplot <- resplot + ggraph::geom_edge_fan(
+      ggplot2::aes_string(edge_alpha = "distance")
+    ) +
+    ggraph::scale_edge_alpha(
+      trans = "reverse"
+    )
+  }
+
+  return(resplot)
+}
