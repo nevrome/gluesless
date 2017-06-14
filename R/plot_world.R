@@ -1,18 +1,15 @@
 #' plot function - world
 #'
-#' @description
-#' Creates graph plots for a model run.
-#'
 #' @param graph igraph graph object
-#' @param world test
-#' @param hex test
-#' @param plotedges test
+#' @param world_polygon polygon data.frame describing the land outline
+#' @param hex polygon data.frame describing the hex raster
+#' @param plotedges should the graph edges be plotted?
 #'
 #' @return resplot
 #'
 #' @export
 plot_world <- function(
-  graph, world, hex = NULL, plotedges = FALSE
+  graph, world_polygon, hex = NULL, plotedges = FALSE
 ) {
 
   # extract vertices table from igraph object
@@ -41,7 +38,7 @@ plot_world <- function(
     node.positions = vertices
     ) +
     ggplot2::geom_polygon(
-      data = world,
+      data = world_polygon,
       ggplot2::aes_string(
         x = "long", y = "lat",
         group = "group"

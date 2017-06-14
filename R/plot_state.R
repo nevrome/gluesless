@@ -1,11 +1,10 @@
-#' plot function
+#' plot function - add ideas to world plot
 #'
-#' @description
-#' huhn
+#' @param worldplot ggplot world plot
+#' @param states result df of link_ideas_world
+#' @param state_id integer. id of state to plot
 #'
-#' @param test igraph graph object
-#'
-#' @return fnuc
+#' @return resplot
 #'
 #' @export
 plot_state <- function(worldplot, states, state_id) {
@@ -20,10 +19,7 @@ plot_state <- function(worldplot, states, state_id) {
         x = "x", y = "y",
         colour = "ideas"
       ),
-      shape = 20,
-      # size = mext*1/30,
-      # width = extx*1/200,
-      # height = exty*1/200
+      shape = 20
     ) +
     ggplot2::scale_color_gradient2(
       low = "#218203",

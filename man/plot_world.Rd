@@ -4,20 +4,20 @@
 \alias{plot_world}
 \title{plot function - world}
 \usage{
-plot_world(graph, world, hex = NULL, plotedges = FALSE)
+plot_world(graph, world_polygon, hex = NULL, plotedges = FALSE)
 }
 \arguments{
 \item{graph}{igraph graph object}
 
-\item{world}{test}
+\item{world_polygon}{polygon data.frame describing the land outline}
 
-\item{hex}{test}
+\item{hex}{polygon data.frame describing the hex raster}
 
-\item{plotedges}{test}
+\item{plotedges}{should the graph edges be plotted?}
 }
 \value{
 resplot
 }
 \description{
-Creates graph plots for a model run.
+plot function - world
 }

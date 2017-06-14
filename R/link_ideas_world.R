@@ -1,3 +1,10 @@
+#' add input graph vertex coordinates to model results
+#'
+#' @param idea_exp igraph graph object
+#' @param world_graph igraph graph object
+#'
+#' @return data.frame
+#'
 #' @export
 link_ideas_world <- function(idea_exp, world_graph) {
 

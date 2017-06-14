@@ -2,7 +2,7 @@ Package: gluesless
 Type: Package
 Title: gluesless - it's awesome!
 Version: 0.0.1
-Authors@R: c(
+Author: c(
   person("Clemens", "Schmid", email = "clemens@nevrome.de", role = c("cre", "cph", "aut"))
   )
 Maintainer: Clemens Schmid <clemens@nevrome.de>
@@ -20,6 +20,7 @@ Imports:
     magrittr (>= 1.5),
     maps (>= 3.1.1),
     plyr (>= 1.8.4),
+    purrr (>= 0.2.2.2),
     rgdal (>= 1.2-6),
     rgeos (>= 0.3-23),
     sp (>= 1.2-4)

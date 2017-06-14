@@ -2,16 +2,20 @@
 % Please edit documentation in R/plot_state.R
 \name{plot_state}
 \alias{plot_state}
-\title{plot function}
+\title{plot function - add ideas to world plot}
 \usage{
 plot_state(worldplot, states, state_id)
 }
 \arguments{
-\item{test}{igraph graph object}
+\item{worldplot}{ggplot world plot}
+
+\item{states}{result df of link_ideas_world}
+
+\item{state_id}{integer. id of state to plot}
 }
 \value{
-fnuc
+resplot
 }
 \description{
-huhn
+plot function - add ideas to world plot
 }
