@@ -30,7 +30,7 @@ class Timeline {
   //! go to the next timestep
   /*!
    Jumps from on timestep to the next by calling the Aether
-   development function. Before the development, the
+   development function. After the development, the
    current status of the Aether is queried and stored.
    */
   void develop(Aether* current);

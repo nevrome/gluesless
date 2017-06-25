@@ -7,13 +7,16 @@ Timeline::Timeline(Aether* start) {
 }
 
 void Timeline::develop(Aether* current) {
+
+  // develop Aether
+  current->develop();
+
+  // query new Aether values to be stored in Timeline
   this->ideanumber.push_back(current->get_ideanumber());
   this->ideas.push_back(current->get_ideas());
   this->idea_vertices.push_back(
       current->get_idea_vertices()
-    );
-
-  current->develop();
+  );
 
 }
 

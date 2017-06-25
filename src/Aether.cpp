@@ -32,7 +32,9 @@ void Aether::develop() {
 
   auto& v = this->mindspace;
 
-  if (randunifrange(1, 5) == 1) {
+  // if no ideas are present, create one (simulation startup).
+  // else: change of appearance of a new one is 1/5
+  if(v.size() == 0 || randunifrange(1, 5) == 1){
     Idea* newidea = new Idea(realworld);
     v.push_back(newidea);
   }
