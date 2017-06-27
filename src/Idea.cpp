@@ -32,12 +32,19 @@ void Idea::infect() {
   double mindist;
   bool check = false;
 
+  // iterate through all vertices occupied by the idea
   for (auto& p1 : vertices) {
+    // get neighbouring vertices of the current vertex
     adjacentvecs = realworld->get_adjacent_vertices(p1);
+    // iterate through all neighbouring vertices of the current vertex
     for (auto& p2 : adjacentvecs) {
+      // check, if current neighbouring vertex is not already part of the idea
+      // if it's part, then skip, else:
       if (!(find(vertices.begin(), vertices.end(), p2) !=
           vertices.end())) {
+        // get the distance value between the two vertices
         double tempdist = realworld->get_distance_between_two_vertices(p1, p2);
+        // search for victim with smalles distance
         if (!check) {
           mindist = tempdist;
           victim = p2;
@@ -50,8 +57,14 @@ void Idea::infect() {
     }
   }
 
+  // if the previous loop found a victim (could for example fail,
+  // if the idea is already everywhere), it can become part of the idea
   if (check) {
-    vertices.push_back(victim);
+    // get probability decision about where an idea actually grows
+    // dependend on the edge distance value of the victim node
+    if (randunifrange(0, 101) > mindist*100) {
+      vertices.push_back(victim);
+    }
   }
 }
 
