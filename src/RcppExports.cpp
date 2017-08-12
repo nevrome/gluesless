@@ -7,7 +7,7 @@ using namespace Rcpp;
 
 // run
 SEXP run(SEXP model_builder);
-RcppExport SEXP gluesless_run(SEXP model_builderSEXP) {
+RcppExport SEXP _gluesless_run(SEXP model_builderSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -18,7 +18,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"gluesless_run", (DL_FUNC) &gluesless_run, 1},
+    {"_gluesless_run", (DL_FUNC) &_gluesless_run, 1},
     {NULL, NULL, 0}
 };
 
