@@ -1,5 +1,7 @@
-#include "Timeline.h"
+#include <math.h>
 
+#include "global.h"
+#include "Timeline.h"
 #include "Aether.h"
 
 Timeline::Timeline(Aether* start) {
@@ -42,8 +44,10 @@ SEXP Timeline::export_as_R_list() {
   std::vector<int> vert;
   vert.reserve(10000);
 
-  int amount_of_timesteps = this->ideanumber.length();
-  int export_step_pos = amount_of_timesteps / 10;
+  // determine export timestep resolution depending on number of iterations
+  int iter = this->ideanumber.size();
+  Rcpp::Rcout << iter;
+  int am = pow(10, get_number_of_digits(iter) - 2);
 
   int count = 0;
   // get pointer to the first idea list in the idea identity vector
@@ -51,7 +55,8 @@ SEXP Timeline::export_as_R_list() {
   // loop over idea positions vector
   for (auto& it_vert_1 : idea_vertices) {
 
-    if(count % 100 == 0) {
+    // only export every xth step and first and last
+    if(count % am == 0 | count == iter - 2) {
       // get pointer to the first idea in the idea list in the idea identity vector
       auto it_id_2=(*it_id_1).cbegin();
 
@@ -61,24 +66,20 @@ SEXP Timeline::export_as_R_list() {
         for (auto& it_vert_3 : it_vert_2) {
 
           // finally extract the essential values and write the rows in the
-          // result data.frame
+          // result vectors
           timestep.push_back(count);
           id.push_back(*it_id_2);
           vert.push_back(it_vert_3);
 
         }
-
       it_id_2++;
-
       }
-
     }
-
   it_id_1++;
   count++;
-
   }
 
+  // construct data.frame and add to export list
   res["idea_exp"] = Rcpp::DataFrame::create(
     _["timestep"] = timestep,
     _["ideas"] = id,
