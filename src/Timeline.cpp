@@ -32,30 +32,34 @@ SEXP Timeline::export_as_R_list() {
     );
 
   std::vector<int> timestep;
-  timestep.reserve(1000);
+  timestep.reserve(10000);
   std::vector<int> id;
-  id.reserve(1000);
+  id.reserve(10000);
   std::vector<int> vert;
-  vert.reserve(1000);
+  vert.reserve(10000);
 
   int count = 0;
   auto it_id_1 = ideas.cbegin();
 
   for (auto& it_vert_1 : idea_vertices) {
 
-    auto it_id_2=(*it_id_1).cbegin();
+    if(count % 100 == 0) {
 
-    for (auto& it_vert_2 : it_vert_1) {
+      auto it_id_2=(*it_id_1).cbegin();
 
-      for (auto& it_vert_3 : it_vert_2) {
+      for (auto& it_vert_2 : it_vert_1) {
 
-        timestep.push_back(count);
-        id.push_back(*it_id_2);
-        vert.push_back(it_vert_3);
+        for (auto& it_vert_3 : it_vert_2) {
+
+          timestep.push_back(count);
+          id.push_back(*it_id_2);
+          vert.push_back(it_vert_3);
+
+        }
+
+      it_id_2++;
 
       }
-
-    it_id_2++;
 
     }
 
