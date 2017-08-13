@@ -1,6 +1,7 @@
 # General roxygen tags
 #' @useDynLib gluesless
 #' @import Rcpp methods
+#' @import RcppProgress
 
 #' @export
 .onUnload <- function (libpath) {

@@ -1,6 +1,11 @@
-#include <Rcpp.h>
+// [[Rcpp::depends(RcppProgress)]]
+
 #include <cstdlib>
 #include <math.h>
+
+#include <Rcpp.h>
+#include <progress.hpp>
+#include <progress_bar.hpp>
 
 #include "Idea.h"
 #include "Networkland.h"
@@ -42,8 +47,11 @@ SEXP run(SEXP model_builder){
   Timeline* thyme = new Timeline(overmind);
 
   // develop
+  Progress p(iter, true);
   for (int i = 0; i < iter; i++) {
     thyme->develop(overmind);
+    if (Progress::check_abort()) {break;}
+    p.increment();
   }
 
   List res = thyme->export_as_R_list();

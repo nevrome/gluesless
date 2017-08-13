@@ -34,8 +34,9 @@ VignetteBuilder: knitr
 Depends:
     R (>= 3.2.3),
     Rcpp (>= 0.12.3),
+    RcppProgress (>= 0.3),
     methods
-LinkingTo: Rcpp
+LinkingTo: Rcpp, RcppProgress
 SystemRequirements:
     boost,
     udunits2
