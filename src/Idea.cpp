@@ -27,29 +27,41 @@ std::vector<vertex_desc> Idea::get_vertices() {
 
 void Idea::infect() {
 
+  // get vertices of current idea and shuffle them randomly to prevent
+  // linear spread because of victim selection algorithm (see below)
+  std::vector<vertex_desc> own_vertices = this->vertices;
+  std::random_shuffle(
+    own_vertices.begin(),
+    own_vertices.end(),
+    randWrapper
+  );
+
+  // create empty objects to store intermediate results
   std::vector<vertex_desc> adjacentvecs;
   vertex_desc victim;
   double mindist;
   bool check = false;
 
   // iterate through all vertices occupied by the idea
-  for (auto& p1 : vertices) {
+  for (auto& p1 : own_vertices) {
     // get neighbouring vertices of the current vertex
     adjacentvecs = realworld->get_adjacent_vertices(p1);
     // iterate through all neighbouring vertices of the current vertex
     for (auto& p2 : adjacentvecs) {
       // check, if current neighbouring vertex is not already part of the idea
       // if it's part, then skip, else:
-      if (!(find(vertices.begin(), vertices.end(), p2) !=
-          vertices.end())) {
+      if (!(find(own_vertices.begin(), own_vertices.end(), p2) != own_vertices.end())) {
         // get the distance value between the two vertices
         double tempdist = realworld->get_distance_between_two_vertices(p1, p2);
         // search for victim with smalles distance
+        // first loop iteration: choose the first one as victim
         if (!check) {
           mindist = tempdist;
           victim = p2;
           check = true;
-        } else if (tempdist <= mindist) {
+        // further loop iterations:
+        // check if tempdist actually smaller - if yes = select as new victim
+        } else if (tempdist < mindist) {
           mindist = tempdist;
           victim = p2;
         }
