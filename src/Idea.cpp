@@ -4,34 +4,37 @@
 
 #include "global.h"
 
-Idea::Idea(int id, Networkland* real, std::vector<vertex_desc> birth_vertices) {
-  //this->identity = create_random_string(30);
-  //this->identity = randunifrange(0, 100);
+Idea::Idea(
+  int id,
+  int fec,
+  int fid,
+  int lon,
+  Networkland* real,
+  std::vector<vertex_desc> birth_vertices
+) {
   this->identity = id;
+  this->fecundity = fec,
+  this->fidelity = fid,
+  this->longevity = lon,
+  this->age_in_timesteps = 0;
   this->realworld = real;
-
-  // assign random position to idea
-  // vertex_desc randpos = randunifrange(
-  //   0, (realworld->get_number_of_vertices() - 1)
-  //   );
-  // this->vertices.push_back(randpos);
-
-  // assign definite starting position for initial idea
-  //vertex_desc defpos[2] = {2267, 2256};
-  this->vertices = birth_vertices;//.insert(this->vertices.end(), defpos, defpos + (sizeof(defpos)/sizeof(defpos[0])));
-
+  this->vertices = birth_vertices;
 }
 
-int Idea::get_identity() {
-  return identity;
-}
-
-void Idea::set_identity(int id) {
-  this->identity = id;
-}
+int Idea::get_identity() { return this->identity; }
+void Idea::set_identity(int id) { this->identity = id; }
+int Idea::get_age(){ return this->age_in_timesteps; }
+int Idea::get_fecundity() { return this->fecundity; }
+int Idea::get_fidelity() { return this->fidelity; }
+int Idea::get_longevity() { return this->longevity; }
 
 std::vector<vertex_desc> Idea::get_vertices() {
   return this->vertices;
+}
+
+void Idea::grow() {
+  this->infect();
+  //this->fight();
 }
 
 void Idea::infect() {
@@ -87,6 +90,35 @@ void Idea::infect() {
       vertices.push_back(victim);
     }
   }
+}
+
+//void Idea::fight();
+
+Idea* Idea::split(int new_id) {
+  // split vertices of currently splitting idea
+  std::vector<vertex_desc> v1 = this->vertices;
+  std::vector<vertex_desc> v2(
+      std::make_move_iterator(v1.begin() + v1.size()/2),
+      std::make_move_iterator(v1.end()));
+  v1.erase(v1.begin() + v1.size()/2, v1.end());
+  // create new idea
+  Idea* newidea = new Idea(
+    new_id,
+    5,
+    5,
+    5,
+    realworld,
+    v2
+  );
+  // reduce expansion of old idea
+  this->vertices = v1;
+
+  return newidea;
+}
+
+//! An Idea grows older
+void Idea::age() {
+  this->age_in_timesteps++;
 }
 
 

@@ -8,8 +8,8 @@ load("/home/clemens/neomod/neomod_datapool/model_data/research_area_hex_df.RData
 modelobj <- new(
   "model_builder",
   networkland_env = graphwrite(hex_graph),
-  number_iterations = 1000,
-  initial_idea_starting_positions = c(1000, 1001, 1002)
+  number_iterations = 20,
+  initial_idea_starting_positions = c(1000, 1001, 1002, 1003)
 )
 
 runres <- modelobj %>%

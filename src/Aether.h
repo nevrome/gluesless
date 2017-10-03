@@ -21,6 +21,9 @@ class Aether {
   public:
   Aether(Networkland* real, std::vector<vertex_desc> idea_start_pos);
 
+  int get_idea_id_counter();
+  void increment_idea_id_counter();
+
   //! get number of ideas
   int get_ideanumber();
   //! get identities of Idea instances

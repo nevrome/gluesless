@@ -10,6 +10,14 @@ Aether::Aether(Networkland* real, std::vector<vertex_desc> idea_start_pos) {
 
 }
 
+int Aether::get_idea_id_counter() {
+  return this->idea_id_counter;
+}
+
+void Aether::increment_idea_id_counter() {
+  this->idea_id_counter++;
+}
+
 int Aether::get_ideanumber() {
   return this->mindspace.size();
 }
@@ -36,11 +44,18 @@ void Aether::develop() {
 
   auto& v = this->mindspace;
 
-  // if no ideas are present, create one (simulation startup)
+  // if no ideas are present, create the first one (simulation startup)
   if(v.size() == 0){
-    Idea* newidea = new Idea(this->idea_id_counter, realworld, this->initial_idea_start_pos);
+    Idea* newidea = new Idea(
+      this->idea_id_counter,
+      5,
+      5,
+      5,
+      realworld,
+      this->initial_idea_start_pos
+    );
     // increase Aether id counter
-    this->idea_id_counter++;
+    this->increment_idea_id_counter();
     // store new idea in mindspace
     v.push_back(newidea);
   }
@@ -61,8 +76,17 @@ void Aether::develop() {
   // offset
   for (auto& idx : offset) {
     auto it = v.begin() + idx;
-    //infect
-    (*it)->infect();
+    // check if the idea dies of old age
+    if ((*it)->get_age() == (*it)->get_longevity()) {
+      // if yes: the idea splits
+      Idea* newidea = (*it)->split(this->idea_id_counter + 1);
+      this->increment_idea_id_counter();
+      v.push_back(newidea);
+    } else {
+      // if no: the idea grows and ages
+      (*it)->grow();
+      (*it)->age();
+    }
   }
 
 

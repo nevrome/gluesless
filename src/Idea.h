@@ -17,15 +17,26 @@
 class Idea {
 
   public:
-  Idea(int id, Networkland* real, std::vector<vertex_desc> birth_vertices);
+  Idea(
+    int id,
+    int fec,
+    int fid,
+    int lon,
+    Networkland* real,
+    std::vector<vertex_desc> birth_vertices
+  );
 
   //! get identity of an Idea
   /*!
    Returns identity of an Idea.
    */
   int get_identity();
-
   void set_identity(int id);
+
+  int get_fecundity();
+  int get_fidelity();
+  int get_longevity();
+  int get_age();
 
   //! get positions of an Idea
   /*!
@@ -37,16 +48,15 @@ class Idea {
   /*!
    An Idea occupies other vertices in the Networland.
    */
+  void grow();
   void infect();
-
-  //! Interaction between two Ideas in the Networkland
   void fight();
 
   //! An Idea grows older
   void age();
 
-  // An Idea splits into two ideas at the end of it's life
-  void split();
+  // An Idea splits into two ideas at the end of its life
+  Idea* split(int new_id);
 
 
   private:
