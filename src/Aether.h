@@ -19,7 +19,7 @@
 class Aether {
 
   public:
-  Aether(Networkland* real);
+  Aether(Networkland* real, std::vector<vertex_desc> idea_start_pos);
 
   //! get number of ideas
   int get_ideanumber();
@@ -43,6 +43,10 @@ class Aether {
   void develop();
 
   private:
+  //! idea identity counter
+  int idea_id_counter;
+  //! staring positions of initial idea
+  std::vector<vertex_desc> initial_idea_start_pos;
   //! vector that stores references to Idea instances
   std::vector<Idea*> mindspace;
   //! reference to Networkland

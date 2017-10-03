@@ -36,12 +36,15 @@ SEXP run(SEXP model_builder){
   std::string graphstring = Rcpp::as<std::string>(graphstr);
   SEXP iterations = wrap(mb.slot("number_iterations"));
   int iter = Rcpp::as<int>(iterations);
+  SEXP start_pos = wrap(mb.slot("initial_idea_starting_positions"));
+  std::vector<long unsigned int> idea_start_pos_int = Rcpp::as<std::vector<long unsigned int>>(start_pos);
+  std::vector<vertex_desc> idea_start_pos = idea_start_pos_int;
 
   // Realwelt
   Networkland* real = new Networkland(graphstring);
 
   // Geistwelt
-  Aether* overmind = new Aether(real);
+  Aether* overmind = new Aether(real, idea_start_pos);
 
   // Zeit
   Timeline* thyme = new Timeline(overmind);

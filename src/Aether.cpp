@@ -2,8 +2,12 @@
 
 #include "global.h"
 
-Aether::Aether(Networkland* real) {
+Aether::Aether(Networkland* real, std::vector<vertex_desc> idea_start_pos) {
   this->realworld = real;
+  this->idea_id_counter = 0;
+  Rcpp::Rcout << "huhu";
+  this->initial_idea_start_pos = idea_start_pos;
+
 }
 
 int Aether::get_ideanumber() {
@@ -32,10 +36,12 @@ void Aether::develop() {
 
   auto& v = this->mindspace;
 
-  // if no ideas are present, create one (simulation startup).
-  // else: change of appearance of a new one is 1/5
-  if(v.size() == 0 || randunifrange(1, 5) == 1){
-    Idea* newidea = new Idea(realworld);
+  // if no ideas are present, create one (simulation startup)
+  if(v.size() == 0){
+    Idea* newidea = new Idea(this->idea_id_counter, realworld, this->initial_idea_start_pos);
+    // increase Aether id counter
+    this->idea_id_counter++;
+    // store new idea in mindspace
     v.push_back(newidea);
   }
 

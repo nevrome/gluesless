@@ -4,21 +4,30 @@
 
 #include "global.h"
 
-Idea::Idea(Networkland* real) {
+Idea::Idea(int id, Networkland* real, std::vector<vertex_desc> birth_vertices) {
   //this->identity = create_random_string(30);
-  this->identity = randunifrange(0, 100);
-
+  //this->identity = randunifrange(0, 100);
+  this->identity = id;
   this->realworld = real;
 
-  vertex_desc randpos = randunifrange(
-    0, (realworld->get_number_of_vertices() - 1)
-    );
+  // assign random position to idea
+  // vertex_desc randpos = randunifrange(
+  //   0, (realworld->get_number_of_vertices() - 1)
+  //   );
+  // this->vertices.push_back(randpos);
 
-  this->vertices.push_back(randpos);
+  // assign definite starting position for initial idea
+  //vertex_desc defpos[2] = {2267, 2256};
+  this->vertices = birth_vertices;//.insert(this->vertices.end(), defpos, defpos + (sizeof(defpos)/sizeof(defpos[0])));
+
 }
 
 int Idea::get_identity() {
   return identity;
+}
+
+void Idea::set_identity(int id) {
+  this->identity = id;
 }
 
 std::vector<vertex_desc> Idea::get_vertices() {

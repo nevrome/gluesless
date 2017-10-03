@@ -17,14 +17,15 @@
 class Idea {
 
   public:
-  Idea(Networkland* space);
+  Idea(int id, Networkland* real, std::vector<vertex_desc> birth_vertices);
 
   //! get identity of an Idea
   /*!
    Returns identity of an Idea.
    */
   int get_identity();
-  //string get_identity();
+
+  void set_identity(int id);
 
   //! get positions of an Idea
   /*!
@@ -32,19 +33,37 @@ class Idea {
    */
   std::vector<vertex_desc> get_vertices();
 
-  //! Interaction between Idea an Networkland
+  //! Interaction between Idea and Networkland
   /*!
    An Idea occupies other vertices in the Networland.
    */
   void infect();
-  // mutate();
-  // conjugate();
+
+  //! Interaction between two Ideas in the Networkland
+  void fight();
+
+  //! An Idea grows older
+  void age();
+
+  // An Idea splits into two ideas at the end of it's life
+  void split();
 
 
   private:
   //! stores identity of an Idea
   int identity;
-  //string identity;
+  //! fecundity value -- Fruchtbarkeit -- determines, how many
+  //! nodes an idea can infect in one timestep
+  int fecundity;
+  //! fidelity value -- Wiedergabetreue -- determines, how "neolithic"
+  //! an idea is. Should be equivalent to a more complex two value
+  //! implementation with an additional value that stores "neolithicity"
+  int fidelity;
+  //! longevity value -- Langlebigkeit -- determines, how many
+  //! timesteps an idea lives
+  int longevity;
+  //! age value -- how many timesteps did an idea already live?
+  int age_in_timesteps;
   //! reference to Networkland
   Networkland* realworld;
   //! vector that stores vertices occupied by an Idea

@@ -10,6 +10,7 @@ setClass(
   Class = "model_builder",
   slots = c(
     networkland_env = "character",
-    number_iterations = "numeric"
+    number_iterations = "numeric",
+    initial_idea_starting_positions = "numeric"
   )
 )
