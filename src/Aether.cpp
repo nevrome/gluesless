@@ -5,7 +5,6 @@
 Aether::Aether(Networkland* real, std::vector<vertex_desc> idea_start_pos) {
   this->realworld = real;
   this->idea_id_counter = 0;
-  Rcpp::Rcout << "huhu";
   this->initial_idea_start_pos = idea_start_pos;
 
 }

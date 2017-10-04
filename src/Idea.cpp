@@ -68,6 +68,8 @@ void Idea::infect() {
         // search for victim with smalles distance
         // first loop iteration: choose the first one as victim
         if (!check) {
+          // Rcpp::Rcout << tempdist << std::endl;
+          // Rcpp::Rcout << p2 << std::endl;
           mindist = tempdist;
           victim = p2;
           check = true;
@@ -86,9 +88,9 @@ void Idea::infect() {
   if (check) {
     // get probability decision about where an idea actually grows
     // dependend on the edge distance value of the victim node
-    if (randunifrange(0, 101) > mindist*100) {
+    //if (randunifrange(0, 101) > mindist*100) {
       vertices.push_back(victim);
-    }
+    //}
   }
 }
 
