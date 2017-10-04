@@ -79,10 +79,3 @@ class Idea {
   //! vector that stores vertices occupied by an Idea
   std::vector<vertex_desc> vertices;
 };
-
-std::string create_random_string(size_t length);
-size_t compare_strings(
-    const std::string &s1,
-    const std::string &s2
-  );
-size_t compare_ideas(Idea* a, Idea* b);
