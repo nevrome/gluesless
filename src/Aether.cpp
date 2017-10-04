@@ -78,7 +78,7 @@ void Aether::develop() {
     // check if the idea dies of old age
     if ((*it)->get_age() == (*it)->get_longevity()) {
       // if yes: the idea splits
-      Idea* newidea = (*it)->split(this->idea_id_counter + 1);
+      Idea* newidea = (*it)->split(this->idea_id_counter);
       this->increment_idea_id_counter();
       v.push_back(newidea);
     } else {
