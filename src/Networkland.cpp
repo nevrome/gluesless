@@ -10,15 +10,24 @@
 
 using namespace boost;
 
+// int Vertex::get_occupying_idea_id() {
+//   return this->occupying_idea_id;
+// }
+//
+// void Vertex::set_occupying_idea_id(int id) {
+//   this->occupying_idea_id = id;
+// }
+
 Networkland::Networkland(const std::string& graphstring) {
 
   graph_t graph(0);
 
   dynamic_properties dp(ignore_other_properties);
-  dp.property("id",       get(&Vertex::id,     graph));
-  dp.property("x",        get(&Vertex::x,      graph));
-  dp.property("y",        get(&Vertex::y,      graph));
-  dp.property("distance", get(&Edge::distance, graph));
+  dp.property("id",                 get(&Vertex::id,                graph));
+  dp.property("x",                  get(&Vertex::x,                 graph));
+  dp.property("y",                  get(&Vertex::y,                 graph));
+  dp.property("occupying_idea_id",  get(&Vertex::occupying_idea_id, graph));
+  dp.property("distance",           get(&Edge::distance,            graph));
 
   ref_property_map<graph_t *, std::string> gname(
       get_property(graph, graph_name)
@@ -59,14 +68,24 @@ std::vector<vertex_desc> Networkland::get_adjacent_vertices(vertex_desc v) {
 double Networkland::get_distance_between_two_vertices(
     const vertex_desc& a, const vertex_desc& b
   ) {
-
   // create a pair to store the edge iterators
   std::pair<edge_desc, bool> edgepair;
-
   edgepair = edge(a, b, env);
-
   return env[edgepair.first].distance;
 }
+
+int Networkland::get_vertex_occupying_idea_id(
+    const vertex_desc& a
+) {
+  return env[a].occupying_idea_id;
+}
+
+void Networkland::set_vertex_occupying_idea_id(
+    const vertex_desc& a, int id
+) {
+  env[a].occupying_idea_id = id;
+}
+
 
 // std::string Networkland::export_graph() {
 //

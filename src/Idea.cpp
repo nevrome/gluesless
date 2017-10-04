@@ -19,6 +19,10 @@ Idea::Idea(
   this->age_in_timesteps = 0;
   this->realworld = real;
   this->vertices = birth_vertices;
+  // write ownership via id into vertices
+  for (auto& veri : birth_vertices) {
+    real->set_vertex_occupying_idea_id(veri, id);
+  }
 }
 
 int Idea::get_identity() { return this->identity; }

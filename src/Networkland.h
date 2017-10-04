@@ -12,7 +12,6 @@
 /*!
  Could represent Individuals, Settlements, Areas etc..
  */
-
 struct Vertex {
   //! stores identity of the Node
   int id;
@@ -20,6 +19,8 @@ struct Vertex {
   double x;
   //! stores y-axis coordinate of the Node
   double y;
+  //! idea that currently occupies the node
+  int occupying_idea_id;
 };
 
 
@@ -71,6 +72,9 @@ class Networkland {
     double get_distance_between_two_vertices(
         const vertex_desc& a, const vertex_desc& b
       );
+
+    int get_vertex_occupying_idea_id(const vertex_desc& a);
+    void set_vertex_occupying_idea_id(const vertex_desc& a, int id);
 
     // std::string export_graph();
 

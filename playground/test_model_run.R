@@ -23,4 +23,5 @@ runres$number_of_ideas
 plot_world(hex_graph, world = research_area_df, hex = research_area_hex_df) -> hu
 states <- link_ideas_world(idea_exp = runres, world_graph = hex_graph)
 
-plot_state(hu, states = states, 3)
+plot_state(hu, states = states, 19)
+
