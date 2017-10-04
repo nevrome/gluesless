@@ -114,6 +114,8 @@ Idea* Idea::split(int new_id) {
   );
   // reduce expansion of old idea
   this->vertices = v1;
+  // set age of old idea back to zero
+  this->age_in_timesteps = 0;
 
   return newidea;
 }
