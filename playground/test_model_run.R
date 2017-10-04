@@ -9,7 +9,7 @@ modelobj <- new(
   "model_builder",
   networkland_env = graphwrite(hex_graph),
   number_iterations = 20,
-  initial_idea_starting_positions = c(1000, 1001, 1002, 1003)
+  initial_idea_starting_positions = c(2824, 2825, 2826, 2773, 2774, 2775, 2712, 2713, 2714)
 )
 
 runres <- modelobj %>%
