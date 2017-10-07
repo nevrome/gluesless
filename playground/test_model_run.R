@@ -8,7 +8,7 @@ load("/home/clemens/neomod/neomod_datapool/model_data/research_area_hex_df.RData
 modelobj <- new(
   "model_builder",
   networkland_env = graphwrite(hex_graph),
-  number_iterations = 30,
+  number_iterations = 100,
   initial_idea_starting_positions = c(2824, 2825, 2826, 2773, 2774, 2775, 2712, 2713, 2714)
 )
 
@@ -23,5 +23,5 @@ runres <- modelobj %>%
 plot_world(hex_graph, world = research_area_df, hex = research_area_hex_df) -> hu
 states <- link_ideas_world(idea_exp = runres, world_graph = hex_graph)
 
-plot_state(hu, states = states, 30)
-
+plot_state(hu, states = states, length(states))
+#
