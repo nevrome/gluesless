@@ -32,7 +32,8 @@ class Idea {
    */
   int get_identity();
   void set_identity(int id);
-
+  bool is_alive();
+  void die();
   int get_fecundity();
   int get_fidelity();
   int get_longevity();
@@ -63,6 +64,8 @@ class Idea {
   private:
   //! stores identity of an Idea
   int identity;
+  //! is the idea alive?
+  bool alive = true;
   //! fecundity value -- Fruchtbarkeit -- determines, how many
   //! nodes an idea can infect in one timestep
   int fecundity;

@@ -27,6 +27,8 @@ Idea::Idea(
 
 int Idea::get_identity() { return this->identity; }
 void Idea::set_identity(int id) { this->identity = id; }
+bool Idea::is_alive() { return this->alive; }
+void Idea::die() { this->alive = false; }
 int Idea::get_age(){ return this->age_in_timesteps; }
 int Idea::get_fecundity() { return this->fecundity; }
 int Idea::get_fidelity() { return this->fidelity; }

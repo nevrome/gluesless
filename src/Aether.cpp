@@ -75,12 +75,23 @@ void Aether::develop() {
   // offset
   for (auto& idx : offset) {
     auto it = v.begin() + idx;
+    // check if idea is alive
+    if (!(*it)->is_alive()) {
+      // if not: skip the idea
+      continue;
+    }
     // check if the idea dies of old age
     if ((*it)->get_age() == (*it)->get_longevity()) {
-      // if yes: the idea splits
-      Idea* newidea = (*it)->split(this->idea_id_counter);
-      this->increment_idea_id_counter();
-      v.push_back(newidea);
+      // is it only present in one hexagon?
+      if ((*it)->get_vertices().size() == 1) {
+        // if yes: the idea is actually removed
+        (*it)->die();
+      } else {
+        // if no: the idea splits
+        Idea* newidea = (*it)->split(this->idea_id_counter);
+        this->increment_idea_id_counter();
+        v.push_back(newidea);
+      }
     } else {
       // if no: the idea grows and ages
       (*it)->grow();
