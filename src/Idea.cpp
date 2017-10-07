@@ -41,7 +41,7 @@ std::vector<vertex_desc> Idea::get_vertices() {
 void Idea::grow() {
   try {
     vertex_desc victim_hex = this->direction_selection();
-    Rcpp::Rcout << realworld->get_vertex_occupying_idea_id(victim_hex) << std::endl;
+    //Rcpp::Rcout << realworld->get_vertex_occupying_idea_id(victim_hex) << std::endl;
     if (realworld->get_vertex_occupying_idea_id(victim_hex) == -1) {
       this->infect(victim_hex);
     }
@@ -71,8 +71,9 @@ vertex_desc Idea::direction_selection() {
 
   // create empty objects to store intermediate results
   std::vector<vertex_desc> adjacentvecs;
-  vertex_desc victim;
-  double mindist;
+  std::vector<vertex_desc> possible_victims;
+  std::vector<double> distances;
+  //double mindist;
   bool total_domination_check = true;
   bool first_search_check = true;
 
@@ -85,26 +86,14 @@ vertex_desc Idea::direction_selection() {
       // check, if current neighbouring vertex is not already part of the idea
       // if it's part, then skip, else:
       if (!(find(own_vertices.begin(), own_vertices.end(), p2) != own_vertices.end())) {
-        // obviously the current idea doesn't dominate everything
+        // check if the current idea doesn't dominate everything
         if (total_domination_check) {
           total_domination_check = false;
         }
         // get the distance value between the two vertices
-        double tempdist = realworld->get_distance_between_two_vertices(p1, p2);
         // search for victim with smallest distance
-        // first loop iteration: choose the first one as victim
-        if (first_search_check) {
-          // Rcpp::Rcout << tempdist << std::endl;
-          // Rcpp::Rcout << p2 << std::endl;
-          mindist = tempdist;
-          victim = p2;
-          first_search_check = false;
-        // further loop iterations:
-        // check if tempdist actually smaller - if yes = select as new victim
-        } else if (tempdist < mindist) {
-          mindist = tempdist;
-          victim = p2;
-        }
+        possible_victims.push_back(p2);
+        distances.push_back(realworld->get_distance_between_two_vertices(p1, p2));
       }
     }
   }
@@ -117,7 +106,7 @@ vertex_desc Idea::direction_selection() {
     // get probability decision about where an idea actually grows
     // dependend on the edge distance value of the victim node
     //if (randunifrange(0, 101) > mindist*100) {
-    return(victim);
+      return possible_victims[randunifrange(0, possible_victims.size() - 1)];
     //}
   }
 }
