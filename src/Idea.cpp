@@ -47,27 +47,36 @@ std::vector<vertex_desc> Idea::get_vertices() {
   return this->vertices;
 }
 
-void Idea::grow() {
-  try {
-    vertex_desc victim_hex = this->direction_selection();
-    //Rcpp::Rcout << realworld->get_vertex_occupying_idea_id(victim_hex) << std::endl;
-    if (realworld->get_vertex_occupying_idea_id(victim_hex) == -1) {
-      this->infect(victim_hex);
-    } //else {
-      //this->fight(victim_hex);
-    //}
-  } catch(std::string err) {
-    Rcpp::Rcout << err << std::endl;
-    // very bad practice: no cleanup
-    std::exit(0);
-  }
-
-  //this->fight();
-}
-
 void Idea::infect(vertex_desc victim_hex) {
   vertices.push_back(victim_hex);
   realworld->set_vertex_occupying_idea_id(victim_hex, this->identity);
+}
+
+void Idea::fight(Idea* enemy, vertex_desc victim_hex) {
+  // fight decision
+  if (this->fidelity >= enemy->fidelity) {
+    // if this idea wins:
+    // add new vertex to this idea
+    this->vertices.push_back(victim_hex);
+    // change occupation flag of vertex
+    realworld->set_vertex_occupying_idea_id(victim_hex, this->identity);
+    // remove vertex from vertices vector of the enemy
+    //enemy->vertices
+    std::vector<vertex_desc>::iterator position = std::find(
+      enemy->vertices.begin(), enemy->vertices.end(), victim_hex
+    );
+    if (position != enemy->vertices.end()) {
+      // Rcpp::Rcout << enemy->vertices.size() << std::endl;
+      // sleep(1);
+      // if (enemy->vertices.size() <= 1) {
+      //   enemy->die();
+      // } else {
+      enemy->vertices.erase(position);
+      if (enemy->vertices.size() <= 0) {
+        enemy->die();
+      }
+    }
+  }
 }
 
 vertex_desc Idea::direction_selection() {

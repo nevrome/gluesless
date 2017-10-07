@@ -71,8 +71,7 @@ void Aether::develop() {
     randWrapper
   );
 
-  // iterate over the ideas effectively shuffled by the
-  // offset
+  // iterate over the ideas effectively shuffled by the offset
   for (auto& idx : offset) {
     auto it = v.begin() + idx;
     // check if idea is alive
@@ -82,8 +81,9 @@ void Aether::develop() {
     }
     // check if the idea dies of old age
     if ((*it)->get_age() == (*it)->get_longevity()) {
-      // is it only present in one hexagon?
-      if ((*it)->get_vertices().size() == 1) {
+      // if yes:
+      // is the idea only present in one hexagon or already wiped out?
+      if ((*it)->get_vertices().size() <= 1) {
         // if yes: the idea is actually removed
         (*it)->die();
       } else {
@@ -93,8 +93,31 @@ void Aether::develop() {
         v.push_back(newidea);
       }
     } else {
-      // if no: the idea grows and ages
-      (*it)->grow();
+      // if no:
+      // the idea decides where to go
+      vertex_desc victim_hex;
+      try {
+        victim_hex = (*it)->direction_selection();
+      } catch(std::string err) {
+        Rcpp::Rcout << err << std::endl;
+        // very bad practice: no cleanup
+        std::exit(0);
+      }
+      // check whether the victim vertex is already occupied
+      int potential_enemy = realworld->get_vertex_occupying_idea_id(victim_hex);
+      if (potential_enemy == -1) {
+        // if no: just infect it
+        (*it)->infect(victim_hex);
+      } else {
+        // if yes: fight against the enemy
+        (*it)->fight(
+          // select enemy
+          mindspace[potential_enemy],
+          victim_hex
+        );
+      }
+
+      // the idea ages
       (*it)->age();
     }
   }

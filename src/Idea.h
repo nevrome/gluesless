@@ -50,9 +50,8 @@ class Idea {
    An Idea occupies other vertices in the Networland.
    */
   vertex_desc direction_selection();
-  void grow();
   void infect(vertex_desc victim_hex);
-  void fight();
+  void fight(Idea* enemy, vertex_desc victim_hex);
 
   //! An Idea grows older
   void age();
