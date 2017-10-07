@@ -48,8 +48,9 @@ class Idea {
   /*!
    An Idea occupies other vertices in the Networland.
    */
+  vertex_desc direction_selection();
   void grow();
-  void infect();
+  void infect(vertex_desc victim_hex);
   void fight();
 
   //! An Idea grows older

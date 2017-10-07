@@ -37,11 +37,23 @@ std::vector<vertex_desc> Idea::get_vertices() {
 }
 
 void Idea::grow() {
-  this->infect();
+  try {
+    vertex_desc victim_hex = this->direction_selection();
+    this->infect(victim_hex);
+  } catch(std::string err) {
+    Rcpp::Rcout << err << std::endl;
+    // very bad practice: no cleanup
+    std::exit(0);
+  }
+
   //this->fight();
 }
 
-void Idea::infect() {
+void Idea::infect(vertex_desc victim_hex) {
+  vertices.push_back(victim_hex);
+}
+
+vertex_desc Idea::direction_selection() {
 
   // get vertices of current idea and shuffle them randomly to prevent
   // linear spread because of victim selection algorithm (see below)
@@ -56,7 +68,8 @@ void Idea::infect() {
   std::vector<vertex_desc> adjacentvecs;
   vertex_desc victim;
   double mindist;
-  bool check = false;
+  bool total_domination_check = true;
+  bool first_search_check = true;
 
   // iterate through all vertices occupied by the idea
   for (auto& p1 : own_vertices) {
@@ -67,16 +80,20 @@ void Idea::infect() {
       // check, if current neighbouring vertex is not already part of the idea
       // if it's part, then skip, else:
       if (!(find(own_vertices.begin(), own_vertices.end(), p2) != own_vertices.end())) {
+        // obviously the current idea doesn't dominate everything
+        if (total_domination_check) {
+          total_domination_check = false;
+        }
         // get the distance value between the two vertices
         double tempdist = realworld->get_distance_between_two_vertices(p1, p2);
-        // search for victim with smalles distance
+        // search for victim with smallest distance
         // first loop iteration: choose the first one as victim
-        if (!check) {
+        if (first_search_check) {
           // Rcpp::Rcout << tempdist << std::endl;
           // Rcpp::Rcout << p2 << std::endl;
           mindist = tempdist;
           victim = p2;
-          check = true;
+          first_search_check = false;
         // further loop iterations:
         // check if tempdist actually smaller - if yes = select as new victim
         } else if (tempdist < mindist) {
@@ -89,14 +106,18 @@ void Idea::infect() {
 
   // if the previous loop found a victim (could for example fail,
   // if the idea is already everywhere), it can become part of the idea
-  if (check) {
+  if (total_domination_check) {
+    throw std::string("Unusual event: One idea dominates the world.");
+  } else {
     // get probability decision about where an idea actually grows
     // dependend on the edge distance value of the victim node
     //if (randunifrange(0, 101) > mindist*100) {
-      vertices.push_back(victim);
+    return(victim);
     //}
   }
 }
+
+
 
 //void Idea::fight();
 
