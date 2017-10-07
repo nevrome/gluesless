@@ -65,6 +65,7 @@ void Idea::grow() {
 
 void Idea::infect(vertex_desc victim_hex) {
   vertices.push_back(victim_hex);
+  realworld->set_vertex_occupying_idea_id(victim_hex, this->identity);
 }
 
 vertex_desc Idea::direction_selection() {
