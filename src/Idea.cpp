@@ -53,7 +53,9 @@ void Idea::grow() {
     //Rcpp::Rcout << realworld->get_vertex_occupying_idea_id(victim_hex) << std::endl;
     if (realworld->get_vertex_occupying_idea_id(victim_hex) == -1) {
       this->infect(victim_hex);
-    }
+    } //else {
+      //this->fight(victim_hex);
+    //}
   } catch(std::string err) {
     Rcpp::Rcout << err << std::endl;
     // very bad practice: no cleanup
@@ -132,12 +134,12 @@ Idea* Idea::split(int new_id) {
       std::make_move_iterator(v1.begin() + v1.size()/2),
       std::make_move_iterator(v1.end()));
   v1.erase(v1.begin() + v1.size()/2, v1.end());
-  // create new idea
+  // create new idea with modified characteristics of the old idea
   Idea* newidea = new Idea(
     new_id,
-    5,
-    5,
-    10,
+    this->fecundity + randunifrange(-1, 1),
+    this->fidelity + randunifrange(-1, 1),
+    this->longevity + randunifrange(-1, 1),
     realworld,
     v2
   );

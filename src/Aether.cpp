@@ -47,8 +47,8 @@ void Aether::develop() {
   if(v.size() == 0){
     Idea* newidea = new Idea(
       this->idea_id_counter,
-      5,
-      5,
+      10,
+      10,
       10,
       realworld,
       this->initial_idea_start_pos
