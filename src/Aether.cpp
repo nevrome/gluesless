@@ -49,7 +49,7 @@ void Aether::develop() {
       this->idea_id_counter,
       5,
       5,
-      5,
+      10,
       realworld,
       this->initial_idea_start_pos
     );

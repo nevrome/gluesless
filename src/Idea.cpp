@@ -16,7 +16,7 @@ Idea::Idea(
   this->fecundity = fec,
   this->fidelity = fid,
   this->longevity = lon,
-  this->age_in_timesteps = 0;
+  this->age_in_timesteps = 1;
   this->realworld = real;
   this->vertices = birth_vertices;
   // write ownership via id into vertices
@@ -136,7 +136,7 @@ Idea* Idea::split(int new_id) {
     new_id,
     5,
     5,
-    5,
+    10,
     realworld,
     v2
   );
