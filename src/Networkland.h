@@ -20,7 +20,7 @@ struct Vertex {
   //! stores y-axis coordinate of the Node
   double y;
   //! idea that currently occupies the node
-  int occupying_idea_id;
+  int occupying_idea_id = -1;
 };
 
 

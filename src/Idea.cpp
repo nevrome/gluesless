@@ -39,7 +39,10 @@ std::vector<vertex_desc> Idea::get_vertices() {
 void Idea::grow() {
   try {
     vertex_desc victim_hex = this->direction_selection();
-    this->infect(victim_hex);
+    Rcpp::Rcout << realworld->get_vertex_occupying_idea_id(victim_hex) << std::endl;
+    if (realworld->get_vertex_occupying_idea_id(victim_hex) == -1) {
+      this->infect(victim_hex);
+    }
   } catch(std::string err) {
     Rcpp::Rcout << err << std::endl;
     // very bad practice: no cleanup
