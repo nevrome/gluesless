@@ -41,7 +41,13 @@ std::vector< std::vector<vertex_desc> > Aether::get_idea_vertices(){
 
 void Aether::develop() {
 
+  // create convinient short
   auto& v = this->mindspace;
+
+  // get number of vertices in the complente networkland graph
+  // to later check for total domination of ideas
+  int num_ver = boost::num_vertices(this->realworld->get_graph());
+
 
   // if no ideas are present, create the first one (simulation startup)
   if(v.size() == 0){
@@ -94,29 +100,25 @@ void Aether::develop() {
       }
     } else {
       // if no:
-      // the idea decides where to go
-      vertex_desc victim_hex;
-      try {
-        victim_hex = (*it)->direction_selection();
-      } catch(std::string err) {
-        Rcpp::Rcout << err << std::endl;
-        // very bad practice: no cleanup
-        std::exit(0);
+      // check if the idea is not already everywhere (total domination)
+      if ((*it)->get_vertices().size() < num_ver) {
+        // if so:
+        // the idea decides where to go
+        vertex_desc victim_hex = (*it)->direction_selection();
+        // check whether the victim vertex is already occupied
+        int potential_enemy = realworld->get_vertex_occupying_idea_id(victim_hex);
+        if (potential_enemy == -1) {
+          // if no: just infect it
+          (*it)->infect(victim_hex);
+        } else {
+          // if yes: fight against the enemy
+          (*it)->fight(
+            // select enemy
+            mindspace[potential_enemy],
+            victim_hex
+          );
+        }
       }
-      // check whether the victim vertex is already occupied
-      int potential_enemy = realworld->get_vertex_occupying_idea_id(victim_hex);
-      if (potential_enemy == -1) {
-        // if no: just infect it
-        (*it)->infect(victim_hex);
-      } else {
-        // if yes: fight against the enemy
-        (*it)->fight(
-          // select enemy
-          mindspace[potential_enemy],
-          victim_hex
-        );
-      }
-
       // the idea ages
       (*it)->age();
     }

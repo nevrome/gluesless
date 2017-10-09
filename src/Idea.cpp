@@ -97,7 +97,6 @@ vertex_desc Idea::direction_selection() {
   std::vector<vertex_desc> possible_victims;
   std::vector<double> distances;
   //double mindist;
-  bool total_domination_check = true;
   bool first_search_check = true;
 
   // iterate through all vertices occupied by the idea
@@ -109,10 +108,6 @@ vertex_desc Idea::direction_selection() {
       // check, if current neighbouring vertex is not already part of the idea
       // if it's part, then skip, else:
       if (!(find(own_vertices.begin(), own_vertices.end(), p2) != own_vertices.end())) {
-        // check if the current idea doesn't dominate everything
-        if (total_domination_check) {
-          total_domination_check = false;
-        }
         // get the distance value between the two vertices
         // search for victim with smallest distance
         possible_victims.push_back(p2);
@@ -121,17 +116,13 @@ vertex_desc Idea::direction_selection() {
     }
   }
 
-  // if the previous loop found a victim (could for example fail,
-  // if the idea is already everywhere), it can become part of the idea
-  if (total_domination_check) {
-    throw std::string("Unusual event: One idea dominates the world.");
-  } else {
+  // when the previous loop found a victim it can become part of the idea
+  //Rcpp::Rcout << "test" << std::endl;
     // get probability decision about where an idea actually grows
     // dependend on the edge distance value of the victim node
     //if (randunifrange(0, 101) > mindist*100) {
-      return possible_victims[randunifrange(0, possible_victims.size() - 1)];
+  return possible_victims[randunifrange(0, possible_victims.size() - 1)];
     //}
-  }
 }
 
 
