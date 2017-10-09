@@ -53,7 +53,7 @@ void Idea::infect(vertex_desc victim_hex) {
 }
 
 void Idea::fight(Idea* enemy, vertex_desc victim_hex) {
-  Rcpp::Rcout << this->fidelity << " vs. " << enemy->fidelity << std::endl;
+  //Rcpp::Rcout << this->fidelity << " vs. " << enemy->fidelity << std::endl;
 
   // fight decision
   if (this->fidelity >= enemy->fidelity) {
