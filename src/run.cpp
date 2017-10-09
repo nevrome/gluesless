@@ -59,5 +59,9 @@ SEXP run(SEXP model_builder){
 
   List res = thyme->export_as_R_list();
 
+  delete real;
+  delete overmind;
+  delete thyme;
+
   return res;
 }
