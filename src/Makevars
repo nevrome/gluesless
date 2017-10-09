@@ -1,3 +1,4 @@
 PKG_LIBS = -lboost_graph
 CXX_STD = CXX11
-CXXFLAGS = -g -fno-inline
+# for valgrind
+#PKG_CXXFLAGS = -g -fno-inline
