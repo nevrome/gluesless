@@ -20,7 +20,7 @@ addons:
     - libgdal-dev
     - libproj-dev
 
-warnings_are_errors: true
+#warnings_are_errors: true
 
 r_packages:
   - covr
