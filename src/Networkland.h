@@ -19,6 +19,8 @@ struct Vertex {
   double x;
   //! stores y-axis coordinate of the Node
   double y;
+  //! index of interest - weight value of vertex
+  double ioi;
   //! idea that currently occupies the node
   int occupying_idea_id = -1;
 };
@@ -72,6 +74,8 @@ class Networkland {
     double get_distance_between_two_vertices(
         const vertex_desc& a, const vertex_desc& b
       );
+
+    double get_vertex_ioi(const vertex_desc& a);
 
     int get_vertex_occupying_idea_id(const vertex_desc& a);
     void set_vertex_occupying_idea_id(const vertex_desc& a, int id);

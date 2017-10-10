@@ -96,6 +96,7 @@ vertex_desc Idea::direction_selection() {
   std::vector<vertex_desc> adjacentvecs;
   std::vector<vertex_desc> possible_victims;
   std::vector<double> distances;
+  std::vector<double> victim_ioi;
   //double mindist;
   bool first_search_check = true;
 
@@ -112,6 +113,7 @@ vertex_desc Idea::direction_selection() {
         // search for victim with smallest distance
         possible_victims.push_back(p2);
         distances.push_back(realworld->get_distance_between_two_vertices(p1, p2));
+        victim_ioi.push_back(realworld->get_vertex_ioi(p2));
       }
     }
   }

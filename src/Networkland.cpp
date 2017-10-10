@@ -26,6 +26,7 @@ Networkland::Networkland(const std::string& graphstring) {
   dp.property("id",                 get(&Vertex::id,                graph));
   dp.property("x",                  get(&Vertex::x,                 graph));
   dp.property("y",                  get(&Vertex::y,                 graph));
+  dp.property("ioi",                get(&Vertex::ioi,               graph));
   dp.property("occupying_idea_id",  get(&Vertex::occupying_idea_id, graph));
   dp.property("distance",           get(&Edge::distance,            graph));
 
@@ -72,6 +73,10 @@ double Networkland::get_distance_between_two_vertices(
   std::pair<edge_desc, bool> edgepair;
   edgepair = edge(a, b, env);
   return env[edgepair.first].distance;
+}
+
+double Networkland::get_vertex_ioi(const vertex_desc& a) {
+  return env[a].ioi;
 }
 
 int Networkland::get_vertex_occupying_idea_id(
