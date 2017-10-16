@@ -118,12 +118,61 @@ vertex_desc Idea::direction_selection() {
     }
   }
 
+  // select actual victim from possible victims
+  // 1. search for index of possible victim with smallest distance
+  int smallest_dist_index = std::distance(
+    distances.begin(),
+    std::min_element(
+      distances.begin(),
+      distances.end()
+    )
+  );
+  int smallest_dist = distances[smallest_dist_index];
+
+  // 2. search for index of possible victim with biggest ioi
+  int biggest_ioi_index = std::distance(
+    victim_ioi.begin(),
+    std::max_element(
+      victim_ioi.begin(),
+      victim_ioi.end()
+    )
+  );
+  int biggest_ioi = victim_ioi[biggest_ioi_index];
+
+  vertex_desc selected_victim;
+  bool selection_done = false;
+
+  // 3. make decision
+  if (smallest_dist_index == biggest_ioi_index) {
+    selected_victim = possible_victims[smallest_dist_index];
+    selection_done = true;
+  }
+
+  if (!selection_done & (randunifrange(0, 101) > 50)) {
+    if (randunifrange(0, 101) > 30 * smallest_dist) {
+      selected_victim = possible_victims[smallest_dist_index];
+      selection_done = true;
+    }
+  }
+
+  if (!selection_done & (randunifrange(0, 101) > 50)) {
+      selected_victim = possible_victims[biggest_ioi_index];
+      selection_done = true;
+  }
+
+  if (!selection_done) {
+    selected_victim = possible_victims[randunifrange(0, possible_victims.size() - 1)];
+    selection_done = true;
+  }
+
+  return selected_victim;
+
   // when the previous loop found a victim it can become part of the idea
   //Rcpp::Rcout << "test" << std::endl;
     // get probability decision about where an idea actually grows
     // dependend on the edge distance value of the victim node
     //if (randunifrange(0, 101) > mindist*100) {
-  return possible_victims[randunifrange(0, possible_victims.size() - 1)];
+  //return possible_victims[randunifrange(0, possible_victims.size() - 1)];
     //}
 }
 
