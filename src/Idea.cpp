@@ -149,14 +149,11 @@ vertex_desc Idea::direction_selection() {
   bool selection_done = false;
 
   // 3. make decision
-  if (!selection_done & (randunifrange(0, 101) > 20)) {
+  // focus on ioi
+  if (!selection_done & (randunifrange(1, 100) > 10)) {
+    // distance influence
+    if (randunifrange(1, 100) > 30 * distances[biggest_ioi_index]) {
       selected_victim = possible_victims[biggest_ioi_index];
-      selection_done = true;
-  }
-
-  if (!selection_done & (randunifrange(0, 101) > 50)) {
-    if (randunifrange(0, 101) > 30 * smallest_dist) {
-      selected_victim = possible_victims[smallest_dist_index];
       selection_done = true;
     }
   }
