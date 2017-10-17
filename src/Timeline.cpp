@@ -44,8 +44,8 @@ SEXP Timeline::export_as_R_list() {
   vert.reserve(10000);
 
   // determine export timestep resolution depending on number of iterations
-  int iter = this->ideanumber.size();
-  int am = pow(10, get_number_of_digits(iter) - 2);
+  //int iter = this->ideanumber.size();
+  //int am = pow(10, get_number_of_digits(iter) - 2);
 
   int count = 0;
   // get pointer to the first idea list in the idea identity vector
@@ -54,7 +54,7 @@ SEXP Timeline::export_as_R_list() {
   for (auto& it_vert_1 : idea_vertices) {
 
     // only export every xth step and first and last
-    if(count % am == 0 || count == iter - 1) {
+    //if(count % am == 0 || count == iter - 1) {
       // get pointer to the first idea in the idea list in the idea identity vector
       auto it_id_2=(*it_id_1).cbegin();
 
@@ -72,7 +72,7 @@ SEXP Timeline::export_as_R_list() {
         }
       it_id_2++;
       }
-    }
+    //}
   it_id_1++;
   count++;
   }
