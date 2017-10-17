@@ -1,19 +1,29 @@
+#' test
+#'
+#' test
+#'
+#' @param nodes test
+#' @param lon_start test
+#' @param lat_start test
+#' @param n test
+#'
+#' @return test
+#'
 #' @export
 find_starting_pos <- function(nodes, lon_start, lat_start, n) {
 
   res <- nodes %>%
     dplyr::mutate(
-      long_dist = abs(x - lon_start),
-      lat_dist = abs(y - lat_start)
+      long_dist = abs(.data$x - lon_start),
+      lat_dist = abs(.data$y - lat_start)
     ) %>%
     dplyr::mutate(
-      geo_dist = long_dist + lat_dist
+      geo_dist = .data$long_dist + .data$lat_dist
     ) %>%
     dplyr::arrange(
-      geo_dist
+      .data$geo_dist
     ) %>%
-    head(n) %$%
-    name
+    utils::head(n)
 
-  return(res)
+  return(res$name)
 }

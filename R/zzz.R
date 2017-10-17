@@ -2,6 +2,7 @@
 #' @useDynLib gluesless
 #' @import Rcpp methods
 #' @import RcppProgress
+#' @importFrom rlang .data
 
 #' @export
 .onUnload <- function (libpath) {

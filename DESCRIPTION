@@ -23,7 +23,9 @@ Imports:
     purrr (>= 0.2.2.2),
     rgdal (>= 1.2-6),
     rgeos (>= 0.3-23),
-    sp (>= 1.2-4)
+    rlang (>= 0.1.2),
+    sp (>= 1.2-4),
+    utils (>= 3.4.2)
 Suggests:
     devtools (>= 1.12.0),
     knitr,
