@@ -107,7 +107,7 @@ void Aether::develop() {
       int current_fecundity = (*it)->get_fecundity();
       double growth_dbl = (std::log2(current_fecundity) + 0.5) * 2;
       int growth = (int) std::round(growth_dbl);
-      Rcpp::Rcout << growth << std::endl;
+      //Rcpp::Rcout << growth << std::endl;
       for (int p1 = 1; p1 <= growth; p1++) {
       // check if the idea is not already everywhere (total domination)
         if ((*it)->get_vertices().size() < num_ver) {

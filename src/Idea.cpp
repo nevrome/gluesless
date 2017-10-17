@@ -177,17 +177,33 @@ vertex_desc Idea::direction_selection() {
     //}
 }
 
-
-
-//void Idea::fight();
-
 Idea* Idea::split(int new_id) {
   // split vertices of currently splitting idea
+  // create new vertex vectors
   std::vector<vertex_desc> v1 = this->vertices;
-  std::vector<vertex_desc> v2(
-      std::make_move_iterator(v1.begin() + v1.size()/2),
-      std::make_move_iterator(v1.end()));
-  v1.erase(v1.begin() + v1.size()/2, v1.end());
+  std::vector<vertex_desc> v2;
+  v2.reserve(100);
+  // select random starting vertex in v1 (rebel)
+  int start_rebel_index = randunifrange(0, v1.size() - 1);
+  // move starting vertex from v1 to v2
+  v2.push_back(v1[start_rebel_index]);
+  v1.erase(v1.begin() + start_rebel_index);
+  // loop to move half the vertices of v1 to v2 - defines number of rebels
+  for (int p1 = 1; p1 <= (v1.size() / 2); p1++) {
+    // loop to search for neighbour vectors of already rebellious vertices
+    for (int p3 = 0; p3 < v1.size(); p3++) {
+      int possible_rebel_index = p3;
+      vertex_desc possible_rebel = v1[possible_rebel_index];
+      // check, if this vertex is adjacent to an already rebellious vertex
+      for (auto& p2 : v2) {
+        if (realworld->are_adjacent(p2, possible_rebel)) {
+          v2.push_back(possible_rebel);
+          v1.erase(v1.begin() + possible_rebel_index);
+          break;
+        }
+      }
+    }
+  }
   // create new idea with modified characteristics of the old idea
   Idea* newidea = new Idea(
     new_id,

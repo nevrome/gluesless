@@ -75,6 +75,12 @@ double Networkland::get_distance_between_two_vertices(
   return env[edgepair.first].distance;
 }
 
+bool Networkland::are_adjacent(
+    const vertex_desc& a, const vertex_desc& b
+  ) {
+  return edge(a, b, env).second;
+}
+
 double Networkland::get_vertex_ioi(const vertex_desc& a) {
   return env[a].ioi;
 }

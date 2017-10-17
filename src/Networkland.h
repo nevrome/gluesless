@@ -74,6 +74,8 @@ class Networkland {
     double get_distance_between_two_vertices(
         const vertex_desc& a, const vertex_desc& b
       );
+    //! Check if two vertices are adjacent
+    bool are_adjacent(const vertex_desc& a, const vertex_desc& b);
 
     double get_vertex_ioi(const vertex_desc& a);
 
