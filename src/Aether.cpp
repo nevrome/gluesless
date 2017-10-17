@@ -41,6 +41,34 @@ std::vector< std::vector<vertex_desc> > Aether::get_idea_vertices(){
   return res;
 }
 
+std::vector<int> Aether::get_fecundities() {
+  std::vector<int> res;
+  res.reserve(this->mindspace.size());
+  for(auto& idx : this->mindspace) {
+    res.push_back(idx->get_fecundity());
+  }
+  return res;
+}
+
+std::vector<int> Aether::get_fidelities() {
+  std::vector<int> res;
+  res.reserve(this->mindspace.size());
+  for(auto& idx : this->mindspace) {
+    res.push_back(idx->get_fidelity());
+  }
+  return res;
+}
+
+std::vector<int> Aether::get_longevities() {
+  std::vector<int> res;
+  res.reserve(this->mindspace.size());
+  for(auto& idx : this->mindspace) {
+    res.push_back(idx->get_longevity());
+  }
+  return res;
+}
+
+
 void Aether::develop() {
 
   // create convinient short

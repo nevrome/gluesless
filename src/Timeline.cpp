@@ -18,6 +18,9 @@ void Timeline::develop(Aether* current) {
   this->idea_vertices.push_back(
       current->get_idea_vertices()
   );
+  this->fecundities.push_back(current->get_fecundities());
+  this->fidelities.push_back(current->get_fidelities());
+  this->longevities.push_back(current->get_longevities());
 
 }
 
