@@ -71,6 +71,8 @@ class Idea {
   //! fidelity value -- Wiedergabetreue -- determines, how "neolithic"
   //! an idea is. Should be equivalent to a more complex two value
   //! implementation with an additional value that stores "neolithicity"
+  //! Ideas with high fidelity win fights. Because they are the better ideas.
+  //! Per definition.
   int fidelity;
   //! longevity value -- Langlebigkeit -- determines, how many
   //! timesteps an idea lives

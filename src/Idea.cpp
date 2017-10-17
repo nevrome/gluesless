@@ -48,8 +48,14 @@ std::vector<vertex_desc> Idea::get_vertices() {
 }
 
 void Idea::infect(vertex_desc victim_hex) {
+  // add hex to idea
   vertices.push_back(victim_hex);
+  // install idea in hex
   realworld->set_vertex_occupying_idea_id(victim_hex, this->identity);
+  // increase fecundity
+  if (realworld->get_vertex_ioi(victim_hex) >= -1) {
+    this->fecundity++;
+  }
 }
 
 void Idea::fight(Idea* enemy, vertex_desc victim_hex) {
@@ -143,9 +149,9 @@ vertex_desc Idea::direction_selection() {
   bool selection_done = false;
 
   // 3. make decision
-  if (smallest_dist_index == biggest_ioi_index) {
-    selected_victim = possible_victims[smallest_dist_index];
-    selection_done = true;
+  if (!selection_done & (randunifrange(0, 101) > 20)) {
+      selected_victim = possible_victims[biggest_ioi_index];
+      selection_done = true;
   }
 
   if (!selection_done & (randunifrange(0, 101) > 50)) {
@@ -153,11 +159,6 @@ vertex_desc Idea::direction_selection() {
       selected_victim = possible_victims[smallest_dist_index];
       selection_done = true;
     }
-  }
-
-  if (!selection_done & (randunifrange(0, 101) > 50)) {
-      selected_victim = possible_victims[biggest_ioi_index];
-      selection_done = true;
   }
 
   if (!selection_done) {
@@ -190,7 +191,7 @@ Idea* Idea::split(int new_id) {
   // create new idea with modified characteristics of the old idea
   Idea* newidea = new Idea(
     new_id,
-    this->fecundity + randunifrange(-1, 1),
+    this->fecundity,
     this->fidelity + randunifrange(-1, 1),
     this->longevity + randunifrange(-1, 1),
     realworld,

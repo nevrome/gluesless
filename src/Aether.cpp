@@ -53,7 +53,7 @@ void Aether::develop() {
   if(v.size() == 0){
     Idea* newidea = new Idea(
       this->idea_id_counter,
-      10,
+      1,
       10,
       10,
       realworld,
@@ -100,23 +100,27 @@ void Aether::develop() {
       }
     } else {
       // if no:
+      // the idea grows based on its fecundity
+      int current_fecundity = (*it)->get_fecundity();
+      for (int p1 = 1; p1 <= current_fecundity; p1++) {
       // check if the idea is not already everywhere (total domination)
-      if ((*it)->get_vertices().size() < num_ver) {
-        // if so:
-        // the idea decides where to go
-        vertex_desc victim_hex = (*it)->direction_selection();
-        // check whether the victim vertex is already occupied
-        int potential_enemy = realworld->get_vertex_occupying_idea_id(victim_hex);
-        if (potential_enemy == -1) {
-          // if no: just infect it
-          (*it)->infect(victim_hex);
-        } else {
-          // if yes: fight against the enemy
-          (*it)->fight(
-            // select enemy
-            mindspace[potential_enemy],
-            victim_hex
-          );
+        if ((*it)->get_vertices().size() < num_ver) {
+          // if so:
+          // the idea decides where to go
+          vertex_desc victim_hex = (*it)->direction_selection();
+          // check whether the victim vertex is already occupied
+          int potential_enemy = realworld->get_vertex_occupying_idea_id(victim_hex);
+          if (potential_enemy == -1) {
+            // if no: just infect it
+            (*it)->infect(victim_hex);
+          } else {
+            // if yes: fight against the enemy
+            (*it)->fight(
+              // select enemy
+              mindspace[potential_enemy],
+              victim_hex
+            );
+          }
         }
       }
       // the idea ages

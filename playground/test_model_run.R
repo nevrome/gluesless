@@ -10,11 +10,9 @@ load("/home/clemens/neomod/neomod_datapool/model_data/hex_graph_nodes.RData")
 modelobj <- new(
   "model_builder",
   networkland_env = graphwrite(hex_graph),
-  number_iterations = 1000,
+  number_iterations = 10,
   initial_idea_starting_positions = find_starting_pos(
-    nodes,
-    38.923622, 36.067470,
-    9
+    nodes, 38.923622, 36.067470, 3
   )
 )
 
