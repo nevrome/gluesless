@@ -40,11 +40,17 @@ SEXP Timeline::export_as_R_list() {
   // 38 occupies vertex position 456. The result data.frame is therefore in
   // an extremly tall, tidy format.
   std::vector<int> timestep;
-  timestep.reserve(10000);
+  timestep.reserve(100000);
   std::vector<int> id;
-  id.reserve(10000);
+  id.reserve(100000);
   std::vector<int> vert;
-  vert.reserve(10000);
+  vert.reserve(100000);
+  std::vector<int> fecu;
+  fecu.reserve(100000);
+  std::vector<int> fide;
+  fide.reserve(100000);
+  std::vector<int> longe;
+  longe.reserve(100000);
 
   // determine export timestep resolution depending on number of iterations
   //int iter = this->ideanumber.size();
@@ -53,13 +59,21 @@ SEXP Timeline::export_as_R_list() {
   int count = 0;
   // get pointer to the first idea list in the idea identity vector
   auto it_id_1 = ideas.cbegin();
+  // ... and the other idea property vectors
+  auto it_fecu_1 = fecundities.cbegin();
+  auto it_fide_1 = fidelities.cbegin();
+  auto it_longe_1 = longevities.cbegin();
+
   // loop over idea positions vector
   for (auto& it_vert_1 : idea_vertices) {
 
     // only export every xth step and first and last
     //if(count % am == 0 || count == iter - 1) {
       // get pointer to the first idea in the idea list in the idea identity vector
-      auto it_id_2=(*it_id_1).cbegin();
+      auto it_id_2 = (*it_id_1).cbegin();
+      auto it_fecu_2  = (*it_fecu_1).cbegin();
+      auto it_fide_2 = (*it_fide_1).cbegin();
+      auto it_longe_2 = (*it_longe_1).cbegin();
 
       // loop over idea list in positions vector
       for (auto& it_vert_2 : it_vert_1) {
@@ -71,12 +85,21 @@ SEXP Timeline::export_as_R_list() {
           timestep.push_back(count);
           id.push_back(*it_id_2);
           vert.push_back(it_vert_3);
+          fecu.push_back(*it_fecu_2);
+          fide.push_back(*it_fide_2);
+          longe.push_back(*it_longe_2);
 
         }
       it_id_2++;
+      it_fecu_2++;
+      it_fide_2++;
+      it_longe_2++;
       }
     //}
   it_id_1++;
+  it_fecu_1++;
+  it_fide_1++;
+  it_longe_1++;
   count++;
   }
 
@@ -84,8 +107,10 @@ SEXP Timeline::export_as_R_list() {
   res["idea_exp"] = Rcpp::DataFrame::create(
     _["timestep"] = timestep,
     _["ideas"] = id,
-    _["vertices"] = vert
-    );
+    _["fecundity"] = fecu,
+    _["fidelity"] = fide,
+    _["longevity"] = longe
+  );
 
   return res;
 }
