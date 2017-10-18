@@ -107,6 +107,7 @@ SEXP Timeline::export_as_R_list() {
   res["idea_exp"] = Rcpp::DataFrame::create(
     _["timestep"] = timestep,
     _["ideas"] = id,
+    _["vertices"] = vert,
     _["fecundity"] = fecu,
     _["fidelity"] = fide,
     _["longevity"] = longe
