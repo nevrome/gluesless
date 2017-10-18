@@ -10,7 +10,7 @@ load("/home/clemens/neomod/neomod_datapool/model_data/hex_graph_nodes.RData")
 modelobj <- new(
   "model_builder",
   networkland_env = graphwrite(hex_graph),
-  number_iterations = 10,
+  number_iterations = 100,
   initial_idea_starting_positions = find_starting_pos(
     nodes, 38.923622, 36.067470, 3
   )
@@ -30,3 +30,17 @@ states <- link_ideas_world(idea_exp = runres, world_graph = hex_graph)
 
 plot_state(hu, states = states, length(states))
 
+library(dplyr)
+library(ggplot2)
+
+runres %>%
+  ggplot() +
+  geom_line(aes(x = timestep, y = fecundity, group = ideas, colour = ideas))
+
+runres %>%
+  ggplot() +
+  geom_point(aes(x = timestep, y = fidelity, colour = ideas))
+
+runres %>%
+  ggplot() +
+  geom_point(aes(x = timestep, y = longevity, colour = ideas))
