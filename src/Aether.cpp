@@ -19,8 +19,16 @@ void Aether::increment_idea_id_counter() {
   this->idea_id_counter++;
 }
 
-int Aether::get_ideanumber() {
-  return this->mindspace.size();
+int Aether::get_number_alive_ideas() {
+  // count if idea is alive
+  int res = std::count_if(
+    this->mindspace.begin(),
+    this->mindspace.end(),
+    //lambda expression!
+    [](Idea* i){return i->is_alive();}
+  );
+  //Rcpp::Rcout << res << std::endl;
+  return res;
 }
 
 std::vector<int> Aether::get_ideas() {

@@ -24,8 +24,8 @@ class Aether {
   int get_idea_id_counter();
   void increment_idea_id_counter();
 
-  //! get number of ideas
-  int get_ideanumber();
+  //! get number of ideas that are alive
+  int get_number_alive_ideas();
   //! get identities of Idea instances
   /*!
    Returns vector of identities of currently present

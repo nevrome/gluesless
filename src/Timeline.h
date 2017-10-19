@@ -37,7 +37,7 @@ class Timeline {
 
   private:
   //! stores number of Idea instances over time
-  std::vector<int> ideanumber;
+  std::vector<int> number_alive_ideas;
   //! stores Idea identities over time
   std::vector< std::vector<int> > ideas;
   //! stores Idea positions over time

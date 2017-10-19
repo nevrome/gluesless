@@ -13,7 +13,7 @@ void Timeline::develop(Aether* current) {
   current->develop();
 
   // query new Aether values to be stored in Timeline
-  this->ideanumber.push_back(current->get_ideanumber());
+  this->number_alive_ideas.push_back(current->get_number_alive_ideas());
   this->ideas.push_back(current->get_ideas());
   this->idea_vertices.push_back(
       current->get_idea_vertices()
@@ -31,8 +31,8 @@ SEXP Timeline::export_as_R_list() {
   // create R list to store the result
   List res;
 
-  // add Numeric vector with the ideanumber development to the resultlist
-  res["number_of_ideas"] = this->ideanumber;
+  // add Numeric vector with the number_alive_ideas development to the resultlist
+  //res["number_of_ideas"] = this->number_alive_ideas;
 
   // create vectors that will form the columns of the result data.frame
   // The result is structured to contain the positions of individual ideas for
@@ -51,18 +51,21 @@ SEXP Timeline::export_as_R_list() {
   fide.reserve(100000);
   std::vector<int> longe;
   longe.reserve(100000);
+  std::vector<int> alive_num;
+  alive_num.reserve(100000);
 
   // determine export timestep resolution depending on number of iterations
-  //int iter = this->ideanumber.size();
+  //int iter = this->number_alive_ideas.size();
   //int am = pow(10, get_number_of_digits(iter) - 2);
 
   int count = 0;
   // get pointer to the first idea list in the idea identity vector
   auto it_id_1 = ideas.cbegin();
-  // ... and the other idea property vectors
+  // ... and the other property vectors
   auto it_fecu_1 = fecundities.cbegin();
   auto it_fide_1 = fidelities.cbegin();
   auto it_longe_1 = longevities.cbegin();
+  auto it_alive_num_1 = number_alive_ideas.cbegin();
 
   // loop over idea positions vector
   for (auto& it_vert_1 : idea_vertices) {
@@ -88,6 +91,7 @@ SEXP Timeline::export_as_R_list() {
           fecu.push_back(*it_fecu_2);
           fide.push_back(*it_fide_2);
           longe.push_back(*it_longe_2);
+          alive_num.push_back(*it_alive_num_1);
 
         }
       it_id_2++;
@@ -101,11 +105,13 @@ SEXP Timeline::export_as_R_list() {
   it_fide_1++;
   it_longe_1++;
   count++;
+  it_alive_num_1++;
   }
 
   // construct data.frame and add to export list
   res["idea_exp"] = Rcpp::DataFrame::create(
     _["timestep"] = timestep,
+    _["num_alive_ideas"] = alive_num,
     _["ideas"] = id,
     _["vertices"] = vert,
     _["fecundity"] = fecu,
