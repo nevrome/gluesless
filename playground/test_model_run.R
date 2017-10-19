@@ -10,7 +10,7 @@ load("/home/clemens/neomod/neomod_datapool/model_data/hex_graph_nodes.RData")
 modelobj <- new(
   "model_builder",
   networkland_env = graphwrite(hex_graph),
-  number_iterations = 100,
+  number_iterations = 500,
   initial_idea_starting_positions = find_starting_pos(
     nodes, 38.923622, 36.067470, 3
   )
@@ -33,14 +33,48 @@ plot_state(hu, states = states, length(states))
 library(dplyr)
 library(ggplot2)
 
+# number
+runres %>%
+  dplyr::group_by(timestep) %>%
+  dplyr::summarise(
+    alive = mean(num_alive_ideas)
+  ) %>%
+  ggplot() +
+  geom_line(aes(x = timestep, y = alive))
+
+# fecundity
 runres %>%
   ggplot() +
   geom_line(aes(x = timestep, y = fecundity, group = ideas, colour = ideas))
 
+# fidelity
 runres %>%
+  dplyr::group_by(timestep) %>%
+  dplyr::summarise(
+    mean_fidelity = mean(fidelity),
+    min_fidelity = min(fidelity),
+    max_fidelity = max(fidelity)
+  ) %>%
   ggplot() +
-  geom_point(aes(x = timestep, y = fidelity, colour = ideas))
+  geom_ribbon(aes(
+    x = timestep,
+    ymin = min_fidelity,
+    ymax = max_fidelity
+  )) +
+  geom_line(aes(x = timestep, y = mean_fidelity), color = "red")
 
+# longevity
 runres %>%
+  dplyr::group_by(timestep) %>%
+  dplyr::summarise(
+    mean_longevity = mean(longevity),
+    min_longevity = min(longevity),
+    max_longevity = max(longevity)
+  ) %>%
   ggplot() +
-  geom_point(aes(x = timestep, y = longevity, colour = ideas))
+  geom_ribbon(aes(
+    x = timestep,
+    ymin = min_longevity,
+    ymax = max_longevity
+  )) +
+  geom_line(aes(x = timestep, y = mean_longevity), color = "red")
