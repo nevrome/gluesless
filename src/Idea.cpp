@@ -54,14 +54,14 @@ void Idea::infect(vertex_desc victim_hex) {
   realworld->set_vertex_occupying_idea_id(victim_hex, this->identity);
   // increase fecundity, if ioi of victim vertex is > -1, else reduce it
   if (realworld->get_vertex_ioi(victim_hex) > -1) {
-    this->fecundity = this->fecundity + 2;
+    this->fecundity = this->fecundity + 3;
   } else {
-    if (randunifrange(0, 100) > 20) {
+    if (randunifrange(0, 100) > 10) {
       this->fecundity--;
     }
   }
-  // remove ioi of victim_hex
-  realworld->set_vertex_ioi(victim_hex, -1);
+  // reduce ioi of victim_hex
+  realworld->set_vertex_ioi(victim_hex, 1);
 }
 
 void Idea::fight(Idea* enemy, vertex_desc victim_hex) {
@@ -90,6 +90,10 @@ void Idea::fight(Idea* enemy, vertex_desc victim_hex) {
         enemy->die();
       }
     }
+    // reduce fecundity
+    // if (randunifrange(0, 100) > 90) {
+    //   this->fecundity--;
+    // }
   }
 }
 
@@ -224,9 +228,10 @@ Idea* Idea::split(int new_id) {
     }
   }
   // create new idea with modified characteristics of the old idea
+  int shared_fecundity = (this->fecundity / 2) * 1.2;
   Idea* newidea = new Idea(
     new_id,
-    this->fecundity,
+    shared_fecundity,
     this->fidelity + randunifrange(-1, 1),
     this->longevity + randunifrange(-1, 1),
     realworld,
@@ -236,6 +241,8 @@ Idea* Idea::split(int new_id) {
   this->vertices = v1;
   // set age of old idea back to zero
   this->age_in_timesteps = 0;
+  // adjust fecundity of old idea
+  this->fecundity = shared_fecundity;
 
   return newidea;
 }
