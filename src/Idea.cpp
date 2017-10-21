@@ -52,10 +52,16 @@ void Idea::infect(vertex_desc victim_hex) {
   vertices.push_back(victim_hex);
   // install idea in hex
   realworld->set_vertex_occupying_idea_id(victim_hex, this->identity);
-  // increase fecundity
-  if (realworld->get_vertex_ioi(victim_hex) >= -1) {
-    this->fecundity++;
+  // increase fecundity, if ioi of victim vertex is > -1, else reduce it
+  if (realworld->get_vertex_ioi(victim_hex) > -1) {
+    this->fecundity = this->fecundity + 2;
+  } else {
+    if (randunifrange(0, 100) > 20) {
+      this->fecundity--;
+    }
   }
+  // remove ioi of victim_hex
+  realworld->set_vertex_ioi(victim_hex, -1);
 }
 
 void Idea::fight(Idea* enemy, vertex_desc victim_hex) {
@@ -162,7 +168,7 @@ vertex_desc Idea::direction_selection() {
 
   // 2. make decision
   // focus on ioi
-  if (randunifrange(0, 100) > 2) {
+  if (randunifrange(0, 100) > 10) {
     // loop over every possible victim in the order of descending ioi sum
     for (auto p5 : ioi_index_sorted) {
       // distance influence
