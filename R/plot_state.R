@@ -23,7 +23,8 @@ plot_state <- function(worldplot, states, state_id) {
       ),
       #shape = -as.hexmode("2B22"),
       shape = 20,
-      size = 3
+      size = 5,
+      alpha = 0.4
     ) +
     ggplot2::scale_color_gradient2(
       low = "#218203",

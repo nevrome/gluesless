@@ -3,13 +3,14 @@
 #' @param graph igraph graph object
 #' @param world_polygon polygon data.frame describing the land outline
 #' @param hex polygon data.frame describing the hex raster
+#' @param nodes data.frame with info about the nodes
 #' @param plotedges should the graph edges be plotted?
 #'
 #' @return resplot
 #'
 #' @export
 plot_world <- function(
-  graph, world_polygon, hex = NULL, plotedges = FALSE
+  graph, world_polygon, hex = NULL, nodes = NULL, plotedges = FALSE
 ) {
 
   # extract vertices table from igraph object
@@ -67,6 +68,19 @@ plot_world <- function(
     ) +
     ggraph::scale_edge_alpha(
       trans = "reverse"
+    )
+  }
+
+  if (!is.null(nodes)) {
+    nodes_not_empty <- nodes %>%
+      dplyr::filter(
+        .data$ioi != -1
+      )
+    resplot <- resplot + ggplot2::geom_point(
+      data = nodes_not_empty,
+      ggplot2::aes_string(x = "x", y = "y", fill = "ioi"),
+      shape = 23,
+      size = 3
     )
   }
 
