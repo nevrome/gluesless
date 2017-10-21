@@ -112,6 +112,7 @@ vertex_desc Idea::direction_selection() {
   for (auto& p1 : own_vertices) {
     // set value of possible ioi to zero for this first vertex
     double max_possible_ioi = 0;
+    size_t count_with_ioi = 0;
     // get neighbouring vertices of the current vertex
     adjacentvecs = realworld->get_adjacent_vertices(p1);
     // iterate through all neighbouring vertices of the current vertex
@@ -125,20 +126,27 @@ vertex_desc Idea::direction_selection() {
         // neighbouring vertex
         distances.push_back(realworld->get_distance_between_two_vertices(p1, p2));
         // get the ioi sum of the neighbouring vertices of the current vertex
-        max_possible_ioi += realworld->get_vertex_ioi(p2);
+        double cur_ioi = realworld->get_vertex_ioi(p2);
+        if (cur_ioi != -1) {count_with_ioi++;}
+        max_possible_ioi += cur_ioi;
         adjacentvecs2 = realworld->get_adjacent_vertices(p2);
         for (auto& p3 : adjacentvecs2) {
           if (!(find(own_vertices.begin(), own_vertices.end(), p3) != own_vertices.end())) {
-            max_possible_ioi += realworld->get_vertex_ioi(p3);
+            cur_ioi = realworld->get_vertex_ioi(p3);
+            if (cur_ioi != -1) {count_with_ioi++;}
+            max_possible_ioi += cur_ioi;
             adjacentvecs3 = realworld->get_adjacent_vertices(p3);
             for (auto& p4 : adjacentvecs3) {
               if (!(find(own_vertices.begin(), own_vertices.end(), p4) != own_vertices.end())) {
-                max_possible_ioi += realworld->get_vertex_ioi(p4);
+                cur_ioi = realworld->get_vertex_ioi(p4);
+                if (cur_ioi != -1) {count_with_ioi++;}
+                max_possible_ioi += cur_ioi;
               }
             }
           }
         }
-        victim_ioi.push_back(max_possible_ioi);
+        if (count_with_ioi < 2) {count_with_ioi = 1;}
+        victim_ioi.push_back(max_possible_ioi/count_with_ioi);
       }
     }
   }
@@ -154,11 +162,11 @@ vertex_desc Idea::direction_selection() {
 
   // 2. make decision
   // focus on ioi
-  if (!selection_done & (randunifrange(1, 100) > 10)) {
+  if (randunifrange(0, 100) > 2) {
     // loop over every possible victim in the order of descending ioi sum
     for (auto p5 : ioi_index_sorted) {
       // distance influence
-      if (randunifrange(1, 100) > 20 * distances[p5]) {
+      if (randunifrange(0, 100) > (20 * distances[p5])) {
         selected_victim = possible_victims[p5];
         selection_done = true;
         break;
