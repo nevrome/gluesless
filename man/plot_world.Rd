@@ -4,7 +4,8 @@
 \alias{plot_world}
 \title{plot function - world}
 \usage{
-plot_world(graph, world_polygon, hex = NULL, plotedges = FALSE)
+plot_world(graph, world_polygon, hex = NULL, nodes = NULL,
+  plotedges = FALSE)
 }
 \arguments{
 \item{graph}{igraph graph object}
@@ -12,6 +13,8 @@ plot_world(graph, world_polygon, hex = NULL, plotedges = FALSE)
 \item{world_polygon}{polygon data.frame describing the land outline}
 
 \item{hex}{polygon data.frame describing the hex raster}
+
+\item{nodes}{data.frame with info about the nodes}
 
 \item{plotedges}{should the graph edges be plotted?}
 }
