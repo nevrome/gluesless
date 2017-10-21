@@ -78,6 +78,7 @@ class Networkland {
     bool are_adjacent(const vertex_desc& a, const vertex_desc& b);
 
     double get_vertex_ioi(const vertex_desc& a);
+    void set_vertex_ioi(const vertex_desc& a, double new_ioi);
 
     int get_vertex_occupying_idea_id(const vertex_desc& a);
     void set_vertex_occupying_idea_id(const vertex_desc& a, int id);

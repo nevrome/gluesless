@@ -85,6 +85,10 @@ double Networkland::get_vertex_ioi(const vertex_desc& a) {
   return env[a].ioi;
 }
 
+void Networkland::set_vertex_ioi(const vertex_desc& a, double new_ioi) {
+  env[a].ioi = new_ioi;
+}
+
 int Networkland::get_vertex_occupying_idea_id(
     const vertex_desc& a
 ) {
