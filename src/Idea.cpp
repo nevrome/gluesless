@@ -100,6 +100,8 @@ vertex_desc Idea::direction_selection() {
 
   // create empty objects to store intermediate results
   std::vector<vertex_desc> adjacentvecs;
+  std::vector<vertex_desc> adjacentvecs2;
+  std::vector<vertex_desc> adjacentvecs3;
   std::vector<vertex_desc> possible_victims;
   std::vector<double> distances;
   std::vector<double> victim_ioi;
@@ -108,53 +110,59 @@ vertex_desc Idea::direction_selection() {
 
   // iterate through all vertices occupied by the idea
   for (auto& p1 : own_vertices) {
+    // set value of possible ioi to zero for this first vertex
+    double max_possible_ioi = 0;
     // get neighbouring vertices of the current vertex
     adjacentvecs = realworld->get_adjacent_vertices(p1);
     // iterate through all neighbouring vertices of the current vertex
     for (auto& p2 : adjacentvecs) {
-      // check, if current neighbouring vertex is not already part of the idea
-      // if it's part, then skip, else:
+      // check, if current neighbouring vertex is already part of the idea
       if (!(find(own_vertices.begin(), own_vertices.end(), p2) != own_vertices.end())) {
-        // get the distance value between the two vertices
-        // search for victim with smallest distance
+        // if yes, then skip, else:
+        // store current neighbouring vertex
         possible_victims.push_back(p2);
+        // get the distance value between the current vertex and the current
+        // neighbouring vertex
         distances.push_back(realworld->get_distance_between_two_vertices(p1, p2));
-        victim_ioi.push_back(realworld->get_vertex_ioi(p2));
+        // get the ioi sum of the neighbouring vertices of the current vertex
+        max_possible_ioi += realworld->get_vertex_ioi(p2);
+        adjacentvecs2 = realworld->get_adjacent_vertices(p2);
+        for (auto& p3 : adjacentvecs2) {
+          if (!(find(own_vertices.begin(), own_vertices.end(), p3) != own_vertices.end())) {
+            max_possible_ioi += realworld->get_vertex_ioi(p3);
+            adjacentvecs3 = realworld->get_adjacent_vertices(p3);
+            for (auto& p4 : adjacentvecs3) {
+              if (!(find(own_vertices.begin(), own_vertices.end(), p4) != own_vertices.end())) {
+                max_possible_ioi += realworld->get_vertex_ioi(p4);
+              }
+            }
+          }
+        }
+        victim_ioi.push_back(max_possible_ioi);
       }
     }
   }
 
   // select actual victim from possible victims
-  // 1. search for index of possible victim with smallest distance
-  int smallest_dist_index = std::distance(
-    distances.begin(),
-    std::min_element(
-      distances.begin(),
-      distances.end()
-    )
-  );
-  int smallest_dist = distances[smallest_dist_index];
-
-  // 2. search for index of possible victim with biggest ioi
-  int biggest_ioi_index = std::distance(
-    victim_ioi.begin(),
-    std::max_element(
-      victim_ioi.begin(),
-      victim_ioi.end()
-    )
-  );
-  int biggest_ioi = victim_ioi[biggest_ioi_index];
+  // 1. sort ioi sum vector
+  std::vector<size_t> ioi_index_sorted = sort_indexes(victim_ioi);
+  // descending
+  std::reverse(ioi_index_sorted.begin(), ioi_index_sorted.end());
 
   vertex_desc selected_victim;
   bool selection_done = false;
 
-  // 3. make decision
+  // 2. make decision
   // focus on ioi
   if (!selection_done & (randunifrange(1, 100) > 10)) {
-    // distance influence
-    if (randunifrange(1, 100) > 30 * distances[biggest_ioi_index]) {
-      selected_victim = possible_victims[biggest_ioi_index];
-      selection_done = true;
+    // loop over every possible victim in the order of descending ioi sum
+    for (auto p5 : ioi_index_sorted) {
+      // distance influence
+      if (randunifrange(1, 100) > 20 * distances[p5]) {
+        selected_victim = possible_victims[p5];
+        selection_done = true;
+        break;
+      }
     }
   }
 
