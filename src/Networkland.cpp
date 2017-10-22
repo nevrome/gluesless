@@ -143,6 +143,27 @@ void Networkland::push_idea(const vertex_desc& a, Idea* i) {
   env[a].present_ideas.push_back(i);
 }
 
+void Networkland::erase_idea(const vertex_desc& a, Idea* i) {
+  env[a].present_ideas.erase(
+    std::remove(
+      env[a].present_ideas.begin(),
+      env[a].present_ideas.end(),
+      i),
+    env[a].present_ideas.end()
+  );
+}
+
+bool Networkland::check_idea(const vertex_desc& a, Idea* i) {
+  return std::find(
+    env[a].present_ideas.begin(),
+    env[a].present_ideas.end(), i
+  ) != env[a].present_ideas.end();
+}
+
+bool Networkland::is_occupied(const vertex_desc& a){
+  return !env[a].present_ideas.empty();
+}
+
 // std::string Networkland::export_graph() {
 //
 //   graph_t graph = this->get_graph();

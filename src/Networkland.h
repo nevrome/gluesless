@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <algorithm>
 
 #include <boost/graph/graph_traits.hpp>
 #include <boost/graph/adjacency_list.hpp>
@@ -22,7 +23,7 @@ struct Vertex {
   //! stores y-axis coordinate of the Node
   double y;
   //! index of interest - weight value of vertex
-  double ioi;
+  double ioi = -1;
   //! idea that currently occupies the node
   int occupying_idea_id = -1;
   //! list of ideas that currently occupy the node
@@ -89,6 +90,9 @@ class Networkland {
     size_t get_num_ideas(const vertex_desc& a);
     Idea* get_weakest_idea(const vertex_desc& a);
     void push_idea(const vertex_desc& a, Idea* i);
+    void erase_idea(const vertex_desc& a, Idea* i);
+    bool check_idea(const vertex_desc& a, Idea* i);
+    bool is_occupied(const vertex_desc& a);
 
     // std::string export_graph();
 
