@@ -10,7 +10,7 @@ Idea::Idea(
   int fid,
   int lon,
   Networkland* real,
-  std::vector<vertex_desc> birth_vertices
+  std::vector<vertex_desc> initial_idea_start_pos
 ) {
   this->identity = id;
   this->fecundity = fec,
@@ -18,10 +18,10 @@ Idea::Idea(
   this->longevity = lon,
   this->age_in_timesteps = 1;
   this->realworld = real;
-  this->vertices = birth_vertices;
+  this->vertices = initial_idea_start_pos;
   // write ownership via id into vertices
-  for (auto& veri : birth_vertices) {
-    real->set_vertex_occupying_idea_id(veri, id);
+  for (auto& p1 : this->vertices) {
+    real->push_idea(p1, this);
   }
 }
 
@@ -32,8 +32,8 @@ void Idea::die() {
   // set alive flag to false
   this->alive = false;
   // delete information in occupied vertices
-  for (auto& veri : this->vertices) {
-    realworld->set_vertex_occupying_idea_id(veri, -1);
+  for (auto& p1 : this->vertices) {
+    realworld->erase_idea(p1, this);
   }
   // delete information about occupied vertices
   this->vertices.clear();
@@ -51,7 +51,7 @@ void Idea::infect(vertex_desc victim_hex) {
   // add hex to idea
   vertices.push_back(victim_hex);
   // install idea in hex
-  realworld->set_vertex_occupying_idea_id(victim_hex, this->identity);
+  realworld->push_idea(victim_hex, this);
   // increase fecundity, if ioi of victim vertex is > -1, else reduce it
   if (realworld->get_vertex_ioi(victim_hex) > -1) {
     this->fecundity = this->fecundity + 3;
@@ -72,23 +72,16 @@ void Idea::fight(Idea* enemy, vertex_desc victim_hex) {
     // if this idea wins:
     // add new vertex to this idea
     this->vertices.push_back(victim_hex);
-    // change occupation flag of vertex
-    realworld->set_vertex_occupying_idea_id(victim_hex, this->identity);
+    // change occupation vector of vertex
+    realworld->erase_idea(victim_hex, enemy);
+    realworld->push_idea(victim_hex, this);
     // remove vertex from vertices vector of the enemy
-    //enemy->vertices
     std::vector<vertex_desc>::iterator position = std::find(
       enemy->vertices.begin(), enemy->vertices.end(), victim_hex
     );
-    if (position != enemy->vertices.end()) {
-      // Rcpp::Rcout << enemy->vertices.size() << std::endl;
-      // sleep(1);
-      // if (enemy->vertices.size() <= 1) {
-      //   enemy->die();
-      // } else {
-      enemy->vertices.erase(position);
-      if (enemy->vertices.size() <= 0) {
-        enemy->die();
-      }
+    enemy->vertices.erase(position);
+    if (enemy->vertices.size() <= 0) {
+      enemy->die();
     }
     // reduce fecundity
     // if (randunifrange(0, 100) > 90) {
@@ -128,7 +121,7 @@ vertex_desc Idea::direction_selection() {
     // iterate through all neighbouring vertices of the current vertex
     for (auto& p2 : adjacentvecs) {
       // check, if current neighbouring vertex is already part of the idea
-      if (!(find(own_vertices.begin(), own_vertices.end(), p2) != own_vertices.end())) {
+      if (!realworld->check_idea(p2, this)) {
         // if yes, then skip, else:
         // store current neighbouring vertex
         possible_victims.push_back(p2);
@@ -141,13 +134,13 @@ vertex_desc Idea::direction_selection() {
         max_possible_ioi += cur_ioi;
         adjacentvecs2 = realworld->get_adjacent_vertices(p2);
         for (auto& p3 : adjacentvecs2) {
-          if (!(find(own_vertices.begin(), own_vertices.end(), p3) != own_vertices.end())) {
+          if (!realworld->check_idea(p3, this)) {
             cur_ioi = realworld->get_vertex_ioi(p3);
             if (cur_ioi != -1) {count_with_ioi++;}
             max_possible_ioi += cur_ioi;
             adjacentvecs3 = realworld->get_adjacent_vertices(p3);
             for (auto& p4 : adjacentvecs3) {
-              if (!(find(own_vertices.begin(), own_vertices.end(), p4) != own_vertices.end())) {
+              if (!realworld->check_idea(p4, this)) {
                 cur_ioi = realworld->get_vertex_ioi(p4);
                 if (cur_ioi != -1) {count_with_ioi++;}
                 max_possible_ioi += cur_ioi;
@@ -239,6 +232,9 @@ Idea* Idea::split(int new_id) {
   );
   // reduce expansion of old idea
   this->vertices = v1;
+  for (auto& p4 : v2) {
+    realworld->erase_idea(p4, this);
+  }
   // set age of old idea back to zero
   this->age_in_timesteps = 0;
   // adjust fecundity of old idea

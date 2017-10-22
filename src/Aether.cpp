@@ -103,7 +103,7 @@ void Aether::develop() {
     v.push_back(newidea);
   }
 
-  // create offset vector
+  // create offset vector to shuffle order of ideas
   std::vector<int> offset;
   offset.reserve(v.size());
   for (size_t i=0u; i<v.size(); ++i) {
@@ -153,15 +153,16 @@ void Aether::develop() {
           // the idea decides where to go
           vertex_desc victim_hex = (*it)->direction_selection();
           // check whether the victim vertex is already occupied
-          int potential_enemy = realworld->get_vertex_occupying_idea_id(victim_hex);
-          if (potential_enemy == -1) {
+          if (!realworld->is_occupied(victim_hex) ||
+              // this number sets degree of overlapping
+              realworld->get_num_ideas(victim_hex) <= 2) {
             // if no: just infect it
             (*it)->infect(victim_hex);
           } else {
-            // if yes: fight against the enemy
+            // if yes: find enemy and fight against it
             (*it)->fight(
               // select enemy
-              mindspace[potential_enemy],
+              realworld->get_weakest_idea(victim_hex),
               victim_hex
             );
           }
