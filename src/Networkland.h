@@ -8,6 +8,8 @@
 #include <boost/graph/properties.hpp>
 #include <Rcpp.h>
 
+class Idea;
+
 //! Node in the graph of a Networkland
 /*!
  Could represent Individuals, Settlements, Areas etc..
@@ -23,6 +25,8 @@ struct Vertex {
   double ioi;
   //! idea that currently occupies the node
   int occupying_idea_id = -1;
+  //! list of ideas that currently occupy the node
+  std::vector<Idea*> present_ideas;
 };
 
 

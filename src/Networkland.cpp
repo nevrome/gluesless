@@ -10,6 +10,18 @@
 
 using namespace boost;
 
+// define dummy in- and output definitions for Idea vectors - boost needs that, I don't...
+// https://stackoverflow.com/questions/40685196/read-boost-graph-boostread-graphviz-where-vertex-contains-vector
+// https://stackoverflow.com/questions/32279268/using-two-objects-as-hash-key-for-an-unordered-map-or-alternatives/32281365#32281365
+static inline std::ostream& operator<<(std::ostream& os, std::vector<Idea*> const& i) {
+  // here I would have to do something, if this feature would be necessary
+  return os;
+}
+static inline std::istream& operator>>(std::istream& is, std::vector<Idea*> const& i) {
+  // here I would have to do something, if this feature would be necessary
+  return is;
+}
+
 // int Vertex::get_occupying_idea_id() {
 //   return this->occupying_idea_id;
 // }
@@ -20,8 +32,10 @@ using namespace boost;
 
 Networkland::Networkland(const std::string& graphstring) {
 
+  // create empty graph object
   graph_t graph(0);
 
+  // add graph properties
   dynamic_properties dp(ignore_other_properties);
   dp.property("id",                 get(&Vertex::id,                graph));
   dp.property("x",                  get(&Vertex::x,                 graph));
@@ -37,7 +51,11 @@ Networkland::Networkland(const std::string& graphstring) {
 
   std::istringstream is(graphstring);
 
+  // read graph from string
   read_graphml(is, graph, dp);
+
+  // add properties to graph that are not part of the input
+  dp.property("present_ideas",      get(&Vertex::present_ideas,     graph));
 
   this->env = graph;
 }
