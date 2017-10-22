@@ -67,7 +67,6 @@ class Networkland {
     public:
     Networkland(const std::string& graphstring);
     Networkland(graph_t newenv);
-
     //! get graph
     graph_t get_graph();
     //! get number of vertices of graph
@@ -86,6 +85,10 @@ class Networkland {
 
     int get_vertex_occupying_idea_id(const vertex_desc& a);
     void set_vertex_occupying_idea_id(const vertex_desc& a, int id);
+
+    size_t get_num_ideas(const vertex_desc& a);
+    Idea* get_weakest_idea(const vertex_desc& a);
+    void push_idea(const vertex_desc& a, Idea* i);
 
     // std::string export_graph();
 

@@ -6,6 +6,7 @@
 #include <boost/graph/graph_mutability_traits.hpp>
 #include <boost/range/iterator_range.hpp>
 
+#include "Idea.h"
 #include "global.h"
 
 using namespace boost;
@@ -119,6 +120,28 @@ void Networkland::set_vertex_occupying_idea_id(
   env[a].occupying_idea_id = id;
 }
 
+size_t Networkland::get_num_ideas(const vertex_desc& a) {
+  return env[a].present_ideas.size();
+}
+
+Idea* Networkland::get_weakest_idea(const vertex_desc& a) {
+  std::vector<Idea*> idea_vec = env[a].present_ideas;
+  Idea* weakest;
+  bool first = true;
+  int weakest_fidelity = 0;
+  for(auto& p1 : idea_vec) {
+    if (first || p1->get_fidelity() < weakest_fidelity) {
+      weakest = p1;
+      weakest_fidelity = p1->get_fidelity();
+      first = false;
+    }
+  }
+  return weakest;
+}
+
+void Networkland::push_idea(const vertex_desc& a, Idea* i) {
+  env[a].present_ideas.push_back(i);
+}
 
 // std::string Networkland::export_graph() {
 //
