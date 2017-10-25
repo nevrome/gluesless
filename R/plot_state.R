@@ -27,9 +27,9 @@ plot_state <- function(worldplot, states, state_id) {
       alpha = 0.4
     ) +
     ggplot2::scale_color_gradient2(
-      low = "#218203",
+      low = "#990000",
       mid = "#ffff00",
-      high = "#990000",
+      high = "#218203",
       limits = idea_num_range,
       midpoint = mean(idea_num_range)
     )
