@@ -75,7 +75,9 @@ class Idea {
   //! fecundity value -- Fruchtbarkeit -- determines, how many
   //! nodes an idea can infect in one timestep
   int fecundity;
-  //! fidelity value -- Wiedergabetreue -- determines how stable an idea is
+  //! fidelity value -- Wiedergabetreue -- determines, if an idea
+  //! is nomal enough to split
+  //! whoever deviates to much from the norm can't split any more
   int fidelity;
   //! longevity value -- Langlebigkeit -- determines, how many
   //! timesteps an idea lives

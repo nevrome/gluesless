@@ -141,10 +141,15 @@ void Aether::develop() {
         // if yes: the idea is actually removed
         (*it)->die();
       } else {
-        // if no: the idea splits
-        Idea* newidea = (*it)->split(this->idea_id_counter);
-        this->increment_idea_id_counter();
-        v.push_back(newidea);
+        // if no: the idea may split
+        // the probability for splitting depends on the fidelity value
+        if ((*it)->get_fidelity() < 13 & (*it)->get_fidelity() > 7) {
+          Idea* newidea = (*it)->split(this->idea_id_counter);
+          this->increment_idea_id_counter();
+          v.push_back(newidea);
+        } else {
+          (*it)->set_age_back();
+        }
       }
     } else {
       // if no:
