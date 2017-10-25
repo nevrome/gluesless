@@ -40,6 +40,7 @@ class Idea {
   int get_fidelity();
   int get_longevity();
   int get_age();
+  void set_age_back();
 
   //! get positions of an Idea
   /*!

@@ -42,6 +42,7 @@ void Idea::die() {
 }
 int Idea::get_power() { return this->power; }
 int Idea::get_age(){ return this->age_in_timesteps; }
+void Idea::set_age_back(){ this->age_in_timesteps = 0; }
 int Idea::get_fecundity() { return this->fecundity; }
 int Idea::get_fidelity() { return this->fidelity; }
 int Idea::get_longevity() { return this->longevity; }
@@ -240,7 +241,7 @@ Idea* Idea::split(int new_id) {
     realworld->erase_idea(p4, this);
   }
   // set age of old idea back to zero
-  this->age_in_timesteps = 0;
+  this->set_age_back();
   // adjust fecundity of old idea
   this->fecundity = shared_fecundity;
 
