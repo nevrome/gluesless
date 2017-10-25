@@ -1,5 +1,7 @@
 library(gluesless)
 library(magrittr)
+library(dplyr)
+library(ggplot2)
 
 load("/home/clemens/neomod/neomod_datapool/model_data/hex_graph.RData")
 load("/home/clemens/neomod/neomod_datapool/model_data/research_area_df.RData")
@@ -16,7 +18,7 @@ plot_world(
 modelobj <- new(
   "model_builder",
   networkland_env = graphwrite(hex_graph),
-  number_iterations = 200,
+  number_iterations = 100,
   initial_idea_starting_positions = find_starting_pos(
     nodes, 38.923622, 36.067470, 3
   )
@@ -32,9 +34,6 @@ plot_state(hu, states = states, 100)
 
 #plot_state(hu, states = states, length(states))
 
-library(dplyr)
-library(ggplot2)
-
 # number
 runres %>%
   dplyr::group_by(timestep) %>%
@@ -45,9 +44,31 @@ runres %>%
   geom_line(aes(x = timestep, y = alive))
 
 # fecundity
+mean_fecu <- runres %>%
+  dplyr::group_by(timestep) %>%
+  dplyr::summarise(
+    mean_fecundity = mean(fecundity)
+  )
+
+ggplot() +
+  geom_line(data = runres, aes(x = timestep, y = fecundity, group = ideas, colour = ideas)) +
+  geom_line(data = mean_fecu, aes(x = timestep, y = mean_fecundity), color = "red")
+
+# power
 runres %>%
+  dplyr::group_by(timestep) %>%
+  dplyr::summarise(
+    mean_power = mean(power),
+    min_power = min(power),
+    max_power = max(power)
+  ) %>%
   ggplot() +
-  geom_line(aes(x = timestep, y = fecundity, group = ideas, colour = ideas))
+  geom_ribbon(aes(
+    x = timestep,
+    ymin = min_power,
+    ymax = max_power
+  )) +
+  geom_line(aes(x = timestep, y = mean_power), color = "red")
 
 # fidelity
 runres %>%
