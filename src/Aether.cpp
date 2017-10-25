@@ -1,14 +1,12 @@
 #include <math.h>
 
 #include "Aether.h"
-
 #include "global.h"
 
 Aether::Aether(Networkland* real, std::vector<vertex_desc> idea_start_pos) {
   this->realworld = real;
   this->idea_id_counter = 0;
   this->initial_idea_start_pos = idea_start_pos;
-
 }
 
 int Aether::get_idea_id_counter() {
@@ -24,7 +22,7 @@ int Aether::get_number_alive_ideas() {
   int res = std::count_if(
     this->mindspace.begin(),
     this->mindspace.end(),
-    //lambda expression!
+    //lambda expression! Wohoo!
     [](Idea* i){return i->is_alive();}
   );
   //Rcpp::Rcout << res << std::endl;
@@ -34,7 +32,7 @@ int Aether::get_number_alive_ideas() {
 std::vector<int> Aether::get_ideas() {
   std::vector<int> res;
   res.reserve(this->mindspace.size());
-  for(auto& idx : this->mindspace) {
+  for (auto& idx : this->mindspace) {
     res.push_back(idx->get_identity());
   }
   return res;
@@ -43,7 +41,7 @@ std::vector<int> Aether::get_ideas() {
 std::vector< std::vector<vertex_desc> > Aether::get_idea_vertices(){
   std::vector< std::vector <vertex_desc> > res;
   res.reserve(this->mindspace.size());
-  for(auto& idx : this->mindspace) {
+  for (auto& idx : this->mindspace) {
     res.push_back(idx->get_vertices());
   }
   return res;
@@ -52,7 +50,7 @@ std::vector< std::vector<vertex_desc> > Aether::get_idea_vertices(){
 std::vector<int> Aether::get_powers() {
   std::vector<int> res;
   res.reserve(this->mindspace.size());
-  for(auto& idx : this->mindspace) {
+  for (auto& idx : this->mindspace) {
     res.push_back(idx->get_power());
   }
   return res;
@@ -61,7 +59,7 @@ std::vector<int> Aether::get_powers() {
 std::vector<int> Aether::get_fecundities() {
   std::vector<int> res;
   res.reserve(this->mindspace.size());
-  for(auto& idx : this->mindspace) {
+  for (auto& idx : this->mindspace) {
     res.push_back(idx->get_fecundity());
   }
   return res;
@@ -70,7 +68,7 @@ std::vector<int> Aether::get_fecundities() {
 std::vector<int> Aether::get_fidelities() {
   std::vector<int> res;
   res.reserve(this->mindspace.size());
-  for(auto& idx : this->mindspace) {
+  for (auto& idx : this->mindspace) {
     res.push_back(idx->get_fidelity());
   }
   return res;
@@ -79,22 +77,20 @@ std::vector<int> Aether::get_fidelities() {
 std::vector<int> Aether::get_longevities() {
   std::vector<int> res;
   res.reserve(this->mindspace.size());
-  for(auto& idx : this->mindspace) {
+  for (auto& idx : this->mindspace) {
     res.push_back(idx->get_longevity());
   }
   return res;
 }
 
-
 void Aether::develop() {
 
-  // create convinient short
+  // create convenient short
   auto& v = this->mindspace;
 
   // get number of vertices in the complente networkland graph
   // to later check for total domination of ideas
   int num_ver = boost::num_vertices(this->realworld->get_graph());
-
 
   // if no ideas are present, create the first one (simulation startup)
   if(v.size() == 0){
@@ -158,7 +154,7 @@ void Aether::develop() {
       int current_fecundity = (*it)->get_fecundity();
       double growth_dbl = (std::log2(current_fecundity) + 0.5);
       int growth = (int) std::round(growth_dbl);
-      // int growth = current_fecundity;
+      //int growth = current_fecundity;
       //Rcpp::Rcout << growth << std::endl;
       // realize growth for every growth point
       for (int p1 = 1; p1 <= growth; p1++) {
@@ -187,6 +183,5 @@ void Aether::develop() {
       (*it)->age();
     }
   }
-
 
 }
