@@ -30,69 +30,15 @@ Idea::Idea(
 int Idea::get_identity() { return this->identity; }
 void Idea::set_identity(int id) { this->identity = id; }
 bool Idea::is_alive() { return this->alive; }
-void Idea::die() {
-  // set alive flag to false
-  this->alive = false;
-  // delete information in occupied vertices
-  for (auto& p1 : this->vertices) {
-    realworld->erase_idea(p1, this);
-  }
-  // delete information about occupied vertices
-  this->vertices.clear();
-}
 int Idea::get_power() { return this->power; }
-int Idea::get_age(){ return this->age_in_timesteps; }
-void Idea::set_age_back(){ this->age_in_timesteps = 0; }
 int Idea::get_fecundity() { return this->fecundity; }
 int Idea::get_fidelity() { return this->fidelity; }
 int Idea::get_longevity() { return this->longevity; }
+std::vector<vertex_desc> Idea::get_vertices() { return this->vertices;}
+int Idea::get_age(){ return this->age_in_timesteps; }
 
-std::vector<vertex_desc> Idea::get_vertices() {
-  return this->vertices;
-}
-
-void Idea::infect(vertex_desc victim_hex) {
-  // add hex to idea
-  vertices.push_back(victim_hex);
-  // install idea in hex
-  realworld->push_idea(victim_hex, this);
-  // increase fecundity, if ioi of victim vertex is > -1, else reduce it
-  if (realworld->get_vertex_ioi(victim_hex) > -1) {
-    this->fecundity = this->fecundity + 3;
-  } else {
-    if (randunifrange(0, 100) > 10) {
-      this->fecundity--;
-    }
-  }
-  // reduce ioi of victim_hex
-  realworld->set_vertex_ioi(victim_hex, 1);
-}
-
-void Idea::fight(Idea* enemy, vertex_desc victim_hex) {
-  //Rcpp::Rcout << this->fidelity << " vs. " << enemy->fidelity << std::endl;
-
-  // fight decision
-  if (this->power >= enemy->power) {
-    // if this idea wins:
-    // add new vertex to this idea
-    this->vertices.push_back(victim_hex);
-    // change occupation vector of vertex
-    realworld->erase_idea(victim_hex, enemy);
-    realworld->push_idea(victim_hex, this);
-    // remove vertex from vertices vector of the enemy
-    std::vector<vertex_desc>::iterator position = std::find(
-      enemy->vertices.begin(), enemy->vertices.end(), victim_hex
-    );
-    enemy->vertices.erase(position);
-    if (enemy->vertices.size() <= 0) {
-      enemy->die();
-    }
-    // reduce fecundity
-    // if (randunifrange(0, 100) > 90) {
-    //   this->fecundity--;
-    // }
-  }
-}
+void Idea::set_age_back(){ this->age_in_timesteps = 0; }
+void Idea::age() { this->age_in_timesteps++; }
 
 vertex_desc Idea::direction_selection() {
 
@@ -187,14 +133,49 @@ vertex_desc Idea::direction_selection() {
   }
 
   return selected_victim;
+}
 
-  // when the previous loop found a victim it can become part of the idea
-  //Rcpp::Rcout << "test" << std::endl;
-    // get probability decision about where an idea actually grows
-    // dependend on the edge distance value of the victim node
-    //if (randunifrange(0, 101) > mindist*100) {
-  //return possible_victims[randunifrange(0, possible_victims.size() - 1)];
-    //}
+void Idea::infect(vertex_desc victim_hex) {
+  // add hex to idea
+  vertices.push_back(victim_hex);
+  // install idea in hex
+  realworld->push_idea(victim_hex, this);
+  // increase fecundity, if ioi of victim vertex is > -1, else reduce it
+  if (realworld->get_vertex_ioi(victim_hex) > -1) {
+    this->fecundity = this->fecundity + 3;
+  } else {
+    if (randunifrange(0, 100) > 10) {
+      this->fecundity--;
+    }
+  }
+  // reduce ioi of victim_hex
+  realworld->set_vertex_ioi(victim_hex, 1);
+}
+
+void Idea::fight(Idea* enemy, vertex_desc victim_hex) {
+  //Rcpp::Rcout << this->fidelity << " vs. " << enemy->fidelity << std::endl;
+
+  // fight decision
+  if (this->power >= enemy->power) {
+    // if this idea wins:
+    // add new vertex to this idea
+    this->vertices.push_back(victim_hex);
+    // change occupation vector of vertex
+    realworld->erase_idea(victim_hex, enemy);
+    realworld->push_idea(victim_hex, this);
+    // remove vertex from vertices vector of the enemy
+    std::vector<vertex_desc>::iterator position = std::find(
+      enemy->vertices.begin(), enemy->vertices.end(), victim_hex
+    );
+    enemy->vertices.erase(position);
+    if (enemy->vertices.size() <= 0) {
+      enemy->die();
+    }
+    // reduce fecundity
+    // if (randunifrange(0, 100) > 90) {
+    //   this->fecundity--;
+    // }
+  }
 }
 
 Idea* Idea::split(int new_id) {
@@ -248,7 +229,13 @@ Idea* Idea::split(int new_id) {
   return newidea;
 }
 
-//! An Idea grows older
-void Idea::age() {
-  this->age_in_timesteps++;
+void Idea::die() {
+  // set alive flag to false
+  this->alive = false;
+  // delete information in occupied vertices
+  for (auto& p1 : this->vertices) {
+    realworld->erase_idea(p1, this);
+  }
+  // delete information about occupied vertices
+  this->vertices.clear();
 }

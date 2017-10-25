@@ -23,14 +23,6 @@ static inline std::istream& operator>>(std::istream& is, std::vector<Idea*> cons
   return is;
 }
 
-// int Vertex::get_occupying_idea_id() {
-//   return this->occupying_idea_id;
-// }
-//
-// void Vertex::set_occupying_idea_id(int id) {
-//   this->occupying_idea_id = id;
-// }
-
 Networkland::Networkland(const std::string& graphstring) {
 
   // create empty graph object
@@ -42,7 +34,6 @@ Networkland::Networkland(const std::string& graphstring) {
   dp.property("x",                  get(&Vertex::x,                 graph));
   dp.property("y",                  get(&Vertex::y,                 graph));
   dp.property("ioi",                get(&Vertex::ioi,               graph));
-  dp.property("occupying_idea_id",  get(&Vertex::occupying_idea_id, graph));
   dp.property("distance",           get(&Edge::distance,            graph));
 
   ref_property_map<graph_t *, std::string> gname(
@@ -65,13 +56,8 @@ Networkland::Networkland(graph_t newenv) {
   this->env = newenv;
 }
 
-graph_t Networkland::get_graph() {
-  return env;
-}
-
-int Networkland::get_number_of_vertices() {
-  return num_vertices(env);
-}
+graph_t Networkland::get_graph() { return env; }
+int Networkland::get_number_of_vertices() { return num_vertices(env); }
 
 std::vector<vertex_desc> Networkland::get_adjacent_vertices(vertex_desc v) {
   std::vector<vertex_desc> res;
@@ -106,18 +92,6 @@ double Networkland::get_vertex_ioi(const vertex_desc& a) {
 
 void Networkland::set_vertex_ioi(const vertex_desc& a, double new_ioi) {
   env[a].ioi = new_ioi;
-}
-
-int Networkland::get_vertex_occupying_idea_id(
-    const vertex_desc& a
-) {
-  return env[a].occupying_idea_id;
-}
-
-void Networkland::set_vertex_occupying_idea_id(
-    const vertex_desc& a, int id
-) {
-  env[a].occupying_idea_id = id;
 }
 
 size_t Networkland::get_num_ideas(const vertex_desc& a) {
