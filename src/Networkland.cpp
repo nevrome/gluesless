@@ -128,11 +128,11 @@ Idea* Networkland::get_weakest_idea(const vertex_desc& a) {
   std::vector<Idea*> idea_vec = env[a].present_ideas;
   Idea* weakest;
   bool first = true;
-  int weakest_fidelity = 0;
+  int weakest_power = 0;
   for(auto& p1 : idea_vec) {
-    if (first || p1->get_fidelity() < weakest_fidelity) {
+    if (first || p1->get_power() < weakest_power) {
       weakest = p1;
-      weakest_fidelity = p1->get_fidelity();
+      weakest_power = p1->get_power();
       first = false;
     }
   }

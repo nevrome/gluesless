@@ -49,6 +49,15 @@ std::vector< std::vector<vertex_desc> > Aether::get_idea_vertices(){
   return res;
 }
 
+std::vector<int> Aether::get_powers() {
+  std::vector<int> res;
+  res.reserve(this->mindspace.size());
+  for(auto& idx : this->mindspace) {
+    res.push_back(idx->get_power());
+  }
+  return res;
+}
+
 std::vector<int> Aether::get_fecundities() {
   std::vector<int> res;
   res.reserve(this->mindspace.size());
@@ -91,6 +100,7 @@ void Aether::develop() {
   if(v.size() == 0){
     Idea* newidea = new Idea(
       this->idea_id_counter,
+      10,
       5,
       10,
       10,

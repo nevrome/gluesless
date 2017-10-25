@@ -38,6 +38,8 @@ class Aether {
    currently present Idea instances.
    */
   std::vector< std::vector<vertex_desc> > get_idea_vertices();
+  //! get powers of Idea instances
+  std::vector<int> get_powers();
   //! get fecundities of Idea instances
   std::vector<int> get_fecundities();
   //! get fidelities of Idea instances

@@ -19,6 +19,7 @@ class Idea {
   public:
   Idea(
     int id,
+    int pow,
     int fec,
     int fid,
     int lon,
@@ -34,6 +35,7 @@ class Idea {
   void set_identity(int id);
   bool is_alive();
   void die();
+  int get_power();
   int get_fecundity();
   int get_fidelity();
   int get_longevity();
@@ -65,14 +67,14 @@ class Idea {
   int identity;
   //! is the idea alive?
   bool alive = true;
+  //! power value -- Überzeugungskraft
+  //! Ideas with high power value win fights. Because they are the better ideas.
+  //! Per definition.
+  int power;
   //! fecundity value -- Fruchtbarkeit -- determines, how many
   //! nodes an idea can infect in one timestep
   int fecundity;
-  //! fidelity value -- Wiedergabetreue -- determines, how "neolithic"
-  //! an idea is. Should be equivalent to a more complex two value
-  //! implementation with an additional value that stores "neolithicity"
-  //! Ideas with high fidelity win fights. Because they are the better ideas.
-  //! Per definition.
+  //! fidelity value -- Wiedergabetreue -- determines how stable an idea is
   int fidelity;
   //! longevity value -- Langlebigkeit -- determines, how many
   //! timesteps an idea lives

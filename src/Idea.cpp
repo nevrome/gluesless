@@ -6,6 +6,7 @@
 
 Idea::Idea(
   int id,
+  int pow,
   int fec,
   int fid,
   int lon,
@@ -13,9 +14,10 @@ Idea::Idea(
   std::vector<vertex_desc> initial_idea_start_pos
 ) {
   this->identity = id;
-  this->fecundity = fec,
-  this->fidelity = fid,
-  this->longevity = lon,
+  this->power = pow;
+  this->fecundity = fec;
+  this->fidelity = fid;
+  this->longevity = lon;
   this->age_in_timesteps = 1;
   this->realworld = real;
   this->vertices = initial_idea_start_pos;
@@ -38,6 +40,7 @@ void Idea::die() {
   // delete information about occupied vertices
   this->vertices.clear();
 }
+int Idea::get_power() { return this->power; }
 int Idea::get_age(){ return this->age_in_timesteps; }
 int Idea::get_fecundity() { return this->fecundity; }
 int Idea::get_fidelity() { return this->fidelity; }
@@ -68,7 +71,7 @@ void Idea::fight(Idea* enemy, vertex_desc victim_hex) {
   //Rcpp::Rcout << this->fidelity << " vs. " << enemy->fidelity << std::endl;
 
   // fight decision
-  if (this->fidelity >= enemy->fidelity) {
+  if (this->power >= enemy->power) {
     // if this idea wins:
     // add new vertex to this idea
     this->vertices.push_back(victim_hex);
@@ -225,6 +228,7 @@ Idea* Idea::split(int new_id) {
   Idea* newidea = new Idea(
     new_id,
     shared_fecundity,
+    this->power + randunifrange(-1, 1),
     this->fidelity + randunifrange(-1, 1),
     this->longevity + randunifrange(-1, 1),
     realworld,

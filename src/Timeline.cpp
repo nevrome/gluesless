@@ -18,6 +18,7 @@ void Timeline::develop(Aether* current) {
   this->idea_vertices.push_back(
       current->get_idea_vertices()
   );
+  this->powers.push_back(current->get_powers());
   this->fecundities.push_back(current->get_fecundities());
   this->fidelities.push_back(current->get_fidelities());
   this->longevities.push_back(current->get_longevities());
@@ -45,6 +46,8 @@ SEXP Timeline::export_as_R_list() {
   id.reserve(100000);
   std::vector<int> vert;
   vert.reserve(100000);
+  std::vector<int> pow;
+  pow.reserve(100000);
   std::vector<int> fecu;
   fecu.reserve(100000);
   std::vector<int> fide;
@@ -62,6 +65,7 @@ SEXP Timeline::export_as_R_list() {
   // get pointer to the first idea list in the idea identity vector
   auto it_id_1 = ideas.cbegin();
   // ... and the other property vectors
+  auto it_pow_1 = powers.cbegin();
   auto it_fecu_1 = fecundities.cbegin();
   auto it_fide_1 = fidelities.cbegin();
   auto it_longe_1 = longevities.cbegin();
@@ -74,6 +78,7 @@ SEXP Timeline::export_as_R_list() {
     //if(count % am == 0 || count == iter - 1) {
       // get pointer to the first idea in the idea list in the idea identity vector
       auto it_id_2 = (*it_id_1).cbegin();
+      auto it_pow_2  = (*it_pow_1).cbegin();
       auto it_fecu_2  = (*it_fecu_1).cbegin();
       auto it_fide_2 = (*it_fide_1).cbegin();
       auto it_longe_2 = (*it_longe_1).cbegin();
@@ -88,6 +93,7 @@ SEXP Timeline::export_as_R_list() {
           timestep.push_back(count);
           id.push_back(*it_id_2);
           vert.push_back(it_vert_3);
+          pow.push_back(*it_pow_2);
           fecu.push_back(*it_fecu_2);
           fide.push_back(*it_fide_2);
           longe.push_back(*it_longe_2);
@@ -95,12 +101,14 @@ SEXP Timeline::export_as_R_list() {
 
         }
       it_id_2++;
+      it_pow_2++;
       it_fecu_2++;
       it_fide_2++;
       it_longe_2++;
       }
     //}
   it_id_1++;
+  it_pow_1++;
   it_fecu_1++;
   it_fide_1++;
   it_longe_1++;
@@ -114,6 +122,7 @@ SEXP Timeline::export_as_R_list() {
     _["num_alive_ideas"] = alive_num,
     _["ideas"] = id,
     _["vertices"] = vert,
+    _["power"] = pow,
     _["fecundity"] = fecu,
     _["fidelity"] = fide,
     _["longevity"] = longe
