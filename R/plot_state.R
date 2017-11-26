@@ -11,27 +11,39 @@ plot_state <- function(worldplot, states, state_id) {
 
   state <- states[[state_id]]
 
-  idea_num_range <- c(0, max(states[[length(states)]]$ideas))
+  state <- state %>%
+    dplyr::mutate(
+      "xleft" = .data$x - 1,
+      "xright" = .data$x + 1
+    )
+
+  state_burial_type <- state %>%
+    dplyr::select(
+      -.data$flat, -.data$mound
+    ) %>%
+    dplyr::filter(
+      !(.data$inhumation + .data$cremation == 0)
+    )
+
+  state_burial_structure <- state %>%
+    dplyr::select(
+      -.data$inhumation, -.data$cremation
+    ) %>%
+    dplyr::filter(
+      !(.data$flat + .data$mound == 0)
+    )
 
   # plot
   stateplot <- worldplot +
-    ggplot2::geom_point(
-      data = state,
-      ggplot2::aes_string(
-        x = "x", y = "y",
-        colour = "ideas"
-      ),
-      #shape = -as.hexmode("2B22"),
-      shape = 20,
-      size = 5,
-      alpha = 0.4
+    geom_scatterpie(
+      data = state_burial_type,
+      aes_string(x = "xleft", y = "y", group = "name"),
+      cols = c("inhumation", "cremation")
     ) +
-    ggplot2::scale_color_gradient2(
-      low = "#990000",
-      mid = "#ffff00",
-      high = "#218203",
-      limits = idea_num_range,
-      midpoint = mean(idea_num_range)
+    geom_scatterpie(
+      data = state_burial_structure,
+      aes_string(x = "xright", y = "y", group = "name"),
+      cols = c("flat", "mound")
     )
 
   return(stateplot)

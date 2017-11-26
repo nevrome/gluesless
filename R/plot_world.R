@@ -2,7 +2,6 @@
 #'
 #' @param graph igraph graph object
 #' @param world_polygon polygon data.frame describing the land outline
-#' @param hex polygon data.frame describing the hex raster
 #' @param nodes data.frame with info about the nodes
 #' @param plotedges should the graph edges be plotted?
 #'
@@ -10,7 +9,7 @@
 #'
 #' @export
 plot_world <- function(
-  graph, world_polygon, hex = NULL, nodes = NULL, plotedges = FALSE
+  graph, world_polygon, regions = NULL, nodes = NULL, plotedges = TRUE
 ) {
 
   # extract vertices table from igraph object
@@ -44,21 +43,22 @@ plot_world <- function(
         x = "long", y = "lat",
         group = "group"
       ),
-      fill = NA, colour = "red"
+      fill = NA, colour = "black"
     ) +
     ggplot2::theme_bw() +
     ggplot2::coord_map(
-      "ortho", orientation = c(48, 13, 0)
+      #"ortho", orientation = c(48, 13, 0)
+      "mercator"
     )
 
-  if (!is.null(hex)) {
+  if (!is.null(regions)) {
     resplot <- resplot + ggplot2::geom_polygon(
-      data = hex,
+      data = regions,
       ggplot2::aes_string(
         x = "long", y = "lat",
         group = "group"
       ),
-      fill = NA, colour = "#a0a0a0"
+      fill = NA, colour = "red"
     )
   }
 
@@ -72,13 +72,14 @@ plot_world <- function(
   }
 
   if (!is.null(nodes)) {
-    nodes_not_empty <- nodes %>%
-      dplyr::filter(
-        .data$ioi != -1
-      )
+    nodes_not_empty <- nodes #%>%
+      #dplyr::filter(
+      #  .data$ioi != -1
+      #)
     resplot <- resplot + ggplot2::geom_point(
       data = nodes_not_empty,
-      ggplot2::aes_string(x = "x", y = "y", fill = "ioi"),
+      ggplot2::aes_string(x = "x", y = "y"),
+      #ggplot2::aes_string(x = "x", y = "y", fill = "ioi"),
       shape = 23,
       size = 3
     )

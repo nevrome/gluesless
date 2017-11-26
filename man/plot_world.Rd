@@ -4,15 +4,13 @@
 \alias{plot_world}
 \title{plot function - world}
 \usage{
-plot_world(graph, world_polygon, hex = NULL, nodes = NULL,
-  plotedges = FALSE)
+plot_world(graph, world_polygon, regions = NULL, nodes = NULL,
+  plotedges = TRUE)
 }
 \arguments{
 \item{graph}{igraph graph object}
 
 \item{world_polygon}{polygon data.frame describing the land outline}
-
-\item{hex}{polygon data.frame describing the hex raster}
 
 \item{nodes}{data.frame with info about the nodes}
 
