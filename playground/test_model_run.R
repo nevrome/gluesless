@@ -3,17 +3,27 @@ library(magrittr)
 library(dplyr)
 library(ggplot2)
 
-load("/home/clemens/neomod/neomod_datapool/model_data/hex_graph.RData")
-load("/home/clemens/neomod/neomod_datapool/model_data/research_area_df.RData")
-load("/home/clemens/neomod/neomod_datapool/model_data/research_area_hex_df.RData")
-load("/home/clemens/neomod/neomod_datapool/model_data/hex_graph_nodes.RData")
+load("../neomod_datapool/bronze_age/space_and_network/regions_graph.RData")
+load("../neomod_datapool/bronze_age/space_and_network/region_graph_egdes.RData")
+load("../neomod_datapool/bronze_age/space_and_network/region_graph_nodes.RData")
+load("../neomod_datapool/bronze_age/space_and_network/region_graph_nodes_info.RData")
+load("../neomod_datapool/bronze_age/space_and_network/land_outline_df.RData")
+
+crs_wgs <- "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"
+
+regions <- rgdal::readOGR(
+  dsn = "../neomod_analysis/manually_changed_data/regionen2017g.shp"
+) %>%
+  sp::spTransform(sp::CRS(crs_wgs)) %>%
+  ggplot2::fortify()
 
 plot_world(
-  hex_graph,
-  world = research_area_df,
-  hex = research_area_hex_df,
+  graph = regions_graph,
+  world = land_outline_df,
+  regions = regions,
   nodes = nodes,
-  plotedges = F) -> hu
+  plotedges = T
+) -> hu
 
 modelobj <- new(
   "model_builder",
@@ -49,7 +59,6 @@ mean_fecu <- runres %>%
   dplyr::summarise(
     mean_fecundity = mean(fecundity)
   )
-
 ggplot() +
   geom_line(data = runres, aes(x = timestep, y = fecundity, group = ideas, colour = ideas)) +
   geom_line(data = mean_fecu, aes(x = timestep, y = mean_fecundity), color = "red")
