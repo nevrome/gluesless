@@ -35,14 +35,14 @@ plot_state <- function(worldplot, states, state_id) {
 
   # plot
   stateplot <- worldplot +
-    geom_scatterpie(
+    scatterpie::geom_scatterpie(
       data = state_burial_type,
-      aes_string(x = "xleft", y = "y", group = "name"),
+      ggplot2::aes_string(x = "xleft", y = "y", group = "name"),
       cols = c("inhumation", "cremation")
     ) +
-    geom_scatterpie(
+    scatterpie::geom_scatterpie(
       data = state_burial_structure,
-      aes_string(x = "xright", y = "y", group = "name"),
+      ggplot2::aes_string(x = "xright", y = "y", group = "name"),
       cols = c("flat", "mound")
     )
 

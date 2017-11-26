@@ -12,6 +12,8 @@ plot_world(graph, world_polygon, regions = NULL, nodes = NULL,
 
 \item{world_polygon}{polygon data.frame describing the land outline}
 
+\item{regions}{polygon data.frame describing the regions}
+
 \item{nodes}{data.frame with info about the nodes}
 
 \item{plotedges}{should the graph edges be plotted?}

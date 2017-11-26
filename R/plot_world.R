@@ -2,6 +2,7 @@
 #'
 #' @param graph igraph graph object
 #' @param world_polygon polygon data.frame describing the land outline
+#' @param regions polygon data.frame describing the regions
 #' @param nodes data.frame with info about the nodes
 #' @param plotedges should the graph edges be plotted?
 #'
