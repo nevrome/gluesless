@@ -23,19 +23,11 @@ plot_world <- function(
     graph, layout = 'manual',
     node.positions = vertices
     ) +
-    ggplot2::geom_polygon(
-      data = world_polygon,
-      ggplot2::aes_string(
-        x = "long", y = "lat",
-        group = "group"
-      ),
-      fill = NA, colour = "black"
+    ggplot2::geom_sf(
+      data = world_polygon
     ) +
     ggplot2::theme_bw() +
-    ggplot2::coord_map(
-      #"ortho", orientation = c(48, 13, 0)
-      "mercator"
-    )
+    ggplot2::coord_sf()
 
   if (!is.null(regions)) {
     resplot <- resplot + ggplot2::geom_polygon(
