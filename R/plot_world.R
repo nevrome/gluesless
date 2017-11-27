@@ -18,21 +18,6 @@ plot_world <- function(
     as.data.frame(stringsAsFactors = FALSE) %>%
     dplyr::mutate_("name" = ~as.numeric(name))
 
-  # calculate extend of graph
-  minx = min(vertices$x)
-  maxx = max(vertices$x)
-  miny = min(vertices$y)
-  maxy = max(vertices$y)
-
-  extx = maxx - minx
-  exty = maxy - miny
-  mext = min(c(extx, exty))
-
-  minx = minx - extx/10
-  maxx = maxx + extx/10
-  miny = miny - exty/10
-  maxy = maxy + exty/10
-
   # plot
   resplot <- ggraph::ggraph(
     graph, layout = 'manual',
