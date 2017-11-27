@@ -25,6 +25,7 @@ Imports:
     rgeos (>= 0.3-23),
     rlang (>= 0.1.2),
     scatterpie (>= 0.0.7),
+    sf (>= 0.5-5),
     sp (>= 1.2-4),
     utils (>= 3.4.2)
 Suggests:

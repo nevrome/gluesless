@@ -44,7 +44,8 @@ plot_state <- function(worldplot, states, state_id) {
       data = state_burial_structure,
       ggplot2::aes_string(x = "xright", y = "y", group = "name"),
       cols = c("flat", "mound")
-    )
+    ) +
+    ggplot2::ggtitle(paste0(state$timestep[1], "calBC"))
 
   return(stateplot)
 }
