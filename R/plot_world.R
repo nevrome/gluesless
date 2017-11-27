@@ -30,12 +30,8 @@ plot_world <- function(
     ggplot2::coord_sf()
 
   if (!is.null(regions)) {
-    resplot <- resplot + ggplot2::geom_polygon(
+    resplot <- resplot + ggplot2::geom_sf(
       data = regions,
-      ggplot2::aes_string(
-        x = "long", y = "lat",
-        group = "group"
-      ),
       fill = NA, colour = "red"
     )
   }
