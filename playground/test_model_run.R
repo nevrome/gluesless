@@ -1,37 +1,28 @@
-library(gluesless)
 library(magrittr)
-library(dplyr)
-library(ggplot2)
 
 load("../neomod_datapool/bronze_age/space_and_network/regions_graph.RData")
 load("../neomod_datapool/bronze_age/space_and_network/region_graph_egdes.RData")
 load("../neomod_datapool/bronze_age/space_and_network/region_graph_nodes.RData")
 load("../neomod_datapool/bronze_age/space_and_network/region_graph_nodes_info.RData")
-load("../neomod_datapool/bronze_age/space_and_network/land_outline_df.RData")
+load("../neomod_datapool/bronze_age/space_and_network/land_outline_sf.RData")
 
-crs_wgs <- "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"
-
-regions <- rgdal::readOGR(
-  dsn = "../neomod_analysis/manually_changed_data/regionen2017g.shp"
+regions <- sf::st_read(
+  "../neomod_analysis/manually_changed_data/regionen2017g.shp"
 ) %>%
-  sp::spTransform(sp::CRS(crs_wgs)) %>%
-  ggplot2::fortify()
+  sf::st_transform(4326)
 
-plot_world(
+gluesless::plot_world(
   graph = regions_graph,
-  world = land_outline_df,
+  world = land_outline,
   regions = regions,
   nodes = nodes,
-  plotedges = T
+  plotedges = F
 ) -> hu
 
 modelobj <- new(
   "model_builder",
-  networkland_env = graphwrite(hex_graph),
-  number_iterations = 100,
-  initial_idea_starting_positions = find_starting_pos(
-    nodes, 38.923622, 36.067470, 3
-  )
+  networkland_env = graphwrite(regions_graph),
+  number_iterations = 2001
 )
 
 runres <- modelobj %>%
