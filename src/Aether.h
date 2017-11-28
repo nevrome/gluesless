@@ -19,34 +19,20 @@
 class Aether {
 
   public:
-  Aether(Networkland* real, std::vector<vertex_desc> idea_start_pos);
+  Aether(Networkland* real);
 
-  //! get current Idea id counter value - Ideas are numbered incrementally
-  int get_idea_id_counter();
-  //! increment Idea id counter value
-  void increment_idea_id_counter();
-  //! get number of ideas that are alive
-  int get_number_alive_ideas();
+  void add_idea_to_mindspace(Idea* new_idea);
   //! get identities of Idea instances
   /*!
-   Returns vector of ids of currently present
+   Returns vector of names of currently present
    Idea instances.
    */
-  std::vector<int> get_ideas();
-  //! get positions of Idea instances in the Networkland
+  std::vector<std::string> get_ideas();
+  //! get expansions of Idea instances in the Networkland
   /*!
-   Returns vector of vector of occupied vertices of
-   currently present Idea instances.
+   Returns vector of maps of occupied vertices and power distributions
    */
-  std::vector< std::vector<vertex_desc> > get_idea_vertices();
-  //! get powers of Idea instances
-  std::vector<int> get_powers();
-  //! get fecundities of Idea instances
-  std::vector<int> get_fecundities();
-  //! get fidelities of Idea instances
-  std::vector<int> get_fidelities();
-  //! get longevities of Idea instances
-  std::vector<int> get_longevities();
+  std::vector< std::map<vertex_desc, double> > get_idea_expansions();
 
   //! go to the next timestep
   /*!
@@ -57,10 +43,6 @@ class Aether {
   void develop();
 
   private:
-  //! idea identity counter
-  int idea_id_counter;
-  //! starting positions (hex/vertices/nodes/whatever) of the initial Idea instance
-  std::vector<vertex_desc> initial_idea_start_pos;
   //! vector that stores references to Idea instances
   std::vector<Idea*> mindspace;
   //! reference to Networkland

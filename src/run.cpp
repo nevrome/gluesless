@@ -26,7 +26,8 @@ using namespace Rcpp;
 //'
 //' @export
 // [[Rcpp::export]]
-SEXP run(SEXP model_builder){
+int run(SEXP model_builder){
+//SEXP run(SEXP model_builder){
 
   // load modell builder
   Rcpp::S4 mb(model_builder);
@@ -36,18 +37,30 @@ SEXP run(SEXP model_builder){
   std::string graphstring = Rcpp::as<std::string>(graphstr);
   SEXP iterations = wrap(mb.slot("number_iterations"));
   int iter = Rcpp::as<int>(iterations);
-  SEXP start_pos = wrap(mb.slot("initial_idea_starting_positions"));
-  std::vector<long unsigned int> idea_start_pos_int = Rcpp::as<std::vector<long unsigned int>>(start_pos);
-  std::vector<vertex_desc> idea_start_pos = idea_start_pos_int;
+  // SEXP start_pos = wrap(mb.slot("initial_idea_starting_positions"));
+  // std::vector<long unsigned int> idea_start_pos_int = Rcpp::as<std::vector<long unsigned int>>(start_pos);
+  // std::vector<vertex_desc> idea_start_pos = idea_start_pos_int;
 
   // Realwelt
   Networkland* real = new Networkland(graphstring);
 
   // Geistwelt
-  Aether* overmind = new Aether(real, idea_start_pos);
+  Aether* overmind = new Aether(real);
 
   // Zeit
   Timeline* thyme = new Timeline(overmind);
+
+  // Ideen
+  std::vector<double> v = {0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1};
+  Idea* cremation = new Idea("cremation", real, v);
+  Idea* inhumation = new Idea("inhumation", real, v);
+  Idea* flat = new Idea("flat", real, v);
+  Idea* mound = new Idea("mound", real, v);
+
+  overmind->add_idea_to_mindspace(cremation);
+  overmind->add_idea_to_mindspace(inhumation);
+  overmind->add_idea_to_mindspace(flat);
+  overmind->add_idea_to_mindspace(mound);
 
   // develop
   Progress p(iter, true);
@@ -57,11 +70,15 @@ SEXP run(SEXP model_builder){
     p.increment();
   }
 
-  List res = thyme->export_as_R_list();
+  //List res = thyme->export_as_R_list();
 
   delete real;
   delete overmind;
   delete thyme;
+  delete cremation;
+  delete inhumation;
+  delete flat;
+  delete mound;
 
-  return res;
+  return 1;
 }

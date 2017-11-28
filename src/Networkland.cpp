@@ -14,14 +14,14 @@ using namespace boost;
 // define dummy in- and output definitions for Idea vectors - boost needs that, I don't...
 // https://stackoverflow.com/questions/40685196/read-boost-graph-boostread-graphviz-where-vertex-contains-vector
 // https://stackoverflow.com/questions/32279268/using-two-objects-as-hash-key-for-an-unordered-map-or-alternatives/32281365#32281365
-static inline std::ostream& operator<<(std::ostream& os, std::vector<Idea*> const& i) {
-  // here I would have to do something, if this feature would be necessary
-  return os;
-}
-static inline std::istream& operator>>(std::istream& is, std::vector<Idea*> const& i) {
-  // here I would have to do something, if this feature would be necessary
-  return is;
-}
+// static inline std::ostream& operator<<(std::ostream& os, std::vector<dummy*> const& i) {
+//   // here I would have to do something, if this feature would be necessary
+//   return os;
+// }
+// static inline std::istream& operator>>(std::istream& is, std::vector<dummy*> const& i) {
+//   // here I would have to do something, if this feature would be necessary
+//   return is;
+// }
 
 Networkland::Networkland(const std::string& graphstring) {
 
@@ -31,9 +31,9 @@ Networkland::Networkland(const std::string& graphstring) {
   // add graph properties
   dynamic_properties dp(ignore_other_properties);
   dp.property("id",                 get(&Vertex::id,                graph));
+  dp.property("region_name",        get(&Vertex::region_name,       graph));
   dp.property("x",                  get(&Vertex::x,                 graph));
   dp.property("y",                  get(&Vertex::y,                 graph));
-  dp.property("ioi",                get(&Vertex::ioi,               graph));
   dp.property("distance",           get(&Edge::distance,            graph));
 
   ref_property_map<graph_t *, std::string> gname(
@@ -47,7 +47,7 @@ Networkland::Networkland(const std::string& graphstring) {
   read_graphml(is, graph, dp);
 
   // add properties to graph that are not part of the input
-  dp.property("present_ideas",      get(&Vertex::present_ideas,     graph));
+  //dp.property("dummy",            get(&Vertex::dummy,             graph));
 
   this->env = graph;
 }
@@ -86,56 +86,8 @@ bool Networkland::are_adjacent(
   return edge(a, b, env).second;
 }
 
-double Networkland::get_vertex_ioi(const vertex_desc& a) {
-  return env[a].ioi;
-}
-
-void Networkland::set_vertex_ioi(const vertex_desc& a, double new_ioi) {
-  env[a].ioi = new_ioi;
-}
-
-size_t Networkland::get_num_ideas(const vertex_desc& a) {
-  return env[a].present_ideas.size();
-}
-
-Idea* Networkland::get_weakest_idea(const vertex_desc& a) {
-  std::vector<Idea*> idea_vec = env[a].present_ideas;
-  Idea* weakest;
-  bool first = true;
-  int weakest_power = 0;
-  for(auto& p1 : idea_vec) {
-    if (first || p1->get_power() < weakest_power) {
-      weakest = p1;
-      weakest_power = p1->get_power();
-      first = false;
-    }
-  }
-  return weakest;
-}
-
-void Networkland::push_idea(const vertex_desc& a, Idea* i) {
-  env[a].present_ideas.push_back(i);
-}
-
-void Networkland::erase_idea(const vertex_desc& a, Idea* i) {
-  env[a].present_ideas.erase(
-    std::remove(
-      env[a].present_ideas.begin(),
-      env[a].present_ideas.end(),
-      i),
-    env[a].present_ideas.end()
-  );
-}
-
-bool Networkland::check_idea(const vertex_desc& a, Idea* i) {
-  return std::find(
-    env[a].present_ideas.begin(),
-    env[a].present_ideas.end(), i
-  ) != env[a].present_ideas.end();
-}
-
-bool Networkland::is_occupied(const vertex_desc& a){
-  return !env[a].present_ideas.empty();
+std::pair<vertex_iter, vertex_iter> Networkland::get_all_vertices() {
+  return vertices(env);
 }
 
 // std::string Networkland::export_graph() {

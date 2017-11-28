@@ -18,100 +18,25 @@ class Idea {
 
   public:
   Idea(
-    int id,
-    int pow,
-    int fec,
-    int fid,
-    int lon,
-    Networkland* real,
-    std::vector<vertex_desc> birth_vertices
+    std::string identity,
+    Networkland* realworld,
+    std::vector<double> power_distribution
   );
 
-  //! get identity of an Idea
-  int get_identity();
-  //! set identity of an Idea
-  void set_identity(int id);
-  //! check if an Idea is alive
-  bool is_alive();
-  //! get power of an Idea
-  int get_power();
-  //! get fecundity of an Idea
-  int get_fecundity();
-  //! get fidelity of an Idea
-  int get_fidelity();
-  //! get longevity of an Idea
-  int get_longevity();
-  //! get positions of an Idea
-  /*!
-   Returns vector of vertices that are occupied by an Idea.
-   */
-  std::vector<vertex_desc> get_vertices();
-  //! get age of an Idea
-  int get_age();
+  //! get/set identity of an Idea
+  std::string get_identity();
+  void set_identity(std::string identity);
+  //! get expansion map of an Idea
+  std::map<vertex_desc, double> get_expansion();
 
-  //! set age of an Idea to 0
-  void set_age_back();
-  //! increase the age of an Idea by 1
-  void age();
-
-  //! make selection which Vertex an Idea should occupy/attack next
-  /*!
-   TODO: ...
-   */
-  vertex_desc direction_selection();
-  //! Idea occupies a Vertex which is empty or still has space
-  /*!
-   TODO: ...
-   */
-  void infect(vertex_desc victim_hex);
-  //! Idea fights against an other Idea to occupy an already completely occupied Vertex
-  /*!
-   TODO: ...
-   */
-  void fight(Idea* enemy, vertex_desc victim_hex);
-  //! an Idea splits into two ideas at the end of its life
-  /*!
-   TODO: ...
-   */
-  Idea* split(int new_id);
-  //! Kill an idea
-  /*!
-   Sets alive flag of the Idea to false, cleans Idea out of Vertizes of the
-   Networkland and empties Vertex vector of Idea.
-   */
-  void die();
+  //! It's your turn! Live!
+  void live();
 
   private:
   //! stores identity of an Idea
-  int identity;
-  //! is the Idea alive?
-  bool alive = true;
-  //! power value -- Überzeugungskraft
-  /*!
-   Ideas with high power value win fights. Because they are the better ideas.
-   Per definition.
-   */
-  int power;
-  //! fecundity value -- Fruchtbarkeit
-  /*!
-   Determines, how many nodes an idea can infect in one timestep.
-   */
-  int fecundity;
-  //! fidelity value -- Wiedergabetreue
-  /*!
-   Determines, if an idea is nomal enough to split. Whoever deviates to much
-   from the norm can't split any more.
-   */
-  int fidelity;
-  //! longevity value -- Langlebigkeit
-  /*!
-   Determines, how many timesteps an idea lives.
-   */
-  int longevity;
-  //! how many timesteps did an idea already live?
-  int age_in_timesteps;
+  std::string identity;
   //! reference to Networkland
   Networkland* realworld;
-  //! vector that stores vertices occupied by an Idea
-  std::vector<vertex_desc> vertices;
+  //! map that stores vertices and the power of the idea
+  std::map<vertex_desc, double> expansion;
 };

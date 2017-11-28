@@ -36,18 +36,8 @@ class Timeline {
   void develop(Aether* current);
 
   private:
-  //! stores number of Idea instances over time
-  std::vector<int> number_alive_ideas;
   //! stores Idea identities over time
-  std::vector< std::vector<int> > ideas;
-  //! stores Idea positions over time
-  std::vector< std::vector< std::vector<vertex_desc> > > idea_vertices;
+  std::vector< std::vector<std::string> > ideas;
   //! stores Idea powers over time
-  std::vector< std::vector<int> > powers;
-  //! stores Idea fecundities over time
-  std::vector< std::vector<int> > fecundities;
-  //! stores Idea fidelities over time
-  std::vector< std::vector<int> > fidelities;
-  //! stores Idea longevities over time
-  std::vector< std::vector<int> > longevities;
+  std::vector< std::vector< std::map<vertex_desc, double> > > idea_expansions;
 };

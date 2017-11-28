@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <algorithm>
+#include <string>
 
 #include <boost/graph/graph_traits.hpp>
 #include <boost/graph/adjacency_list.hpp>
@@ -19,14 +20,13 @@ class Idea;
 struct Vertex {
   //! stores identity of the Vertex
   int id;
+  std::string region_name;
   //! stores x-axis coordinate of the Vertex
   double x;
   //! stores y-axis coordinate of the Vertex
   double y;
-  //! index of interest - weight value of Vertex
-  double ioi = -1;
-  //! list of ideas that currently occupy the Vertex
-  std::vector<Idea*> present_ideas;
+  //! dummy
+  //std::vector<dummy*> dummy;
 };
 
 
@@ -74,6 +74,8 @@ class Networkland {
     graph_t get_graph();
     //! get number of vertices of graph
     int get_number_of_vertices();
+    //! get iterator pair to all vertices
+    std::pair<vertex_iter, vertex_iter> get_all_vertices();
     //! get adjacent vertices of an input vertex in graph
     std::vector<vertex_desc> get_adjacent_vertices(vertex_desc v);
     //! get distance value between two input vertices in graph
@@ -82,20 +84,6 @@ class Networkland {
       );
     //! check if two vertices are adjacent in graph
     bool are_adjacent(const vertex_desc& a, const vertex_desc& b);
-    //! get ioi value of Vertex in graph
-    double get_vertex_ioi(const vertex_desc& a);
-    //! set ioi value of Vertex in graph
-    void set_vertex_ioi(const vertex_desc& a, double new_ioi);
-    //! get number of ideas occupying the Vertex
-    size_t get_num_ideas(const vertex_desc& a);
-    //! get Idea with smallest power value occupying the Vertex
-    Idea* get_weakest_idea(const vertex_desc& a);
-    //! add Idea to Vertex: Occupation
-    void push_idea(const vertex_desc& a, Idea* i);
-    //! remove Idea from Vertex
-    void erase_idea(const vertex_desc& a, Idea* i);
-    //! check if Idea is present in Vertex
-    bool check_idea(const vertex_desc& a, Idea* i);
     //! check if the Vertex is occupied by any Ideas
     bool is_occupied(const vertex_desc& a);
 
