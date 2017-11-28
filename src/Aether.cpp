@@ -20,11 +20,31 @@ std::vector<std::string> Aether::get_ideas() {
   return res;
 }
 
-std::vector< std::map<vertex_desc, double> > Aether::get_idea_expansions(){
-  std::vector< std::map<vertex_desc, double> > res;
+std::vector< std::vector< std::string > > Aether::get_idea_regions(){
+  std::vector< std::vector< std::string > > res;
   res.reserve(this->mindspace.size());
   for (auto& idx : this->mindspace) {
-    res.push_back(idx->get_expansion());
+    auto em = idx->get_expansion();
+    std::vector<std::string> rm;
+    for(auto it = em.begin(); it != em.end(); ++it) {
+      //Rcpp::Rcout << realworld->get_region_name(it->first) << std::endl;
+      rm.push_back(realworld->get_region_name(it->first));
+    }
+    res.push_back(rm);
+  }
+  return res;
+}
+
+std::vector< std::vector< double > > Aether::get_idea_parts(){
+  std::vector< std::vector< double > > res;
+  res.reserve(this->mindspace.size());
+  for (auto& idx : this->mindspace) {
+    auto em = idx->get_expansion();
+    std::vector<double> ip;
+    for(auto it = em.begin(); it != em.end(); ++it) {
+      ip.push_back(it->second);
+    }
+    res.push_back(ip);
   }
   return res;
 }

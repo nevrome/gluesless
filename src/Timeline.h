@@ -37,7 +37,9 @@ class Timeline {
 
   private:
   //! stores Idea identities over time
-  std::vector< std::vector<std::string> > ideas;
+  std::vector< std::vector< std::string > > ideas;
   //! stores Idea powers over time
-  std::vector< std::vector< std::map<vertex_desc, double> > > idea_expansions;
+  std::vector< std::vector< std::vector< std::string > > > idea_regions;
+  //! stores Idea powers over time
+  std::vector< std::vector< std::vector< double > > > idea_parts;
 };

@@ -32,7 +32,9 @@ class Aether {
   /*!
    Returns vector of maps of occupied vertices and power distributions
    */
-  std::vector< std::map<vertex_desc, double> > get_idea_expansions();
+  std::vector< std::vector< std::string > > get_idea_regions();
+
+  std::vector< std::vector< double > > get_idea_parts();
 
   //! go to the next timestep
   /*!

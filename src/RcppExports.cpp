@@ -6,7 +6,7 @@
 using namespace Rcpp;
 
 // run
-int run(SEXP model_builder);
+SEXP run(SEXP model_builder);
 RcppExport SEXP _gluesless_run(SEXP model_builderSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;

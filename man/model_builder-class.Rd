@@ -13,7 +13,5 @@ class to store values that should be passed to the model
 \item{\code{networkland_env}}{string: Description of input graph in graphml format}
 
 \item{\code{number_iterations}}{integer: Number of model iterations}
-
-\item{\code{initial_idea_starting_positions}}{numeric vector: ids of nodes where the initial idea starts}
 }}
 

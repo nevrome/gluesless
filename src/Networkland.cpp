@@ -90,6 +90,10 @@ std::pair<vertex_iter, vertex_iter> Networkland::get_all_vertices() {
   return vertices(env);
 }
 
+std::string Networkland::get_region_name(const vertex_desc& a) {
+  return env[a].region_name;
+}
+
 // std::string Networkland::export_graph() {
 //
 //   graph_t graph = this->get_graph();

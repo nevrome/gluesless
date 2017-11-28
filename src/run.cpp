@@ -26,8 +26,7 @@ using namespace Rcpp;
 //'
 //' @export
 // [[Rcpp::export]]
-int run(SEXP model_builder){
-//SEXP run(SEXP model_builder){
+SEXP run(SEXP model_builder){
 
   // load modell builder
   Rcpp::S4 mb(model_builder);
@@ -70,7 +69,7 @@ int run(SEXP model_builder){
     p.increment();
   }
 
-  //List res = thyme->export_as_R_list();
+  List res = thyme->export_as_R_list();
 
   delete real;
   delete overmind;
@@ -80,5 +79,5 @@ int run(SEXP model_builder){
   delete flat;
   delete mound;
 
-  return 1;
+  return res;
 }

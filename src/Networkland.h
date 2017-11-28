@@ -84,8 +84,8 @@ class Networkland {
       );
     //! check if two vertices are adjacent in graph
     bool are_adjacent(const vertex_desc& a, const vertex_desc& b);
-    //! check if the Vertex is occupied by any Ideas
-    bool is_occupied(const vertex_desc& a);
+    //! get region name of vertex
+    std::string get_region_name(const vertex_desc& a);
 
     // std::string export_graph();
 
