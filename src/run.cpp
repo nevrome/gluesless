@@ -36,6 +36,10 @@ SEXP run(SEXP model_builder){
   std::string graphstring = Rcpp::as<std::string>(graphstr);
   SEXP iterations = wrap(mb.slot("number_iterations"));
   int iter = Rcpp::as<int>(iterations);
+  SEXP ideas_list = wrap(mb.slot("ideas_list"));
+  std::vector<std::string> ideas = Rcpp::as<std::vector<std::string>>(ideas_list);
+  SEXP ideas_proportions_matrix = wrap(mb.slot("ideas_proportions_matrix"));
+  Rcpp::NumericMatrix ideas_proportions = Rcpp::as<Rcpp::NumericMatrix>(ideas_proportions_matrix);
   // SEXP start_pos = wrap(mb.slot("initial_idea_starting_positions"));
   // std::vector<long unsigned int> idea_start_pos_int = Rcpp::as<std::vector<long unsigned int>>(start_pos);
   // std::vector<vertex_desc> idea_start_pos = idea_start_pos_int;
@@ -49,17 +53,13 @@ SEXP run(SEXP model_builder){
   // Zeit
   Timeline* thyme = new Timeline(overmind);
 
-  // Ideen
-  std::vector<double> v = {0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1};
-  Idea* cremation = new Idea("cremation", real, v);
-  Idea* inhumation = new Idea("inhumation", real, v);
-  Idea* flat = new Idea("flat", real, v);
-  Idea* mound = new Idea("mound", real, v);
-
-  overmind->add_idea_to_mindspace(cremation);
-  overmind->add_idea_to_mindspace(inhumation);
-  overmind->add_idea_to_mindspace(flat);
-  overmind->add_idea_to_mindspace(mound);
+  for (size_t i = 0; i < ideas.size(); i ++) {
+    std::string idea_name = ideas[i];
+    NumericVector proportions_nvec = ideas_proportions(_,i);
+    std::vector<double> proportions_vec = Rcpp::as<std::vector<double>>(proportions_nvec);
+    Idea* new_idea = new Idea(idea_name, real, proportions_vec);
+    overmind->add_idea_to_mindspace(new_idea);
+  }
 
   // develop
   Progress p(iter, true);
@@ -74,10 +74,6 @@ SEXP run(SEXP model_builder){
   delete real;
   delete overmind;
   delete thyme;
-  delete cremation;
-  delete inhumation;
-  delete flat;
-  delete mound;
 
   return res;
 }

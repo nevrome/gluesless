@@ -13,9 +13,9 @@ Idea::Idea(
   this->realworld = realworld;
   // fill expansion map
   std::pair<vertex_iter, vertex_iter> vp;
-  double it = 0;
+  size_t it = 0;
   for (vp = realworld->get_all_vertices(); vp.first != vp.second; ++vp.first) {
-    expansion.insert(std::pair<vertex_desc, double>(*vp.first, power_distribution[0]));
+    expansion.insert(std::pair<vertex_desc, double>(*vp.first, power_distribution[it]));
     it++;
   }
 }
