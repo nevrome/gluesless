@@ -11,14 +11,6 @@ regions <- sf::st_read(
 ) %>%
   sf::st_transform(4326)
 
-gluesless::plot_world(
-  graph = regions_graph,
-  world = land_outline,
-  regions = regions,
-  nodes = nodes,
-  plotedges = F
-) -> hu
-
 modelobj <- new(
   "model_builder",
   networkland_env = graphwrite(regions_graph),
@@ -29,6 +21,13 @@ runres <- modelobj %>%
   run() %$%
   idea_exp
 
-#plot_world(hex_graph, world = research_area_df, plotedges = TRUE)
 states <- link_ideas_world(idea_exp = runres, world_graph = regions_graph)
-plot_state(hu, states = states, 100)
+
+gluesless::plot_world(
+  graph = regions_graph,
+  world = land_outline,
+  regions = regions,
+  nodes = nodes,
+  plotedges = F
+) %>%
+  plot_state(states = states, 100)
