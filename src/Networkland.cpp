@@ -30,7 +30,6 @@ Networkland::Networkland(const std::string& graphstring) {
 
   // add graph properties
   dynamic_properties dp(ignore_other_properties);
-  dp.property("id",                 get(&Vertex::id,                graph));
   dp.property("region_name",        get(&Vertex::region_name,       graph));
   dp.property("x",                  get(&Vertex::x,                 graph));
   dp.property("y",                  get(&Vertex::y,                 graph));

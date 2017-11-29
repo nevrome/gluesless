@@ -86,8 +86,9 @@ SEXP Timeline::export_as_R_list() {
   res["idea_exp"] = Rcpp::DataFrame::create(
     _["timestep"] = timestep,
     _["idea"] = idea_name,
-    _["region"] = region_name,
-    _["proporsion"] = proportion
+    _["region_name"] = region_name,
+    _["proportion"] = proportion,
+    _["stringsAsFactors"] = false
   );
 
   return res;

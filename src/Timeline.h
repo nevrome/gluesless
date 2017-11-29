@@ -38,8 +38,8 @@ class Timeline {
   private:
   //! stores Idea identities over time
   std::vector< std::vector< std::string > > ideas;
-  //! stores Idea powers over time
+  //! stores Ideas regions names over time
   std::vector< std::vector< std::vector< std::string > > > idea_regions;
-  //! stores Idea powers over time
+  //! stores Ideas powers in regions over time
   std::vector< std::vector< std::vector< double > > > idea_parts;
 };

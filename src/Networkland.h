@@ -19,7 +19,6 @@ class Idea;
  */
 struct Vertex {
   //! stores identity of the Vertex
-  int id;
   std::string region_name;
   //! stores x-axis coordinate of the Vertex
   double x;
