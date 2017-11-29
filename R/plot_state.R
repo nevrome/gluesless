@@ -11,6 +11,8 @@ plot_state <- function(worldplot, states, state_id) {
 
   state <- states[[state_id]]
 
+  state <- state %>% tidyr::spread(.data$idea, .data$proportion)
+
   state <- state %>%
     dplyr::mutate(
       "xleft" = .data$x - 1,
