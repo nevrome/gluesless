@@ -31,5 +31,5 @@ std::vector<size_t> sort_indexes(const std::vector<T> &v) {
 
 // http://www.stats.ox.ac.uk/~marchini/teaching/L6/L6.slides.pdf
 inline double normal_distribution_pdf(double x) {
-  return (1.0/sqrt(2.0 * M_PI)) * exp(-pow((x - 0.5), 2.0) / (2.0 * pow(0.5, 2.0)));
+  return (1.0/sqrt(2.0 * M_PI)) * exp(-pow((x - 1), 2.0) / (2.0 * pow(0.5, 2.0)));
 }
