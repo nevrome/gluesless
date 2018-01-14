@@ -14,6 +14,9 @@ plot_state <- function(worldplot, states, state_id) {
   two_ideas <- unique(state$idea)
 
   state <- state %>%
+    dplyr::select(
+      -poison_supply
+    ) %>%
     tidyr::spread(.data$idea, .data$proportion) %>%
     dplyr::filter(
       !(.data[[two_ideas[1]]] + .data[[two_ideas[2]]] == 0)
