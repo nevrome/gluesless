@@ -15,7 +15,7 @@ plot_state <- function(worldplot, states, state_id) {
 
   state <- state %>%
     dplyr::select(
-      -poison_supply
+      -.data$poison_supply
     ) %>%
     tidyr::spread(.data$idea, .data$proportion) %>%
     dplyr::filter(
