@@ -6,6 +6,7 @@
 #include <Rcpp.h>
 
 #include "Networkland.h"
+#include "IdeaState.h"
 
 //! Idea/Innovation/Meme/Memeplex - ABM agent
 /*!
@@ -25,7 +26,8 @@ class Idea {
 
   std::string get_identity();
   void set_identity(std::string identity);
-  std::map<vertex_desc, double> get_expansion();
+  std::map<vertex_desc, IdeaState*> get_expansion();
+  void set_expansion(std::vector<double> power_distribution);
   void add_competing_idea(Idea* competing_idea);
 
   //! It's your turn! Live!
@@ -36,8 +38,8 @@ class Idea {
   std::string identity;
   //! reference to Networkland
   Networkland* realworld;
-  //! map that stores vertices and the power of the idea
-  std::map<vertex_desc, double> expansion;
+  //! map that stores vertices and the state of the idea at the vertices
+  std::map<vertex_desc, IdeaState*> expansion;
   //! exclusive partner ideas that try to fill the same niche
   std::vector<Idea*> competing_ideas;
 };

@@ -46,7 +46,7 @@ std::vector< std::vector< double > > Aether::get_idea_parts(){
     auto em = idx->get_expansion();
     std::vector<double> ip;
     for(auto it = em.begin(); it != em.end(); ++it) {
-      ip.push_back(it->second);
+      ip.push_back(it->second->get_local_power());
     }
     res.push_back(ip);
   }
