@@ -38,5 +38,6 @@ void Idea::live() {
 void Idea::produce_poison() {
   for(auto it = this->expansion.begin(); it != this->expansion.end(); ++it) {
     it->second->produce_poison_local();
+    //Rcpp::Rcout << it->second->get_local_poison_amount() << " ";
   }
 }

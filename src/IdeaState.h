@@ -11,16 +11,15 @@ class IdeaState {
 
   double get_local_power();
   void set_local_power(double power);
-  size_t get_local_poison_amount();
-  void set_local_poison_amount(size_t poison_amount);
-  size_t get_local_poison_production();
-  void set_local_poison_production(size_t poison_production);
+  double get_local_poison_amount();
+  void set_local_poison_amount(double poison_amount);
 
   void produce_poison_local();
+  void determine_poison_production();
 
   private:
   double local_power;
-  size_t local_poison_amount;
-  size_t local_poison_production;
+  double local_poison_amount;
+  double local_poison_production;
 
 };

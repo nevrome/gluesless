@@ -1,4 +1,5 @@
 #include "IdeaState.h"
+#include "global.h"
 
 IdeaState::IdeaState(
   double power
@@ -8,19 +9,21 @@ IdeaState::IdeaState(
 
 double IdeaState::get_local_power() { return this->local_power; }
 void IdeaState::set_local_power(double power) { this->local_power = power; }
-size_t IdeaState::get_local_poison_amount() {
+double IdeaState::get_local_poison_amount() {
   return this->local_poison_amount;
 }
-void IdeaState::set_local_poison_amount(size_t poison_amount) {
+void IdeaState::set_local_poison_amount(double poison_amount) {
   this->local_poison_amount = poison_amount;
-}
-size_t IdeaState::get_local_poison_production() {
-  return this->local_poison_production;
-}
-void IdeaState::set_local_poison_production(size_t poison_production) {
-  this->local_poison_production = poison_production;
 }
 
 void IdeaState::produce_poison_local() {
+  determine_poison_production();
   this->local_poison_amount += this->local_poison_production;
 }
+
+void IdeaState::determine_poison_production() {
+  // ToDo: Test if this works as expected
+  this->local_poison_production = normal_distribution_pdf(this->local_power);
+}
+
+
