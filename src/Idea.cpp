@@ -23,6 +23,9 @@ Idea::Idea(
 std::string Idea::get_identity() { return this->identity; }
 void Idea::set_identity(std::string identity) { this->identity = identity; }
 std::map<vertex_desc, double> Idea::get_expansion() { return this->expansion;}
+void Idea::add_competing_idea(Idea* competing_idea) {
+  this->competing_ideas.push_back(competing_idea);
+}
 
 void Idea::live() {
   // TODO

@@ -7,6 +7,10 @@ Aether::Aether(Networkland* real) {
   this->realworld = real;
 }
 
+size_t Aether::get_size_of_mindspace() {return this->mindspace.size();}
+
+Idea* Aether::get_idea_from_mindspace(size_t index) {return this->mindspace.at(index);}
+
 void Aether::add_idea_to_mindspace(Idea* new_idea) {
   this->mindspace.push_back(new_idea);
 }

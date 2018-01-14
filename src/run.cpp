@@ -53,12 +53,21 @@ SEXP run(SEXP model_builder){
   // Zeit
   Timeline* thyme = new Timeline(overmind);
 
+  // Ideas
   for (size_t i = 0; i < ideas.size(); i ++) {
     std::string idea_name = ideas[i];
     NumericVector proportions_nvec = ideas_proportions(_,i);
     std::vector<double> proportions_vec = Rcpp::as<std::vector<double>>(proportions_nvec);
     Idea* new_idea = new Idea(idea_name, real, proportions_vec);
     overmind->add_idea_to_mindspace(new_idea);
+  }
+
+  // set competing idea
+  if (overmind->get_size_of_mindspace() == 2) {
+    overmind->get_idea_from_mindspace(0)->add_competing_idea(overmind->get_idea_from_mindspace(1));
+    overmind->get_idea_from_mindspace(1)->add_competing_idea(overmind->get_idea_from_mindspace(0));
+  } else {
+    // not implemented
   }
 
   // develop

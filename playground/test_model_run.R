@@ -13,7 +13,10 @@ regions <- sf::st_read(
   sf::st_transform(4326)
 
 #### prepare data ####
-start_situation <- nodes_info$`2500`
+start_situation <- nodes_info$`2500` %>%
+  dplyr::filter(
+    idea == "cremation" | idea == "inhumation"
+  )
 
 start_situation_reduced <- start_situation %>%
   dplyr::select(region_name, idea, proportion) %>%

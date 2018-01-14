@@ -23,11 +23,10 @@ class Idea {
     std::vector<double> power_distribution
   );
 
-  //! get/set identity of an Idea
   std::string get_identity();
   void set_identity(std::string identity);
-  //! get expansion map of an Idea
   std::map<vertex_desc, double> get_expansion();
+  void add_competing_idea(Idea* competing_idea);
 
   //! It's your turn! Live!
   void live();
@@ -39,4 +38,6 @@ class Idea {
   Networkland* realworld;
   //! map that stores vertices and the power of the idea
   std::map<vertex_desc, double> expansion;
+  //! exclusive partner ideas that try to fill the same niche
+  std::vector<Idea*> competing_ideas;
 };

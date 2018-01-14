@@ -21,6 +21,8 @@ class Aether {
   public:
   Aether(Networkland* real);
 
+  size_t get_size_of_mindspace();
+  Idea* get_idea_from_mindspace(size_t index);
   void add_idea_to_mindspace(Idea* new_idea);
   //! get identities of Idea instances
   /*!
