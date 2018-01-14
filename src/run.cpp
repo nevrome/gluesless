@@ -54,7 +54,7 @@ SEXP run(SEXP model_builder){
   Timeline* thyme = new Timeline(overmind);
 
   // Ideas
-  for (size_t i = 0; i < ideas.size(); i ++) {
+  for (size_t i = 0; i < ideas.size(); i++) {
     std::string idea_name = ideas[i];
     NumericVector proportions_nvec = ideas_proportions(_,i);
     std::vector<double> proportions_vec = Rcpp::as<std::vector<double>>(proportions_nvec);

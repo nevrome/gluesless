@@ -36,7 +36,10 @@ class Aether {
    */
   std::vector< std::vector< std::string > > get_idea_regions();
 
-  std::vector< std::vector< double > > get_idea_parts();
+  std::vector< std::vector< double > > get_idea_powers();
+
+  std::vector< std::vector< double > > get_idea_poison_amounts();
+
 
   //! go to the next timestep
   /*!

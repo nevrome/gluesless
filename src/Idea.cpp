@@ -11,7 +11,6 @@ Idea::Idea(
 ) {
   this->identity = identity;
   this->realworld = realworld;
-  // fill expansion map
   set_expansion(power_distribution);
 }
 
@@ -21,7 +20,7 @@ std::map<vertex_desc, IdeaState*> Idea::get_expansion() { return this->expansion
 void Idea::set_expansion(std::vector<double> power_distribution) {
   std::pair<vertex_iter, vertex_iter> vp;
   size_t it = 0;
-  for (vp = this->realworld->get_all_vertices(); vp.first != vp.second; ++vp.first) {
+  for (vp = this->realworld->get_all_vertices(); vp.first != vp.second; vp.first++) {
     IdeaState* state_for_one_region = new IdeaState(power_distribution[it]);
     expansion.insert(std::pair<vertex_desc, IdeaState*>(*vp.first, state_for_one_region));
     it++;
@@ -33,11 +32,24 @@ void Idea::add_competing_idea(Idea* competing_idea) {
 
 void Idea::live() {
   this->produce_poison();
+  this->try_to_grow();
 }
 
 void Idea::produce_poison() {
-  for(auto it = this->expansion.begin(); it != this->expansion.end(); ++it) {
+  for (auto it = this->expansion.begin(); it != this->expansion.end(); it++) {
     it->second->produce_poison_local();
-    //Rcpp::Rcout << it->second->get_local_poison_amount() << " ";
+  }
+}
+
+void Idea::try_to_grow() {
+  for(auto it = this->expansion.begin(); it != this->expansion.end(); it++) {
+    if (it->second->is_local_poison_amount_above_quorum()) {
+      auto state_idea = it->second;
+      state_idea->change_local_power(0.1);
+      auto state_competing_idea = this->competing_ideas.front()->expansion.find(it->first)->second;
+      state_competing_idea->change_local_power(-0.1);
+
+      state_idea->set_poison_zero();
+    }
   }
 }

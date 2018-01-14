@@ -15,7 +15,8 @@ void Timeline::develop(Aether* current) {
   // query new Aether values to be stored in Timeline
   this->ideas.push_back(current->get_ideas());
   this->idea_regions.push_back(current->get_idea_regions());
-  this->idea_parts.push_back(current->get_idea_parts());
+  this->idea_powers.push_back(current->get_idea_powers());
+  this->idea_poison_amounts.push_back(current->get_idea_poison_amounts());
 
 }
 
@@ -42,43 +43,64 @@ SEXP Timeline::export_as_R_list() {
   region_name.reserve(100000);
   std::vector<double> proportion;
   proportion.reserve(100000);
+  std::vector<double> poison_supply;
+  poison_supply.reserve(100000);
 
   int count = 2500;
   // get pointer to the first idea list in the idea identity vector
   auto it_id_1 = ideas.cbegin();
   auto it_reg_1 = idea_regions.cbegin();
+  auto it_pow_1 = idea_powers.cbegin();
+  auto it_poi_1 = idea_poison_amounts.cbegin();
+
+  size_t amount_timesteps = idea_powers.size();
 
   // time loop
-  for (auto it_par_1 : idea_parts) {
+  for (size_t p1 = 0; p1 < amount_timesteps; p1++) {
 
       auto it_id_2 = (it_id_1)->cbegin();
       auto it_reg_2 = (it_reg_1)->cbegin();
+      auto it_pow_2 = (it_pow_1)->cbegin();
+      auto it_poi_2 = (it_poi_1)->cbegin();
+
+      size_t amount_ideas = it_pow_1->size();
 
       // idea loop
-      for (auto it_par_2: it_par_1) {
+      for (size_t p2 = 0; p2 < amount_ideas; p2++) {
 
         auto it_reg_3 = (it_reg_2)->cbegin();
+        auto it_pow_3 = (it_pow_2)->cbegin();
+        auto it_poi_3 = (it_poi_2)->cbegin();
+
+        size_t amount_regions = it_pow_2->size();
 
         // region + proporsion loop
-        for (auto it_par_3: it_par_2) {
+        for (size_t p3 = 0; p3 < amount_regions; p3++) {
 
           // finally extract the essential values and write the rows in the
           // result vectors
           timestep.push_back(count);
           idea_name.push_back(*it_id_2);
           region_name.push_back(*it_reg_3);
-          proportion.push_back(it_par_3);
+          proportion.push_back(*it_pow_3);
+          poison_supply.push_back(*it_poi_3);
 
           it_reg_3++;
+          it_pow_3++;
+          it_poi_3++;
 
         }
 
       it_id_2++;
       it_reg_2++;
+      it_pow_2++;
+      it_poi_2++;
     }
 
     it_id_1++;
     it_reg_1++;
+    it_pow_1++;
+    it_poi_1++;
     count--;
   }
 
@@ -88,6 +110,7 @@ SEXP Timeline::export_as_R_list() {
     _["idea"] = idea_name,
     _["region_name"] = region_name,
     _["proportion"] = proportion,
+    _["poison_supply"] = poison_supply,
     _["stringsAsFactors"] = false
   );
 

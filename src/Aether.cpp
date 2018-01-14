@@ -28,7 +28,7 @@ std::vector< std::vector< std::string > > Aether::get_idea_regions(){
   for (auto& idx : this->mindspace) {
     auto em = idx->get_expansion();
     std::vector<std::string> rm;
-    for(auto it = em.begin(); it != em.end(); ++it) {
+    for(auto it = em.begin(); it != em.end(); it++) {
       //Rcpp::Rcout << realworld->get_region_name(it->first) << std::endl;
       rm.push_back(realworld->get_region_name(it->first));
     }
@@ -37,14 +37,28 @@ std::vector< std::vector< std::string > > Aether::get_idea_regions(){
   return res;
 }
 
-std::vector< std::vector< double > > Aether::get_idea_parts(){
+std::vector< std::vector< double > > Aether::get_idea_powers(){
   std::vector< std::vector< double > > res;
   res.reserve(this->mindspace.size());
   for (auto& idx : this->mindspace) {
     auto em = idx->get_expansion();
     std::vector<double> ip;
-    for(auto it = em.begin(); it != em.end(); ++it) {
+    for(auto it = em.begin(); it != em.end(); it++) {
       ip.push_back(it->second->get_local_power());
+    }
+    res.push_back(ip);
+  }
+  return res;
+}
+
+std::vector< std::vector< double > > Aether::get_idea_poison_amounts(){
+  std::vector< std::vector< double > > res;
+  res.reserve(this->mindspace.size());
+  for (auto& idx : this->mindspace) {
+    auto em = idx->get_expansion();
+    std::vector<double> ip;
+    for (auto it = em.begin(); it != em.end(); it++) {
+      ip.push_back(it->second->get_local_poison_amount());
     }
     res.push_back(ip);
   }
@@ -53,10 +67,10 @@ std::vector< std::vector< double > > Aether::get_idea_parts(){
 
 void Aether::develop() {
 
-  auto& ideas_in_mindspace = this->mindspace;
-
-  for (auto& current_idea : ideas_in_mindspace) {
+  for (auto& current_idea : this->mindspace) {
     current_idea->live();
+
+
   }
 
 

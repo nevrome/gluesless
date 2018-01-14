@@ -41,5 +41,7 @@ class Timeline {
   //! stores Ideas regions names over time
   std::vector< std::vector< std::vector< std::string > > > idea_regions;
   //! stores Ideas powers in regions over time
-  std::vector< std::vector< std::vector< double > > > idea_parts;
+  std::vector< std::vector< std::vector< double > > > idea_powers;
+
+  std::vector< std::vector< std::vector< double > > > idea_poison_amounts;
 };

@@ -33,6 +33,7 @@ class Idea {
 
   void live();
   void produce_poison();
+  void try_to_grow();
 
   private:
   //! stores identity of an Idea

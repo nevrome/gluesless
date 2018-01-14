@@ -64,7 +64,7 @@ std::vector<vertex_desc> Networkland::get_adjacent_vertices(vertex_desc v) {
   index_map index = get(vertex_index, env);
   typename graph_trs::adjacency_iterator ai;
   typename graph_trs::adjacency_iterator ai_end;
-  for (tie(ai, ai_end) = adjacent_vertices(v, env); ai != ai_end; ++ai) {
+  for (tie(ai, ai_end) = adjacent_vertices(v, env); ai != ai_end; ai++) {
     res.push_back(index[*ai]);
   }
   return res;
