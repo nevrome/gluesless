@@ -32,5 +32,11 @@ void Idea::add_competing_idea(Idea* competing_idea) {
 }
 
 void Idea::live() {
-  // TODO
+  this->produce_poison();
+}
+
+void Idea::produce_poison() {
+  for(auto it = this->expansion.begin(); it != this->expansion.end(); ++it) {
+    it->second->produce_poison_local();
+  }
 }

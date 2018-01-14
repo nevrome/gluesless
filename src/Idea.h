@@ -29,9 +29,10 @@ class Idea {
   std::map<vertex_desc, IdeaState*> get_expansion();
   void set_expansion(std::vector<double> power_distribution);
   void add_competing_idea(Idea* competing_idea);
+  //IdeaState* get_ideastate_at_vertex()
 
-  //! It's your turn! Live!
   void live();
+  void produce_poison();
 
   private:
   //! stores identity of an Idea

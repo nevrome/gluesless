@@ -55,11 +55,10 @@ std::vector< std::vector< double > > Aether::get_idea_parts(){
 
 void Aether::develop() {
 
-  // create convenient short
-  auto& v = this->mindspace;
+  auto& ideas_in_mindspace = this->mindspace;
 
-  for (auto& idx : v) {
-    idx->live();
+  for (auto& current_idea : ideas_in_mindspace) {
+    current_idea->live();
   }
 
 
