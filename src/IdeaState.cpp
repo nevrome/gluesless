@@ -34,8 +34,7 @@ void IdeaState::change_local_power(double value) {
   if (this->local_power < 0.0) {this->local_power = 0.0;}
 }
 
-bool IdeaState::is_local_poison_amount_above_quorum() {
-  double quorum = 10;
+bool IdeaState::is_local_poison_amount_above_quorum(double quorum) {
   return this->local_poison_amount >= quorum;
 }
 

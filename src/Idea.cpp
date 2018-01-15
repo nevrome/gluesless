@@ -47,8 +47,8 @@ void Idea::try_to_grow_with_poison() {
   for(auto it = this->expansion.begin(); it != this->expansion.end(); it++) {
     auto state_idea = it->second;
 
-    if (state_idea->is_local_poison_amount_above_quorum()) {
-      double growth = (1.0 - state_idea->get_local_power()) / 2.0;
+    if (state_idea->is_local_poison_amount_above_quorum(1.0)) {
+      double growth = (1.0 - state_idea->get_local_power()) / 50.0;
       state_idea->change_power_poison_related(growth);
       auto state_competing_idea = get_state_competing_idea(it->first);
       state_competing_idea->change_power_poison_related(-growth);
@@ -64,7 +64,7 @@ void Idea::colonize_random_region() {
     auto state_idea = it->second;
 
     if (randunifrange(0, 100) < 5) {
-      double growth = (1.0 - state_idea->get_local_power()) / 5.0;
+      double growth = (1.0 - state_idea->get_local_power()) / 10.0;
       state_idea->change_local_power(growth);
       auto state_competing_idea = get_state_competing_idea(it->first);
       state_competing_idea->set_local_power(1.0 - state_idea->get_local_power());
