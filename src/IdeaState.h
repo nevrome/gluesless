@@ -19,6 +19,8 @@ class IdeaState {
   void change_local_power(double value);
   bool is_local_poison_amount_above_quorum();
   void set_poison_zero();
+  bool is_local_power_above_zero_and_below_one();
+  void change_power_poison_related(double value);
 
   private:
   double local_power;

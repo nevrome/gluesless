@@ -28,7 +28,9 @@ void IdeaState::determine_poison_production() {
   this->local_poison_production = normal_distribution_pdf(this->local_power);
 }
 
-void IdeaState::change_local_power(double value) { this->local_power += value; }
+void IdeaState::change_local_power(double value) {
+    this->local_power += value;
+}
 
 bool IdeaState::is_local_poison_amount_above_quorum() {
   double quorum = 10;
@@ -37,4 +39,14 @@ bool IdeaState::is_local_poison_amount_above_quorum() {
 
 void IdeaState::set_poison_zero() {
   this->local_poison_amount = 0;
+}
+
+bool IdeaState::is_local_power_above_zero_and_below_one() {
+  return (this->local_power > 0 && this->local_power < 1);
+}
+
+void IdeaState::change_power_poison_related(double value) {
+  if (this->is_local_power_above_zero_and_below_one()) {
+    change_local_power(value);
+  }
 }

@@ -43,12 +43,12 @@ void Idea::produce_poison() {
 
 void Idea::try_to_grow() {
   for(auto it = this->expansion.begin(); it != this->expansion.end(); it++) {
-    if (it->second->is_local_poison_amount_above_quorum()) {
-      auto state_idea = it->second;
+    auto state_idea = it->second;
+    if (state_idea->is_local_poison_amount_above_quorum()) {
       double growth = (1.0 - state_idea->get_local_power()) / 2.0;
-      state_idea->change_local_power(growth);
+      state_idea->change_power_poison_related(growth);
       auto state_competing_idea = this->competing_ideas.front()->expansion.find(it->first)->second;
-      state_competing_idea->change_local_power(-growth);
+      state_competing_idea->change_power_poison_related(-growth);
 
       state_idea->set_poison_zero();
     }
