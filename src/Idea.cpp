@@ -32,7 +32,8 @@ void Idea::add_competing_idea(Idea* competing_idea) {
 
 void Idea::live() {
   this->produce_poison();
-  this->try_to_grow();
+  this->try_to_grow_with_poison();
+  this->colonize_random_region();
 }
 
 void Idea::produce_poison() {
@@ -41,16 +42,37 @@ void Idea::produce_poison() {
   }
 }
 
-void Idea::try_to_grow() {
+void Idea::try_to_grow_with_poison() {
+  // loop to go through all regions
   for(auto it = this->expansion.begin(); it != this->expansion.end(); it++) {
     auto state_idea = it->second;
+
     if (state_idea->is_local_poison_amount_above_quorum()) {
       double growth = (1.0 - state_idea->get_local_power()) / 2.0;
       state_idea->change_power_poison_related(growth);
-      auto state_competing_idea = this->competing_ideas.front()->expansion.find(it->first)->second;
+      auto state_competing_idea = get_state_competing_idea(it->first);
       state_competing_idea->change_power_poison_related(-growth);
 
       state_idea->set_poison_zero();
     }
   }
+}
+
+void Idea::colonize_random_region() {
+
+  for(auto it = this->expansion.begin(); it != this->expansion.end(); it++) {
+    auto state_idea = it->second;
+
+    if (randunifrange(0, 100) < 5) {
+      double growth = (1.0 - state_idea->get_local_power()) / 5.0;
+      state_idea->change_local_power(growth);
+      auto state_competing_idea = get_state_competing_idea(it->first);
+      state_competing_idea->set_local_power(1.0 - state_idea->get_local_power());
+    }
+  }
+
+}
+
+IdeaState* Idea::get_state_competing_idea(vertex_desc region) {
+  return this->competing_ideas.front()->expansion.find(region)->second;
 }

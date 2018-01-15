@@ -33,7 +33,10 @@ class Idea {
 
   void live();
   void produce_poison();
-  void try_to_grow();
+  void try_to_grow_with_poison();
+  void colonize_random_region();
+  IdeaState* get_state_competing_idea(vertex_desc region);
+
 
   private:
   //! stores identity of an Idea

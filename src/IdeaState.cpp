@@ -29,7 +29,9 @@ void IdeaState::determine_poison_production() {
 }
 
 void IdeaState::change_local_power(double value) {
-    this->local_power += value;
+  this->local_power += value;
+  if (this->local_power > 1.0) {this->local_power = 1.0;}
+  if (this->local_power < 0.0) {this->local_power = 0.0;}
 }
 
 bool IdeaState::is_local_poison_amount_above_quorum() {
