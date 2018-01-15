@@ -50,3 +50,59 @@ gluesless::plot_world(
   plotedges = F
 ) %>%
   plot_state(states = states, 2001)
+
+#### proportions plot ####
+
+runres %>%
+  ggplot() +
+  geom_line(
+    aes(x = timestep, y = proportion, color = idea)
+  ) +
+  facet_wrap(~region_name) +
+  scale_x_reverse() +
+  theme_bw()
+
+runres %>%
+  ggplot() +
+  geom_line(
+    aes(x = timestep, y = poison_supply, color = idea)
+  ) +
+  facet_wrap(~region_name) +
+  scale_x_reverse() +
+  theme_bw()
+
+load("../neomod_datapool/bronze_age/space_and_network/proportions_per_region_df.RData")
+prop_real <- proportion_per_region_df %>%
+  dplyr::filter(
+    idea == "cremation" | idea == "inhumation"
+  ) %>%
+  dplyr::mutate(
+    idea = dplyr::case_when(
+      idea == "cremation" ~ "cremation_real",
+      idea == "inhumation" ~ "inhumation_real"
+    )
+  )
+
+real_plus_model <- runres %>%
+  dplyr::full_join(
+    y = prop_real
+  )
+
+real_plus_model %>%
+  ggplot() +
+  geom_line(
+    aes(x = timestep, y = proportion, color = idea)
+  ) +
+  facet_wrap(~region_name) +
+  scale_x_reverse() +
+  theme_bw() +
+  scale_color_manual(
+    values = c(
+      "cremation_real" = "#de2d26",
+      "cremation" = "#fc9272",
+      "inhumation_real" = "#3182bd",
+      "inhumation" = "#9ecae1"
+    )
+  )
+
+
