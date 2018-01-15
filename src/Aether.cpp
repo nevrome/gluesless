@@ -67,11 +67,23 @@ std::vector< std::vector< double > > Aether::get_idea_poison_amounts(){
 
 void Aether::develop() {
 
-  for (auto& current_idea : this->mindspace) {
-    current_idea->live();
+  auto& v = this->mindspace;
 
-
+  // create offset vector to shuffle idea order
+  std::vector<int> offset;
+  offset.reserve(v.size());
+  for (size_t i = 0u; i < v.size(); ++i) {
+    offset.push_back(i);
   }
+  random_shuffle(
+    offset.begin(),
+    offset.end(),
+    randWrapper
+  );
 
+  for (auto& idx : offset) {
+    auto current_idea = v.begin() + idx;
+    (*current_idea)->live();
+  }
 
 }
