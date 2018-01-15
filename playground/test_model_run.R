@@ -53,23 +53,14 @@ gluesless::plot_world(
 
 #### proportions plot ####
 
-runres %>%
-  ggplot() +
-  geom_line(
-    aes(x = timestep, y = proportion, color = idea)
-  ) +
-  facet_wrap(~region_name) +
-  scale_x_reverse() +
-  theme_bw()
-
-runres %>%
-  ggplot() +
-  geom_line(
-    aes(x = timestep, y = poison_supply, color = idea)
-  ) +
-  facet_wrap(~region_name) +
-  scale_x_reverse() +
-  theme_bw()
+# runres %>%
+#   ggplot() +
+#   geom_line(
+#     aes(x = timestep, y = poison_supply, color = idea)
+#   ) +
+#   facet_wrap(~region_name) +
+#   scale_x_reverse() +
+#   theme_bw()
 
 load("../neomod_datapool/bronze_age/space_and_network/proportions_per_region_df.RData")
 prop_real <- proportion_per_region_df %>%
@@ -82,6 +73,10 @@ prop_real <- proportion_per_region_df %>%
       idea == "inhumation" ~ "inhumation_real"
     )
   )
+
+runres <- modelobj %>%
+  run() %$%
+  idea_exp
 
 real_plus_model <- runres %>%
   dplyr::full_join(
