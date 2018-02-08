@@ -8,43 +8,52 @@ make_ring(30, directed = FALSE, mutual = FALSE, circular = TRUE) %>%
   visNetwork(nodes, edges) %>%
   visNodes(size = 20)
 
-number_of_humans <- 200
-number_of_steps <- 20
+number_of_humans <- 40
+number_of_steps <- 10
 generation_length <- number_of_humans/number_of_steps
 
 humans <- tibble::tibble(
   human_id = 1:number_of_humans,
   age = as.integer(abs(rnorm(number_of_humans, mean = 0, sd = 30))),
-  generation_id = as.integer(ceiling(human_id/generation_length)),
-  parent = NA_integer_,
-  child = NA_integer_
+  generation_id = as.integer(ceiling(human_id/generation_length))
 )
 
-create_parent_child_connection <- function(x) {
+resample <- function(x, ...) x[sample.int(length(x), ...)]
+
+create_parent_child_connection <- function(x, generation_length) {
+  parent_vector <- c()
+  child_vector <- c()
   for (parent in 1:nrow(x)) {
     parent_generation_id <- x$generation_id[parent]
     child_generation_id <- parent_generation_id + 1
     if (child_generation_id > max(x$generation_id)) break
-    child_pool <- x$human_id[x$generation_id == child_generation_id & is.na(x$parent)]
-    child <- ifelse(length(child_pool) > 1, sample(child_pool, 1), child_pool)
-    x$child[parent] <- child
-    x$parent[child] <- parent
+    child_pool <- x$human_id[x$generation_id == child_generation_id & !(x$human_id %in% child_vector)]
+    if (parent %% generation_length == 0) {
+      child <- child_pool
+    } else {
+      child <- resample(child_pool, sample(length(child_pool), 1) - 1)
+    }
+    if (length(child) == 0) next
+    parent_vector <- append(parent_vector, rep(parent, length(child)))
+    child_vector <- append(child_vector, child)
   }
-  return(x)
+  message(parent_vector)
+  tibble::tibble(from = parent_vector, to = child_vector) %>%
+    return()
 }
 
 humans %>%
-  create_parent_child_connection() -> hu
+  create_parent_child_connection(generation_length) -> hu
 
-pu <- hu %>% dplyr::filter(
-    !is.na(parent),
-    !is.na(child)
-  ) %>% dplyr::transmute(
-    from = parent,
-    to = child
-  )
+# pu <- hu %>% dplyr::filter(
+#     !is.na(parent),
+#     !is.na(child)
+#   ) %>% dplyr::transmute(
+#     from = parent,
+#     to = child
+#   )
 
-pu %>%
+hu %>%
  igraph::graph_from_data_frame(d = .) %>%
   visNetwork::toVisNetworkData() %$%
   visNetwork::visNetwork(nodes, edges) %>%
