@@ -1,4 +1,4 @@
-number_of_humans <- 50
+number_of_humans <- 20
 number_of_steps <- 5
 generation_length <- number_of_humans/number_of_steps
 
@@ -8,7 +8,7 @@ humans <- tibble::tibble(
   generation_id = as.integer(ceiling(human_id/generation_length)),
   group = generation_id,
   sex = rep(c("male", "female"), number_of_humans/2),
-  shape = ifelse(sex == "male", "triangle", "circle")
+  shape = ifelse(sex == "male", "box", "circle")
 )
 
 resample <- function(x, ...) x[sample.int(length(x), ...)]
@@ -30,7 +30,7 @@ heavy_sexing <- function(x) {
     from <- append(from, current_human)
     to <- append(to, partner)
   }
-  tibble::tibble(from, to, label = "❤")
+  tibble::tibble(from, to, label = "❤", value = 2)
 }
 
 humans %>%
@@ -62,28 +62,60 @@ child_production <- function(x, generation_length, sexing) {
     from <- append(from, rep(partner, length(child)))
     to <- append(to, child)
   }
-  tibble::tibble(from, to, label = "✌")
+  tibble::tibble(from, to, label = "✌", value = 2)
 }
 
 humans %>%
   child_production(generation_length, sexing) -> kidding
 
-# pu <- hu %>% dplyr::filter(
-#     !is.na(parent),
-#     !is.na(child)
-#   ) %>% dplyr::transmute(
-#     from = parent,
-#     to = child
-#   )
-
 rbind(
   sexing, kidding
+) -> vertical
+
+expand.grid.unique <- function(x, y, include.equals=FALSE) {
+  x <- unique(x)
+  y <- unique(y)
+  g <- function(i) {
+    z <- setdiff(y, x[seq_len(i-include.equals)])
+    if(length(z)) cbind(x[i], z, deparse.level=0)
+  }
+  do.call(rbind, lapply(seq_along(x), g)) %>%
+    as.data.frame() %>%
+    return()
+}
+
+all_relations <- expand.grid.unique(humans$human_id, humans$human_id)
+colnames(all_relations) <- c("from", "to")
+
+random_relations <- function(x, all_relations, vertical) {
+  dplyr::anti_join(
+    all_relations,
+    vertical
+  ) %>%
+    dplyr::mutate(
+      generation_from = x$generation_id[from],
+      generation_to = x$generation_id[to],
+      generation_difference = abs(generation_from - generation_to) + 1,
+      value = 1/generation_difference,
+      label = "😁"
+    ) %>%
+    dplyr::select(
+      from, to, label, value
+    )
+}
+
+humans %>%
+  random_relations(all_relations, vertical) -> horizontal
+
+rbind(
+  vertical, horizontal
 ) -> network
 
+
 network %>%
- igraph::graph_from_data_frame(d = ., vertices = humans) %>%
-  visNetwork::toVisNetworkData() %$%
-  visNetwork::visNetwork(nodes, edges) %>%
-  visNetwork::visGroups() %>%
-  visNetwork::visNodes(size = 20) #%>%
+ igraph::graph_from_data_frame(d = ., vertices = humans, directed = FALSE) %>%
+  visNetwork::visIgraph(layout = "layout_in_circle")
+  # visNetwork::toVisNetworkData() %$%
+  # visNetwork::visNetwork(nodes, edges) %>%
+  # visNetwork::visIgraph()
   #visNetwork::visHierarchicalLayout(direction = "UD", sortMethod = "directed")
