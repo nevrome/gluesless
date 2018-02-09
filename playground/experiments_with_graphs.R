@@ -8,7 +8,7 @@ humans <- tibble::tibble(
   generation_id = as.integer(ceiling(human_id/generation_length)),
   group = generation_id,
   sex = rep(c("male", "female"), number_of_humans/2),
-  shape = ifelse(sex == "male", "triangle", "triangleDown")
+  shape = ifelse(sex == "male", "triangle", "circle")
 )
 
 resample <- function(x, ...) x[sample.int(length(x), ...)]
@@ -42,7 +42,7 @@ sexing %>%
   visNetwork::visNetwork(nodes, edges) %>%
   visNetwork::visNodes(size = 20)
 
-create_parent_child_connection <- function(x, generation_length, sexing) {
+child_production <- function(x, generation_length, sexing) {
   from <- c()
   to <- c()
   for (parent in 1:nrow(x)) {
@@ -66,7 +66,7 @@ create_parent_child_connection <- function(x, generation_length, sexing) {
 }
 
 humans %>%
-  create_parent_child_connection(generation_length, sexing) -> kidding
+  child_production(generation_length, sexing) -> kidding
 
 # pu <- hu %>% dplyr::filter(
 #     !is.na(parent),
