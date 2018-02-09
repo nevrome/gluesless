@@ -1,14 +1,4 @@
-library(igraph)
-library(visNetwork)
-
-#make_tree(10, children = 2, mode = "undirected") %>%
-#make_full_graph(10, directed = FALSE, loops = FALSE) %>%
-make_ring(30, directed = FALSE, mutual = FALSE, circular = TRUE) %>%
-  toVisNetworkData %$%
-  visNetwork(nodes, edges) %>%
-  visNodes(size = 20)
-
-number_of_humans <- 40
+number_of_humans <- 100
 number_of_steps <- 10
 generation_length <- number_of_humans/number_of_steps
 
@@ -31,13 +21,12 @@ create_parent_child_connection <- function(x, generation_length) {
     if (parent %% generation_length == 0) {
       child <- child_pool
     } else {
-      child <- resample(child_pool, sample(length(child_pool), 1) - 1)
+      child <- resample(child_pool, sample(ifelse(length(child_pool) < 3, length(child_pool), 3), 1) - 1)
     }
     if (length(child) == 0) next
     parent_vector <- append(parent_vector, rep(parent, length(child)))
     child_vector <- append(child_vector, child)
   }
-  message(parent_vector)
   tibble::tibble(from = parent_vector, to = child_vector) %>%
     return()
 }
@@ -57,4 +46,5 @@ hu %>%
  igraph::graph_from_data_frame(d = .) %>%
   visNetwork::toVisNetworkData() %$%
   visNetwork::visNetwork(nodes, edges) %>%
-  visNetwork::visNodes(size = 20)
+  visNetwork::visNodes(size = 20) %>%
+  visNetwork::visHierarchicalLayout(direction = "UD", sortMethod = "directed")
