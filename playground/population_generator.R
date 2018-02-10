@@ -1,5 +1,5 @@
 population_size <- function(t) {
-  (cos(0.1 * t) + 2) * 500
+  (cos(0.1 * t) + 2) * 50
 }
 
 population_age_distribution <- function(t) {
@@ -20,11 +20,11 @@ population_unit_distribution <- function(t) {
   }
 }
 
-timesteps <- tibble::tibble(
-  t = 1:2000,
-  population_size = population_size(t),
-  population_age_distribution = I(list(population_age_distribution(t)))
-)
+# timesteps <- tibble::tibble(
+#   t = 1:2000,
+#   population_size = population_size(t),
+#   population_age_distribution = I(list(population_age_distribution(t)))
+# )
 
 population_age_distribution(10)(10)
 
@@ -39,10 +39,10 @@ generate_humans <- function(t, start_id, number, start_age = NA) {
           as.integer(start_age)
       },
       dead = FALSE,
-      birth_time = t,
-      death_time = t + death_age,
+      birth_time = t - current_age,
+      death_time = t + (death_age - current_age),
       sex = population_sex_distribution(t)(number),
-      unit = population_unit_distribution(t)(number, 40)
+      unit = population_unit_distribution(t)(number, 3)
     ) %>% return()
   } else {
     tibble::tibble(
@@ -58,7 +58,7 @@ generate_humans <- function(t, start_id, number, start_age = NA) {
   }
 }
 
-time <- 1:500
+time <- 1:200
 
 humans <- generate_humans(0, 1, population_size(0))
 
@@ -84,21 +84,65 @@ for (t in time) {
 
 }
 
-hu <- tibble::tibble(t = time) %>%
-  dplyr::mutate(
-    n = purrr::map_int(
-      t, function(x) {
-        humans %>% dplyr::filter(
-          birth_time <= x & x <= death_time
-        ) %>%
-          nrow() %>%
-          return()
-      }
-    )
-  )
-
-
-plot(time, population_size(time))
-points(hu$t, hu$n, col = "red")
+# hu <- tibble::tibble(t = time) %>%
+#   dplyr::mutate(
+#     n = purrr::map_int(
+#       t, function(x) {
+#         humans %>% dplyr::filter(
+#           birth_time <= x & x <= death_time
+#         ) %>%
+#           nrow() %>%
+#           return()
+#       }
+#     )
+#   )
+#
+#
+# plot(time, population_size(time))
+# points(hu$t, hu$n, col = "red")
 
 hist(humans$current_age[!humans$dead])
+
+humans %<>% dplyr::select(
+  -current_age, -dead
+)
+
+humans -> x
+
+heavy_sexing <- function(x) {
+  from <- c()
+  to <- c()
+  label <- c()
+
+  pb <- txtProgressBar(style = 3)
+  for (child in 1:nrow(x)) {
+    potential_parents <- x %>% dplyr::filter(
+      (birth_time + 12) <= x$birth_time[child],
+      x$birth_time[child] <= (birth_time + 60),
+      unit == x$unit[child]
+    )
+    if (!all(c("male", "female") %in% unique(potential_parents$sex))) {next}
+    mother <- potential_parents %>%
+      dplyr::filter(sex == "female") %>%
+      dplyr::sample_n(1) %$%
+      id
+    father <- potential_parents %>%
+      dplyr::filter(sex == "male") %>%
+      dplyr::sample_n(1) %$%
+      id
+    from <- append(from, c(mother, mother, father))
+    to <- append(to, c(father, child, child))
+    label <- append(label, c("❤", "✌", "✌"))
+
+    setTxtProgressBar(pb, child/nrow(x))
+  }
+  close(pb)
+
+  tibble::tibble(from, to, label)
+}
+
+humans %>% heavy_sexing() -> hu
+
+hu %>%
+ igraph::graph_from_data_frame(d = ., directed = FALSE)  %>%
+  visNetwork::visIgraph(layout = "layout_in_circle")
