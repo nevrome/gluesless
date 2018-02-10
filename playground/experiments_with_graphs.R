@@ -1,4 +1,4 @@
-number_of_humans <- 20
+number_of_humans <- 40
 number_of_steps <- 5
 generation_length <- number_of_humans/number_of_steps
 
@@ -12,6 +12,42 @@ humans <- tibble::tibble(
 )
 
 resample <- function(x, ...) x[sample.int(length(x), ...)]
+
+all_relations <- expand.grid.unique(humans$human_id, humans$human_id)
+colnames(all_relations) <- c("from", "to")
+
+# heavy_sexing_2 <- function(x) {
+#   relations <- all_relations %>%
+#     dplyr::mutate(
+#       generation_from = x$generation_id[from],
+#       generation_to = x$generation_id[to],
+#       generation_difference = as.integer(abs(generation_from - generation_to)),
+#       sex_from = x$sex[from],
+#       sex_to = x$sex[to],
+#       sex_difference = sex_from != sex_to
+#     ) %>%
+#     dplyr::filter(
+#       generation_difference == 0,
+#       sex_difference
+#     ) %>%
+#     dplyr::group_by(
+#       from
+#     ) %>%
+#     dplyr::mutate(
+#       randomly_selected = rep(FALSE, n()) %>% inset(sample.int(length(.), 1), TRUE)
+#     ) %>%
+#     dplyr::ungroup()
+#
+#
+#
+#   hu %>%
+#     dplyr::filter(
+#       !(from %in% .$to)
+#     )
+#
+#   2 %in% .$from
+#
+# }
 
 heavy_sexing <- function(x) {
   from <- c()
