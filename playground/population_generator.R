@@ -84,23 +84,6 @@ for (t in time) {
 
 }
 
-# hu <- tibble::tibble(t = time) %>%
-#   dplyr::mutate(
-#     n = purrr::map_int(
-#       t, function(x) {
-#         humans %>% dplyr::filter(
-#           birth_time <= x & x <= death_time
-#         ) %>%
-#           nrow() %>%
-#           return()
-#       }
-#     )
-#   )
-#
-#
-# plot(time, population_size(time))
-# points(hu$t, hu$n, col = "red")
-
 hist(humans$current_age[!humans$dead])
 
 humans %<>% dplyr::select(
@@ -143,6 +126,52 @@ heavy_sexing <- function(x) {
 
 humans %>% heavy_sexing() -> hu
 
-hu %>%
- igraph::graph_from_data_frame(d = ., directed = FALSE)  %>%
-  visNetwork::visIgraph(layout = "layout_in_circle")
+# hu %>%
+#  igraph::graph_from_data_frame(d = ., directed = FALSE)  %>%
+#   visNetwork::visIgraph(layout = "layout_in_circle")
+
+humans_sorted <- humans %>%
+  dplyr::arrange(
+    unit, id
+  )
+
+library(ggplot2)
+humans %>%
+  ggplot() +
+  geom_segment(
+    aes(y = id, yend = id, x = birth_time, xend = death_time, color = sex)
+  ) +
+  facet_wrap(~unit) +
+  geom_vline(aes(xintercept = time[1])) +
+  geom_vline(aes(xintercept = time[length(time)])) +
+  geom_line(
+    data = spu,
+    aes(x = t, y = n - max(spu$n) - 50),
+    color = "black"
+  ) +
+  geom_line(
+    data = hu,
+    aes(x = t, y = n - max(spu$n) - 50),
+    color = "red"
+  )
+
+
+hu <- tibble::tibble(t = time) %>%
+  dplyr::mutate(
+    n = t %>% purrr::map_int(
+      function(x) {
+        humans %>% dplyr::filter(
+          birth_time <= x & x <= death_time
+        ) %>%
+          nrow() %>%
+          return()
+      }
+    )
+  )
+
+spu <- tibble::tibble(
+  t = time,
+  n = population_size(t)
+)
+
+
