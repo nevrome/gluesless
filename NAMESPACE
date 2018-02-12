@@ -2,6 +2,7 @@
 
 export(.onUnload)
 export(age_distribution)
+export(generate_humans)
 export(get_ages)
 export(get_sexes)
 export(graphread)
