@@ -52,6 +52,19 @@ sex_distribution <- function(t) {
   }
 }
 
+#' population unit distribution at time
+#'
+#' @param t double time
+#'
+#' @return distribution function
+#'
+#' @export
+unit_distribution <- function(t) {
+  function(x) {
+    rep(1/length(x), length(x))
+  }
+}
+
 #### getter for drawing individual attributes ####
 
 #' get n sexes according to sex distribution at time
@@ -91,3 +104,14 @@ get_sexes <- function(t, n) {
   get_attribute(t, n, sex_distribution, c("male", "female"))
 }
 
+#' get n units according to unit distribution at time
+#'
+#' @param t double time
+#' @param n integer amount
+#'
+#' @return vector of sexes
+#'
+#' @export
+get_units <- function(t, n, unit_vector) {
+  get_attribute(t, n, unit_distribution, unit_vector)
+}
