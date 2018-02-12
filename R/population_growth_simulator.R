@@ -9,22 +9,26 @@ simulate_growth <- function(humans, time = 1:2000) {
   for (t in time) {
     setTxtProgressBar(pb, t/length(time))
 
+    humans %<>% age()
     humans %<>% find_and_realize_deaths()
     necessary_births <- humans %>% calculate_amount_of_necessary_births(t)
+
+    # stop if population is big enough
     if (necessary_births <= 0) next
 
+    # units handling
     units <- humans %>% get_currently_alive_units()
     units_target_amount <- unit_amount(t)
-
     if (length(units) > units_target_amount) {
-      new_unit_vector <- resample(units, units_target_amount)
+      new_unit_vector <- shrink_unit_vector(units, units_target_amount)
       humans %>% realize_unit_deaths(new_unit_vector)
     } else {
-      difference <- units_target_amount - length(units)
-      new_unit_vector <- c(units, (unit_counter + 1):(unit_counter + difference + 1))
+      difference <- determine_amount_missing_units(units, units_target_amount)
+      new_unit_vector <- enlarge_unit_vector(units, unit_counter, difference)
       unit_counter <- unit_counter + difference
     }
 
+    # generate and add new humans
     humans %<>% rbind(
       generate_humans(
         t = t,
@@ -40,10 +44,17 @@ simulate_growth <- function(humans, time = 1:2000) {
   return(humans)
 }
 
+age <- function(humans) {
+  humans[!humans$dead, ] %<>%
+    dplyr::mutate(
+      current_age = as.integer(current_age + 1)
+    )
+  return(humans)
+}
+
 find_and_realize_deaths <- function(humans) {
   humans[!humans$dead, ] %<>%
     dplyr::mutate(
-      current_age = as.integer(current_age + 1),
       dead = current_age >= death_age
     )
   return(humans)
@@ -71,4 +82,16 @@ get_currently_alive_units <- function(humans) {
 
 get_last_established_unit <- function(humans) {
   max(humans$unit)
+}
+
+enlarge_unit_vector <- function(units, unit_counter, difference) {
+  c(units, (unit_counter + 1):(unit_counter + difference + 1))
+}
+
+shrink_unit_vector <- function(units, units_target_amount) {
+  resample(units, units_target_amount)
+}
+
+determine_amount_missing_units <- function(units, units_target_amount) {
+  abs(units_target_amount - length(units))
 }
