@@ -4,12 +4,14 @@
 \alias{simulate_growth}
 \title{simulate growth of a population}
 \usage{
-simulate_growth(humans, time = 1:2000)
+simulate_growth(humans, time, settings)
 }
 \arguments{
 \item{humans}{tibble input population}
 
 \item{time}{vector time steps}
+
+\item{settings}{test}
 }
 \value{
 tibble output population

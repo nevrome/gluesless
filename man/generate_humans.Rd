@@ -4,7 +4,7 @@
 \alias{generate_humans}
 \title{generate}
 \usage{
-generate_humans(t, n, start_id = 1, start_age = NA, unit_vector)
+generate_humans(t, n, start_id = 1, start_age = NA, settings, unit_vector)
 }
 \arguments{
 \item{t}{double time}
@@ -14,6 +14,8 @@ generate_humans(t, n, start_id = 1, start_age = NA, unit_vector)
 \item{start_id}{integer id of first generated human. default = 1}
 
 \item{start_age}{integer current age of humans. default: NA (current ages are generated)}
+
+\item{settings}{test}
 
 \item{unit_vector}{test}
 }

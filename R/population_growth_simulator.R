@@ -4,11 +4,16 @@
 #'
 #' @param humans tibble input population
 #' @param time vector time steps
+#' @param settings test
 #'
 #' @return tibble output population
 #'
 #' @export
-simulate_growth <- function(humans, time = 1:2000) {
+simulate_growth <- function(
+  humans,
+  time,
+  settings
+) {
 
   unit_counter <- humans %>% get_last_established_unit()
 
@@ -42,6 +47,7 @@ simulate_growth <- function(humans, time = 1:2000) {
         n = necessary_births,
         start_id = max(humans$id + 1),
         start_age = 0,
+        settings,
         unit_vector = new_unit_vector
       )
     )
