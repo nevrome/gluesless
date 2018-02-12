@@ -76,45 +76,10 @@ unit_distribution <- function(t) {
 #'
 #' @return vector of attributes
 #'
+#' @export
 get_attribute <- function(t = NA, n = NA, distribution_function, range) {
   if (is.na(t) || is.na(n)) stop()
   # draw sample
   sample(range, size = n, replace = TRUE, prob = distribution_function(t)(range))
 }
 
-#' get n ages according to age distribution at time
-#'
-#' @param t double time
-#' @param n integer amount
-#'
-#' @return vector of ages
-#'
-#' @export
-get_ages <- function(t, n) {
-  get_attribute(t, n, age_distribution, 0:100)
-}
-
-#' get n sexes according to sex distribution at time
-#'
-#' @param t double time
-#' @param n integer amount
-#'
-#' @return vector of sexes
-#'
-#' @export
-get_sexes <- function(t, n) {
-  get_attribute(t, n, sex_distribution, c("male", "female"))
-}
-
-#' get n units according to unit distribution at time
-#'
-#' @param t double time
-#' @param n integer amount
-#' @param unit_vector vector of available units
-#'
-#' @return vector of sexes
-#'
-#' @export
-get_units <- function(t, n, unit_vector) {
-  get_attribute(t, n, unit_distribution, unit_vector)
-}
