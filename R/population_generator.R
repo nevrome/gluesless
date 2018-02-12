@@ -1,6 +1,6 @@
 #' generate population
 #'
-#' @param settings
+#' @param settings test
 #'
 #' @return huup
 #'

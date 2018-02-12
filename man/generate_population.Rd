@@ -7,7 +7,7 @@
 generate_population(settings)
 }
 \arguments{
-\item{settings}{}
+\item{settings}{test}
 }
 \value{
 huup
