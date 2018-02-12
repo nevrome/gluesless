@@ -1,3 +1,5 @@
+#### main function ####
+
 #' generate
 #'
 #' @param t double time
@@ -26,10 +28,12 @@ generate_humans <- function(
     birth_time =  get_birth_time(t, current_age),
     death_time =  get_death_time(t, death_age, current_age),
     sex =         get_sexes(t, n),
-    #unit = population_unit_distribution(t)(number, unit_vector),
-    unit_dead = FALSE
+    unit =        get_units(t, n, unit_vector),
+    unit_dead =   FALSE
   ) %>% return()
 }
+
+#### helper functions ####
 
 get_id_range <- function(start_id, n) {
   start_id:(start_id + n - 1)
@@ -44,9 +48,9 @@ get_death_age <- function(ages) {
 }
 
 get_birth_time <- function(t, current_age) {
-  t - current_age
+  as.integer(t - current_age)
 }
 
 get_death_time <- function(t, death_age, current_age) {
-  t + (death_age - current_age)
+  as.integer(t + (death_age - current_age))
 }
