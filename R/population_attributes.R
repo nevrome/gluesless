@@ -1,3 +1,5 @@
+#### population attributes ####
+
 #' population size at time
 #'
 #' @param t double time
@@ -8,6 +10,19 @@
 population_size <- function(t) {
   round((cos(0.01 * t) + 3) * 100 + 0.2 * t, 0)
 }
+
+#' unit amount at time
+#'
+#' @param t double time
+#'
+#' @return integer amount of units at t
+#'
+#' @export
+unit_amount <- function(t) {
+  round((sin(0.005 * t) + 3) * 2, 0)
+}
+
+#### distributions of individual attributes ####
 
 #' population age distribution at time
 #'
@@ -24,23 +39,6 @@ age_distribution <- function(t) {
   #plot(0:100, population_age_distribution_at_time(0)(0:100))
 }
 
-#' get n ages according to age distribution at time
-#'
-#' @param t double time
-#' @param n integer amount
-#'
-#' @return vector of ages
-#'
-#' @export
-get_ages <- function(t, n) {
-  # get distribution function
-  distribution_function <- age_distribution(t)
-  # define possible age range
-  age_range <- 0:100
-  # draw sample
-  sample(age_range, size = n, replace = TRUE, prob = distribution_function(age_range))
-}
-
 #' population sex distribution at time
 #'
 #' @param t double time
@@ -54,6 +52,33 @@ sex_distribution <- function(t) {
   }
 }
 
+#### getter for drawing individual attributes ####
+
+#' get n sexes according to sex distribution at time
+#'
+#' @param t double time
+#' @param n integer amount
+#'
+#' @return vector of sexes
+#'
+get_attribute <- function(t = NA, n = NA, distribution_function, range) {
+  if (is.na(t) || is.na(n)) stop()
+  # draw sample
+  sample(range, size = n, replace = TRUE, prob = distribution_function(t)(range))
+}
+
+#' get n ages according to age distribution at time
+#'
+#' @param t double time
+#' @param n integer amount
+#'
+#' @return vector of ages
+#'
+#' @export
+get_ages <- function(t, n) {
+  get_attribute(t, n, age_distribution, 0:100)
+}
+
 #' get n sexes according to sex distribution at time
 #'
 #' @param t double time
@@ -63,10 +88,6 @@ sex_distribution <- function(t) {
 #'
 #' @export
 get_sexes <- function(t, n) {
-  # get distribution function
-  distribution_function <- sex_distribution(t)
-  # define possible sexes
-  sex_range <- c("male", "female")
-  # draw sample
-  sample(sex_range, size = n, replace = TRUE, prob = distribution_function(sex_range))
+  get_attribute(t, n, sex_distribution, c("male", "female"))
 }
+
