@@ -1,5 +1,12 @@
 #### main function ####
 
+#' simulate growth of a population
+#'
+#' @param humans tibble input population
+#' @param time vector time steps
+#'
+#' @return tibble output population
+#'
 #' @export
 simulate_growth <- function(humans, time = 1:2000) {
 
@@ -43,6 +50,8 @@ simulate_growth <- function(humans, time = 1:2000) {
 
   return(humans)
 }
+
+#### helper functions ####
 
 age <- function(humans) {
   humans[!humans$dead, ] %<>%
