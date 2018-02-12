@@ -25,8 +25,8 @@ generate_humans <- function(
     current_age = get_current_age(start_age, ages),
     death_age =   get_death_age(ages),
     dead =        FALSE,
-    birth_time =  get_birth_time(t, current_age),
-    death_time =  get_death_time(t, death_age, current_age),
+    birth_time =  get_birth_time(t, .data$current_age),
+    death_time =  get_death_time(t, .data$death_age, .data$current_age),
     sex =         get_sexes(t, n),
     unit =        get_units(t, n, unit_vector),
     unit_dead =   FALSE

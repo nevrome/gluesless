@@ -2,7 +2,7 @@
 % Please edit documentation in R/population_attributes.R
 \name{get_attribute}
 \alias{get_attribute}
-\title{get n sexes according to sex distribution at time}
+\title{get n attributes according to attribute distribution at time}
 \usage{
 get_attribute(t = NA, n = NA, distribution_function, range)
 }
@@ -10,10 +10,14 @@ get_attribute(t = NA, n = NA, distribution_function, range)
 \item{t}{double time}
 
 \item{n}{integer amount}
+
+\item{distribution_function}{function probability distribution}
+
+\item{range}{vector value range to query}
 }
 \value{
-vector of sexes
+vector of attributes
 }
 \description{
-get n sexes according to sex distribution at time
+get n attributes according to attribute distribution at time
 }

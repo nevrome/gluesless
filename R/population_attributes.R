@@ -67,12 +67,14 @@ unit_distribution <- function(t) {
 
 #### getter for drawing individual attributes ####
 
-#' get n sexes according to sex distribution at time
+#' get n attributes according to attribute distribution at time
 #'
 #' @param t double time
 #' @param n integer amount
+#' @param distribution_function function probability distribution
+#' @param range vector value range to query
 #'
-#' @return vector of sexes
+#' @return vector of attributes
 #'
 get_attribute <- function(t = NA, n = NA, distribution_function, range) {
   if (is.na(t) || is.na(n)) stop()
@@ -108,6 +110,7 @@ get_sexes <- function(t, n) {
 #'
 #' @param t double time
 #' @param n integer amount
+#' @param unit_vector vector of available units
 #'
 #' @return vector of sexes
 #'

@@ -10,6 +10,8 @@ get_units(t, n, unit_vector)
 \item{t}{double time}
 
 \item{n}{integer amount}
+
+\item{unit_vector}{vector of available units}
 }
 \value{
 vector of sexes

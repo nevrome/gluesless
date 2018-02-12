@@ -12,9 +12,9 @@ simulate_growth <- function(humans, time = 1:2000) {
 
   unit_counter <- humans %>% get_last_established_unit()
 
-  pb <- txtProgressBar(style = 3)
+  pb <- utils::txtProgressBar(style = 3)
   for (t in time) {
-    setTxtProgressBar(pb, t/length(time))
+    utils::setTxtProgressBar(pb, t/length(time))
 
     humans %<>% age()
     humans %<>% find_and_realize_deaths()
@@ -56,7 +56,7 @@ simulate_growth <- function(humans, time = 1:2000) {
 age <- function(humans) {
   humans[!humans$dead, ] %<>%
     dplyr::mutate(
-      current_age = as.integer(current_age + 1)
+      current_age = as.integer(.data$current_age + 1)
     )
   return(humans)
 }
@@ -64,7 +64,7 @@ age <- function(humans) {
 find_and_realize_deaths <- function(humans) {
   humans[!humans$dead, ] %<>%
     dplyr::mutate(
-      dead = current_age >= death_age
+      dead = .data$current_age >= .data$death_age
     )
   return(humans)
 }
@@ -72,7 +72,7 @@ find_and_realize_deaths <- function(humans) {
 realize_unit_deaths <- function(humans, new_unit_vector) {
   humans[!humans$unit_dead, ] %<>%
     dplyr::mutate(
-      unit_dead = ifelse(unit_dead %in% new_unit_vector, FALSE, TRUE)
+      unit_dead = ifelse(.data$unit_dead %in% new_unit_vector, FALSE, TRUE)
     )
   return(humans)
 }
