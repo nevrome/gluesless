@@ -33,11 +33,13 @@ simulate_growth <- function(
     units_target_amount <- unit_amount(t)
     if (length(units) > units_target_amount) {
       new_unit_vector <- shrink_unit_vector(units, units_target_amount)
-      humans %>% realize_unit_deaths(new_unit_vector)
-    } else {
+      humans %<>% realize_unit_deaths(new_unit_vector)
+    } else if (length(units) < units_target_amount) {
       difference <- determine_amount_missing_units(units, units_target_amount)
       new_unit_vector <- enlarge_unit_vector(units, unit_counter, difference)
       unit_counter <- unit_counter + difference
+    } else {
+      new_unit_vector <- units
     }
 
     # generate and add new humans
@@ -78,7 +80,7 @@ find_and_realize_deaths <- function(humans) {
 realize_unit_deaths <- function(humans, new_unit_vector) {
   humans[!humans$unit_dead, ] %<>%
     dplyr::mutate(
-      unit_dead = ifelse(.data$unit_dead %in% new_unit_vector, FALSE, TRUE)
+      unit_dead = ifelse(.data$unit %in% new_unit_vector, FALSE, TRUE)
     )
   return(humans)
 }
@@ -100,7 +102,7 @@ get_last_established_unit <- function(humans) {
 }
 
 enlarge_unit_vector <- function(units, unit_counter, difference) {
-  c(units, (unit_counter + 1):(unit_counter + difference + 1))
+  c(units, (unit_counter + 1):(unit_counter + difference))
 }
 
 shrink_unit_vector <- function(units, units_target_amount) {

@@ -8,6 +8,7 @@
 generate_population <- function(settings) {
 
   intitial_population_size = settings@population_size_function(0)
+  intitial_unit_size = settings@unit_amount_function(0)
 
   initial_population <- generate_humans(
     t = 0,
@@ -15,7 +16,7 @@ generate_population <- function(settings) {
     start_id = 1,
     start_age = NA,
     settings = settings,
-    unit_vector = settings@start_unit_vector
+    unit_vector = 1:intitial_unit_size
   ) %>%
     dplyr::arrange(
       .data$birth_time

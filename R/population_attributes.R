@@ -19,7 +19,7 @@ population_size <- function(t) {
 #'
 #' @export
 unit_amount <- function(t) {
-  round((sin(0.005 * t) + 3) * 2, 0)
+  round((sin(0.02 * t) + 3) * 2, 0)
 }
 
 #### distributions of individual attributes ####
