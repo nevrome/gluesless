@@ -3,6 +3,7 @@
 export(.onUnload)
 export(age_distribution)
 export(count_living_humans_over_time)
+export(count_living_units_over_time)
 export(generate_humans)
 export(generate_population)
 export(get_attribute)
