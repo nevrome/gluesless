@@ -12,7 +12,7 @@ count_living_humans_over_time <- function(humans, time) {
       n = time %>% purrr::map_int(
         function(x) {
           humans %>% dplyr::filter(
-            birth_time <= x & x <= death_time
+            .data$birth_time <= x & x <= .data$death_time
           ) %>%
             nrow() %>%
             return()
