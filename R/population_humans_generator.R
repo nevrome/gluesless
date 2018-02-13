@@ -32,7 +32,8 @@ generate_humans <- function(
     sex =         get_attribute(t, n, settings@sex_distribution_function, settings@sex_range),
     unit =        get_attribute(t, n, settings@unit_distribution_function, unit_vector),
     unit_dead =   FALSE
-  ) %>% return()
+  ) %>%
+    return()
 }
 
 #### helper functions ####
@@ -42,11 +43,11 @@ get_id_range <- function(start_id, n) {
 }
 
 get_current_age <- function(start_age, ages) {
-  if (is.na(start_age)) {ages} else {start_age}
+  if (is.na(start_age)) {ages/2} else {start_age}
 }
 
 get_death_age <- function(ages) {
-  ages + resample(0:10, length(ages), replace = TRUE)
+  ages
 }
 
 get_birth_time <- function(t, current_age) {
