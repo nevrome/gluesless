@@ -2,7 +2,7 @@
 
 timeframe <- 0:200
 
-settings <- new(
+population_settings <- new(
   "population_settings",
   time =  timeframe,
   population_size_function = population_size,
@@ -14,8 +14,18 @@ settings <- new(
   unit_distribution_function = unit_distribution
 )
 
-test <- settings %>%
+test <- population_settings %>%
   generate_population()
+
+#### create relations ####
+
+relations_settings <- new(
+  "relations_settings",
+  population =  test
+)
+
+test2 <- relations_settings %>%
+  generate_relations()
 
 #### analyse result ####
 
