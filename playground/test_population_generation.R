@@ -1,6 +1,6 @@
 #### create population ####
 
-timeframe <- 0:200
+timeframe <- 0:100
 
 population_settings <- new(
   "population_settings",
