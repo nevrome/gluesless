@@ -1,6 +1,6 @@
 #### create population ####
 
-timeframe <- 0:600
+timeframe <- 0:200
 
 settings <- new(
   "population_settings",
@@ -18,6 +18,8 @@ test <- settings %>%
   generate_population()
 
 #### analyse result ####
+
+library(ggplot2)
 
 population_real <- test %>% count_living_humans_over_time(timeframe)
 population_expected <- tibble::tibble(

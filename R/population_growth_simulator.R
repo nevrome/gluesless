@@ -18,7 +18,7 @@ simulate_growth <- function(
   unit_counter <- humans %>% get_last_established_unit()
 
   pb <- utils::txtProgressBar(style = 3)
-  for (t in time) {
+  for (t in time[-1]) {
     utils::setTxtProgressBar(pb, t/length(time))
 
     humans %<>% age()

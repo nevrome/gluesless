@@ -7,11 +7,12 @@
 #' @export
 generate_population <- function(settings) {
 
+  start_moment <- settings@time[1]
   intitial_population_size = settings@population_size_function(0)
   intitial_unit_size = settings@unit_amount_function(0)
 
   initial_population <- generate_humans(
-    t = 0,
+    t = start_moment,
     n = intitial_population_size,
     start_id = 1,
     start_age = NA,
