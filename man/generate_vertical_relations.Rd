@@ -7,7 +7,7 @@
 generate_vertical_relations(population)
 }
 \arguments{
-\item{settings}{test}
+\item{population}{test}
 }
 \value{
 huup

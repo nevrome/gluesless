@@ -1,6 +1,6 @@
 #' generate vertical relations
 #'
-#' @param settings test
+#' @param population test
 #'
 #' @return huup
 #'
@@ -13,22 +13,22 @@ generate_vertical_relations <- function(population) {
   start_time <- c()
   end_time <- c()
 
-  pb <- txtProgressBar(style = 3)
+  pb <- utils::txtProgressBar(style = 3)
   for (child in 1:nrow(population)) {
     potential_parents <- population %>% dplyr::filter(
-      (birth_time + 12) <= population$birth_time[child],
-      population$birth_time[child] <= (birth_time + 60),
-      unit == population$unit[child]
+      (.data$birth_time + 12) <= population$birth_time[child],
+      population$birth_time[child] <= (.data$birth_time + 60),
+      .data$unit == population$unit[child]
     )
     if (!all(c("male", "female") %in% unique(potential_parents$sex))) {next}
     mother <- potential_parents %>%
-      dplyr::filter(sex == "female") %>%
-      dplyr::sample_n(1) %$%
-      id
+      dplyr::filter(.data$sex == "female") %>%
+      dplyr::sample_n(1) %>%
+      magrittr::extract2("id")
     father <- potential_parents %>%
-      dplyr::filter(sex == "male") %>%
-      dplyr::sample_n(1) %$%
-      id
+      dplyr::filter(.data$sex == "male") %>%
+      dplyr::sample_n(1) %>%
+      magrittr::extract2("id")
     from <- append(
       from, c(
         mother,
@@ -65,11 +65,11 @@ generate_vertical_relations <- function(population) {
         population$birth_time[child] + 14
       )
     )
-    setTxtProgressBar(pb, child/nrow(population))
+    utils::setTxtProgressBar(pb, child/nrow(population))
   }
   close(pb)
 
-  vertical_relations <- tibble::tibble(from, to)
+  vertical_relations <- tibble::tibble(from, to, type)
 
   return(vertical_relations)
 

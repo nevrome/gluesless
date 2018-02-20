@@ -3,6 +3,9 @@
 #' @import Rcpp methods
 #' @import RcppProgress
 #' @importFrom rlang .data
+#' @importFrom magrittr "%>%"
+#' @importFrom magrittr "%<>%"
+#' @importFrom magrittr "%$%"
 
 #' @export
 .onUnload <- function (libpath) {
