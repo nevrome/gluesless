@@ -7,6 +7,7 @@
 #' @export
 generate_vertical_relations <- function(settings) {
 
+  settings@population$previous_partner <- NA
   population <- settings@population
 
   from <- c()
@@ -15,12 +16,10 @@ generate_vertical_relations <- function(settings) {
   start_time <- c()
   end_time <- c()
 
-  population$previous_partner <- NA
-
   pb <- utils::txtProgressBar(style = 3)
   for (child in 1:nrow(population)) {
 
-    potential_parents <- get_potential_parents(settings, child)
+    potential_parents <- get_all_humans_in_child_bearing_age_at_childbirth(settings, child)
     monogamous <- is_monogamous(settings)
 
     # check if there is a potential pair to make a child
@@ -28,8 +27,7 @@ generate_vertical_relations <- function(settings) {
     if (!all(c("male", "female") %in% unique(potential_parents$sex))) {next}
 
     # randomly select partner1
-    partner1_df <- potential_parents %>%
-      dplyr::sample_n(1)
+    partner1_df <- get_parent(settings, potential_parents, child)
 
     if(
       # check if partner1 already has a previous partner
@@ -43,7 +41,7 @@ generate_vertical_relations <- function(settings) {
       partner2_df <- population[partner1_df$previous_partner, ]
     } else {
       # a new partner is selected
-      partner2_df <- select_new_partner(potential_parents, partner1_df)
+      partner2_df <- get_parent(settings, potential_parents, child, partner1_df)
     }
 
     population$previous_partner[partner1_df$id] <- partner2_df$id
@@ -105,15 +103,38 @@ is_monogamous <- function(settings) {
   stats::runif(1,0,1) <= settings@monogamy_probability
 }
 
-get_potential_parents <- function(settings, child) {
-  settings@population %>%
+get_parent <- function(settings, potential_parents, child, partner_df = data.frame()) {
+  if(nrow(partner_df) == 0) {
+    in_unit <- potential_parents %>%
+      dplyr::filter(.data$unit == get_parent_unit(settings, child))
+    if(nrow(in_unit) >= 1) {
+      in_unit %>% dplyr::sample_n(1) %>% return()
+    } else {
+      potential_parents %>% dplyr::sample_n(1) %>% return()
+    }
+  } else {
+    correct_sex <- potential_parents %>%
+      dplyr::filter(.data$sex != partner_df$sex)
+    in_unit <- correct_sex %>%
+      dplyr::filter(.data$unit == get_parent_unit(settings, child, partner_df$id))
+    if(nrow(in_unit) >= 1) {
+      in_unit %>% dplyr::sample_n(1) %>% return()
+    } else {
+      correct_sex %>% dplyr::sample_n(1) %>% return()
+    }
+  }
+}
+
+get_all_humans_in_child_bearing_age_at_childbirth <- function(settings, child) {
+  get_all_humans_alive_at_childbirth(settings, child) %>%
     dplyr::filter(
-      .data$unit == get_parent_unit(settings, child = child)
-    ) %>%
-    dplyr::filter(
-      (.data$birth_time + settings@start_fertility_age) <= population$birth_time[child],
-      population$birth_time[child] <= (.data$birth_time +  settings@stop_fertility_age)
-  )
+      (.data$birth_time + settings@start_fertility_age) <= settings@population$birth_time[child],
+      settings@population$birth_time[child] <= (.data$birth_time +  settings@stop_fertility_age)
+    )
+}
+
+get_all_humans_alive_at_childbirth <- function(settings, child) {
+  get_all_humans_alive_at_time(settings, settings@population$birth_time[child])
 }
 
 get_all_humans_alive_at_time <- function(settings, t) {
@@ -124,34 +145,28 @@ get_all_humans_alive_at_time <- function(settings, t) {
     )
 }
 
-get_parent_unit <- function(settings, child, parent = NA) {
-  if(is.na(parent)) {
-    if(is_same_unit_as_child(settings)) {
-      get_unit_of_individual(settings, child) %>%
-        return()
-    } else {
-      get_available_units_at_time(settings, settings@population$birth_time[child]) %>%
-        resample(., 1)
-    }
+get_parent_unit <- function(settings, child, partner = NA) {
+  if(is.na(partner) & is_same_unit_as_child(settings)) {
+    get_unit_of_individual(settings, child)
+  } else if (!is.na(partner) & is_same_unit_as_partner(settings)) {
+    get_unit_of_individual(settings, partner)
   } else {
-    if(is_same_unit_as_parent(settings)) {
-      get_unit_of_individual(settings, parent) %>%
-        return()
-    } else {
-      get_available_units_at_time(settings, settings@population$birth_time[child]) %>%
-        resample(., 1)
-    }
+    get_available_units_at_childbirth(settings, child) %>%
+      resample(., 1)
   }
-
 }
 
 get_unit_of_individual <- function(settings, id) {
   settings@population$unit[id]
 }
 
+get_available_units_at_childbirth <- function(settings, child) {
+  get_available_units_at_time(settings, settings@population$birth_time[child])
+}
+
 get_available_units_at_time <- function(settings, t) {
   get_all_humans_alive_at_time(settings, t) %>%
-    magrittr::extract2("units")
+    magrittr::extract2("unit")
 }
 
 is_same_unit_as_child <- function(settings) {
@@ -161,11 +176,3 @@ is_same_unit_as_child <- function(settings) {
 is_same_unit_as_partner <- function(settings) {
   stats::runif(1,0,1) <= settings@same_unit_as_partner_probability
 }
-
-select_new_partner <- function(potential_parents, partner1_df) {
-  potential_parents %>%
-    dplyr::filter(.data$sex != partner1_df$sex) %>%
-    dplyr::sample_n(1)
-}
-
-
