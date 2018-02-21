@@ -9,6 +9,8 @@ setClass(
   Class = "relations_settings",
   slots = c(
     population = "data.frame",
-    monogamy_probability = "numeric"
+    monogamy_probability = "numeric",
+    start_fertility_age = "numeric",
+    stop_fertility_age = "numeric"
   )
 )

@@ -22,7 +22,9 @@ test <- population_settings %>%
 relations_settings <- new(
   "relations_settings",
   population = test,
-  monogamy_probability = 0.9
+  monogamy_probability = 0.9,
+  start_fertility_age = 15,
+  stop_fertility_age = 50
 )
 
 test2 <- relations_settings %>%

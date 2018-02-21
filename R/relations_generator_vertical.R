@@ -20,8 +20,8 @@ generate_vertical_relations <- function(settings) {
   pb <- utils::txtProgressBar(style = 3)
   for (child in 1:nrow(population)) {
 
-    potential_parents <- get_potential_parents(population, child)
-    monogamous <- is_monogamous(settings@monogamy_probability)
+    potential_parents <- get_potential_parents(population, child, settings)
+    monogamous <- is_monogamous(settings)
 
     # check if there is a potential pair to make a child
     # else the child has no parents
@@ -35,7 +35,7 @@ generate_vertical_relations <- function(settings) {
       # check if partner1 already has a previous partner
       !is.na(partner1_df$previous_partner) &&
       # check if the previous partner is in the right age for another child
-      partner1_df$previous_partner %in% potential_parents &&
+      partner1_df$previous_partner %in% potential_parents$id &&
       # check if partner1 behaves monogamous
       monogamous
     ) {
@@ -101,18 +101,18 @@ generate_vertical_relations <- function(settings) {
 
 #### helper functions ####
 
-is_monogamous <- function(monogamy_probability) {
-  stats::runif(1,0,1) <= monogamy_probability
+is_monogamous <- function(settings) {
+  stats::runif(1,0,1) <= settings@monogamy_probability
 }
 
-get_potential_parents <- function(population, child) {
+get_potential_parents <- function(population, child, settings) {
   population %>%
     dplyr::filter(
       .data$unit == population$unit[child]
     ) %>%
     dplyr::filter(
-      (.data$birth_time + 12) <= population$birth_time[child],
-      population$birth_time[child] <= (.data$birth_time + 60)
+      (.data$birth_time + settings@start_fertility_age) <= population$birth_time[child],
+      population$birth_time[child] <= (.data$birth_time +  settings@stop_fertility_age)
   )
 }
 
