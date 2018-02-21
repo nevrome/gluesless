@@ -1,11 +1,13 @@
 #' generate vertical relations
 #'
-#' @param population test
+#' @param settings test
 #'
 #' @return huup
 #'
 #' @export
-generate_vertical_relations <- function(population) {
+generate_vertical_relations <- function(settings) {
+
+  population <- settings@population
 
   from <- c()
   to <- c()
@@ -19,14 +21,15 @@ generate_vertical_relations <- function(population) {
   for (child in 1:nrow(population)) {
 
     potential_parents <- get_potential_parents(population, child)
+    monogamous <- is_monogamous(settings@monogamy_probability)
 
+    # check if there is a potential pair to make a child
+    # else the child has no parents
     if (!all(c("male", "female") %in% unique(potential_parents$sex))) {next}
 
     # randomly select partner1
     partner1_df <- potential_parents %>%
       dplyr::sample_n(1)
-
-    monogamous <- runif(1,0,1) > 0.5
 
     if(
       # check if partner1 already has a previous partner
@@ -98,6 +101,10 @@ generate_vertical_relations <- function(population) {
 
 #### helper functions ####
 
+is_monogamous <- function(monogamy_probability) {
+  stats::runif(1,0,1) <= monogamy_probability
+}
+
 get_potential_parents <- function(population, child) {
   population %>%
     dplyr::filter(
@@ -114,3 +121,5 @@ select_new_partner <- function(potential_parents, partner1_df) {
     dplyr::filter(.data$sex != partner1_df$sex) %>%
     dplyr::sample_n(1)
 }
+
+

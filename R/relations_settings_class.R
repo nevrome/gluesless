@@ -8,6 +8,7 @@
 setClass(
   Class = "relations_settings",
   slots = c(
-    population = "data.frame"
+    population = "data.frame",
+    monogamy_probability = "numeric"
   )
 )

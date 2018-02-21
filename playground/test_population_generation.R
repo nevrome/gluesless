@@ -1,6 +1,6 @@
 #### create population ####
 
-timeframe <- 0:100
+timeframe <- 0:0
 
 population_settings <- new(
   "population_settings",
@@ -21,7 +21,8 @@ test <- population_settings %>%
 
 relations_settings <- new(
   "relations_settings",
-  population =  test
+  population = test,
+  monogamy_probability = 0.9
 )
 
 test2 <- relations_settings %>%

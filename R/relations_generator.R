@@ -9,7 +9,7 @@ generate_relations <- function(settings) {
 
   population <- settings@population
 
-  vertical_relations <- population %>% generate_vertical_relations()
+  vertical_relations <- settings %>% generate_vertical_relations()
 
   all_relations <- rbind(
     vertical_relations
