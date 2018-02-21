@@ -4,10 +4,10 @@
 \alias{generate_vertical_relations}
 \title{generate vertical relations}
 \usage{
-generate_vertical_relations(population)
+generate_vertical_relations(settings)
 }
 \arguments{
-\item{population}{test}
+\item{settings}{test}
 }
 \value{
 huup
