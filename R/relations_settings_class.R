@@ -11,6 +11,8 @@ setClass(
     population = "data.frame",
     monogamy_probability = "numeric",
     start_fertility_age = "numeric",
-    stop_fertility_age = "numeric"
+    stop_fertility_age = "numeric",
+    same_unit_as_child_probability = "numeric",
+    same_unit_as_partner_probability = "numeric"
   )
 )

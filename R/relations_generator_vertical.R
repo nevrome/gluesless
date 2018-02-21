@@ -20,7 +20,7 @@ generate_vertical_relations <- function(settings) {
   pb <- utils::txtProgressBar(style = 3)
   for (child in 1:nrow(population)) {
 
-    potential_parents <- get_potential_parents(population, child, settings)
+    potential_parents <- get_potential_parents(settings, child)
     monogamous <- is_monogamous(settings)
 
     # check if there is a potential pair to make a child
@@ -105,15 +105,61 @@ is_monogamous <- function(settings) {
   stats::runif(1,0,1) <= settings@monogamy_probability
 }
 
-get_potential_parents <- function(population, child, settings) {
-  population %>%
+get_potential_parents <- function(settings, child) {
+  settings@population %>%
     dplyr::filter(
-      .data$unit == population$unit[child]
+      .data$unit == get_parent_unit(settings, child = child)
     ) %>%
     dplyr::filter(
       (.data$birth_time + settings@start_fertility_age) <= population$birth_time[child],
       population$birth_time[child] <= (.data$birth_time +  settings@stop_fertility_age)
   )
+}
+
+get_all_humans_alive_at_time <- function(settings, t) {
+  settings@population %>%
+    dplyr::filter(
+      .data$birth_time <= t,
+      .data$death_time >= t
+    )
+}
+
+get_parent_unit <- function(settings, child, parent = NA) {
+  if(is.na(parent)) {
+    if(is_same_unit_as_child(settings)) {
+      get_unit_of_individual(settings, child) %>%
+        return()
+    } else {
+      get_available_units_at_time(settings, settings@population$birth_time[child]) %>%
+        resample(., 1)
+    }
+  } else {
+    if(is_same_unit_as_parent(settings)) {
+      get_unit_of_individual(settings, parent) %>%
+        return()
+    } else {
+      get_available_units_at_time(settings, settings@population$birth_time[child]) %>%
+        resample(., 1)
+    }
+  }
+
+}
+
+get_unit_of_individual <- function(settings, id) {
+  settings@population$unit[id]
+}
+
+get_available_units_at_time <- function(settings, t) {
+  get_all_humans_alive_at_time(settings, t) %>%
+    magrittr::extract2("units")
+}
+
+is_same_unit_as_child <- function(settings) {
+  stats::runif(1,0,1) <= settings@same_unit_as_child_probability
+}
+
+is_same_unit_as_partner <- function(settings) {
+  stats::runif(1,0,1) <= settings@same_unit_as_partner_probability
 }
 
 select_new_partner <- function(potential_parents, partner1_df) {
