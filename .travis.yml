@@ -1,34 +1,7 @@
-# R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
-
-language: R
-cache: packages
-
-matrix:
-  include:
-    - os: linux
-      dist: trusty
-      sudo: required
-      env: R_CODECOV=true
-      r_check_args: '--use-valgrind'
-
-addons:
-  apt:
-    packages:
-    - valgrind
-    - libboost-all-dev
+language: cpp
 
 before_install:
-  - sudo add-apt-repository ppa:ubuntugis/ubuntugis-unstable --yes
-  - sudo apt-get --yes --force-yes update -qq
-  # units/udunits2 dependency:
-  - sudo apt-get install --yes libudunits2-dev
-  # sf dependencies:
-  - sudo apt-get install --yes libproj-dev libgeos-dev libgdal-dev
+  - sudo apt-get -qq update
+	- sudo apt-get install -y libboost-all-dev
 
-warnings_are_errors: true
-
-r_packages:
-  - covr
-
-after_success:
-  - CODECOV_TOKEN='c554b444-4c92-476c-a383-7fc5a755e398' Rscript -e 'library(covr); codecov()'
+script: make
