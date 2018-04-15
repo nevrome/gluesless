@@ -23,32 +23,64 @@ using namespace boost;
 //   return is;
 // }
 
-Networkland::Networkland(const std::string& graphstring) {
+Networkland::Networkland(const std::string& graphml_file_path) {
 
   // create empty graph object
   graph_t graph(0);
 
   // add graph properties
   dynamic_properties dp(ignore_other_properties);
-  dp.property("region_name",        get(&Vertex::region_name,       graph));
-  dp.property("x",                  get(&Vertex::x,                 graph));
-  dp.property("y",                  get(&Vertex::y,                 graph));
-  dp.property("distance",           get(&Edge::distance,            graph));
+  dp.property("name",               get(&Vertex::name,            graph));
+  dp.property("weight",             get(&Edge::weight,            graph));
 
-  ref_property_map<graph_t *, std::string> gname(
-      get_property(graph, graph_name)
-    );
-  dp.property("graph_name", gname);
+  // // graph name
+  // ref_property_map<graph_t *, std::string> gname(
+  //     get_property(graph, graph_name)
+  //   );
+  // dp.property("graph_name", gname);
 
-  std::istringstream is(graphstring);
+  std::ifstream file(graphml_file_path);
+  if (file)
+  {
+    Rcpp::Rcout << "hu" << std::endl;
 
-  // read graph from string
-  read_graphml(is, graph, dp);
+    /*
+     * Get the size of the file
+     */
+    file.seekg(0,std::ios::end);
+    std::streampos          length = file.tellg();
+    file.seekg(0,std::ios::beg);
 
-  // add properties to graph that are not part of the input
-  //dp.property("dummy",            get(&Vertex::dummy,             graph));
+    /*
+     * Use a vector as the buffer.
+     * It is exception safe and will be tidied up correctly.
+     * This constructor creates a buffer of the correct length.
+     *
+     * Then read the whole file into the buffer.
+     */
+    std::vector<char>       buffer(length);
+    file.read(&buffer[0],length);
 
-  this->env = graph;
+    /*
+     * Create your string stream.
+     * Get the stringbuffer from the stream and set the vector as it source.
+     */
+    std::stringstream       localStream;
+    localStream.rdbuf()->pubsetbuf(&buffer[0],length);
+
+    /*
+     * Note the buffer is NOT copied, if it goes out of scope
+     * the stream will be reading from released memory.
+     */
+
+    // read graph from string
+    read_graphml(localStream, graph, dp);
+
+    // add properties to graph that are not part of the input
+    //dp.property("dummy",            get(&Vertex::dummy,             graph));
+
+    this->env = graph;
+  }
 }
 
 Networkland::Networkland(graph_t newenv) {
@@ -70,13 +102,13 @@ std::vector<vertex_desc> Networkland::get_adjacent_vertices(vertex_desc v) {
   return res;
 }
 
-double Networkland::get_distance_between_two_vertices(
+double Networkland::get_weight_between_two_vertices(
     const vertex_desc& a, const vertex_desc& b
   ) {
   // create a pair to store the edge iterators
   std::pair<edge_desc, bool> edgepair;
   edgepair = edge(a, b, env);
-  return env[edgepair.first].distance;
+  return env[edgepair.first].weight;
 }
 
 bool Networkland::are_adjacent(
@@ -89,8 +121,8 @@ std::pair<vertex_iter, vertex_iter> Networkland::get_all_vertices() {
   return vertices(env);
 }
 
-std::string Networkland::get_region_name(const vertex_desc& a) {
-  return env[a].region_name;
+std::string Networkland::get_name(const vertex_desc& a) {
+  return env[a].name;
 }
 
 // std::string Networkland::export_graph() {

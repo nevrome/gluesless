@@ -19,11 +19,7 @@ class Idea;
  */
 struct Vertex {
   //! stores identity of the Vertex
-  std::string region_name;
-  //! stores x-axis coordinate of the Vertex
-  double x;
-  //! stores y-axis coordinate of the Vertex
-  double y;
+  std::string name;
   //! dummy
   //std::vector<dummy*> dummy;
 };
@@ -35,8 +31,8 @@ struct Vertex {
  */
 
 struct Edge {
-  //! stores distance value of the Edge
-  double distance;
+  //! stores weight value of the Edge
+  double weight;
 };
 
 // boost graph typedefs
@@ -77,14 +73,14 @@ class Networkland {
     std::pair<vertex_iter, vertex_iter> get_all_vertices();
     //! get adjacent vertices of an input vertex in graph
     std::vector<vertex_desc> get_adjacent_vertices(vertex_desc v);
-    //! get distance value between two input vertices in graph
-    double get_distance_between_two_vertices(
+    //! get weight value between two input vertices in graph
+    double get_weight_between_two_vertices(
         const vertex_desc& a, const vertex_desc& b
       );
     //! check if two vertices are adjacent in graph
     bool are_adjacent(const vertex_desc& a, const vertex_desc& b);
     //! get region name of vertex
-    std::string get_region_name(const vertex_desc& a);
+    std::string get_name(const vertex_desc& a);
 
     // std::string export_graph();
 

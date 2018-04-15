@@ -29,8 +29,8 @@ std::vector< std::vector< std::string > > Aether::get_idea_regions(){
     auto em = idx->get_expansion();
     std::vector<std::string> rm;
     for(auto it = em.begin(); it != em.end(); it++) {
-      //Rcpp::Rcout << realworld->get_region_name(it->first) << std::endl;
-      rm.push_back(realworld->get_region_name(it->first));
+      //Rcpp::Rcout << realworld->get_name(it->first) << std::endl;
+      rm.push_back(realworld->get_name(it->first));
     }
     res.push_back(rm);
   }

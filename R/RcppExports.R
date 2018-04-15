@@ -14,6 +14,6 @@
 #'
 #' @export
 run <- function(model_builder) {
-    .Call('_gluesless_run', PACKAGE = 'gluesless', model_builder)
+    invisible(.Call('_gluesless_run', PACKAGE = 'gluesless', model_builder))
 }
 
