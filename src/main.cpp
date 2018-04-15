@@ -1,14 +1,14 @@
-// [[Rcpp::depends(RcppProgress)]]
-
 #include <cstdlib>
 #include <math.h>
 #include <iostream>
+
+#include "Snap.h"
 
 //#include <progress.hpp>
 //#include <progress_bar.hpp>
 
 #include "Idea.h"
-#include "Networkland.h"
+//#include "Networkland.h"
 #include "Timeline.h"
 
 //! main
@@ -16,9 +16,38 @@
   main method
   */
   
-int main(){
+int main(int argc, char* argv[]){
   
-  std::cout << "test" << std::endl;
+  typedef PUNGraph PGraph;
+  
+  PGraph G = PGraph::TObj::New();
+  for (int n = 0; n < 10; n++) {
+    G->AddNode(); // if no parameter is given, node ids are 0,1,...,9
+  }
+  G->AddEdge(0, 1);
+  for (int e = 0; e < 10; e++) {
+    const int NId1 = G->GetRndNId();
+    const int NId2 = G->GetRndNId();
+    if (G->AddEdge(NId1, NId2) != -2) {
+      printf("  Edge %d -- %d added\n", NId1,  NId2); }
+    else {
+      printf("  Edge %d -- %d already exists\n", NId1, NId2); }
+  }
+  IAssert(G->IsOk());
+  
+  std::string graphml_file_path = argv[1];
+  std::cout << graphml_file_path << std::endl;
+  
+  // igraph::igraph_t graph;
+  
+  std::stringstream buffer;
+  
+  std::ifstream file(graphml_file_path);
+  buffer << file.rdbuf();
+  
+  // int igraph_read_graph_graphml(graph, buffer, 0);
+  
+  file.close();
   
   // std::string graphml_file_path
 
@@ -39,7 +68,7 @@ int main(){
   // std::vector<vertex_desc> idea_start_pos = idea_start_pos_int;
 
   // Realwelt
-  // Networkland* real = new Networkland(graphml_file_path);
+  //Networkland* real = new Networkland(graphml_file_path);
 
   // Geistwelt
   // Aether* overmind = new Aether(real);
