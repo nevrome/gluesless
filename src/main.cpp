@@ -25,6 +25,10 @@ int main(int argc, char* argv[]){
   PGraph fuup;
   fuup = TSnap::LoadPajek<PGraph>(graphml_file_path);
   
+  for (TUNGraph::TEdgeI EI = fuup->BegEI(); EI < fuup->EndEI(); EI++) {
+    printf("edge (%d, %d)\n", EI.GetSrcNId(), EI.GetDstNId());
+  }
+  
   // int igraph_read_graph_graphml(graph, buffer, 0);
   
   // std::string graphml_file_path
