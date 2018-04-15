@@ -20,34 +20,12 @@ int main(int argc, char* argv[]){
   
   typedef PUNGraph PGraph;
   
-  PGraph G = PGraph::TObj::New();
-  for (int n = 0; n < 10; n++) {
-    G->AddNode(); // if no parameter is given, node ids are 0,1,...,9
-  }
-  G->AddEdge(0, 1);
-  for (int e = 0; e < 10; e++) {
-    const int NId1 = G->GetRndNId();
-    const int NId2 = G->GetRndNId();
-    if (G->AddEdge(NId1, NId2) != -2) {
-      printf("  Edge %d -- %d added\n", NId1,  NId2); }
-    else {
-      printf("  Edge %d -- %d already exists\n", NId1, NId2); }
-  }
-  IAssert(G->IsOk());
+  const TStr graphml_file_path = argv[1];
   
-  std::string graphml_file_path = argv[1];
-  std::cout << graphml_file_path << std::endl;
-  
-  // igraph::igraph_t graph;
-  
-  std::stringstream buffer;
-  
-  std::ifstream file(graphml_file_path);
-  buffer << file.rdbuf();
+  PGraph fuup;
+  fuup = TSnap::LoadPajek<PGraph>(graphml_file_path);
   
   // int igraph_read_graph_graphml(graph, buffer, 0);
-  
-  file.close();
   
   // std::string graphml_file_path
 
