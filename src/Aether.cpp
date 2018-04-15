@@ -75,10 +75,12 @@ void Aether::develop() {
   for (size_t i = 0u; i < v.size(); ++i) {
     offset.push_back(i);
   }
-  random_shuffle(
+  std::random_device rd;     // only used once to initialise (seed) engine
+  std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
+  shuffle(
     offset.begin(),
     offset.end(),
-    randWrapper
+    rng
   );
 
   for (auto& idx : offset) {

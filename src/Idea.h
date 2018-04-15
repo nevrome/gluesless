@@ -3,8 +3,6 @@
 #include <string>
 #include <vector>
 
-#include <Rcpp.h>
-
 #include "Networkland.h"
 #include "IdeaState.h"
 

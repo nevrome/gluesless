@@ -42,7 +42,6 @@ Networkland::Networkland(const std::string& graphml_file_path) {
   std::ifstream file(graphml_file_path);
   if (file)
   {
-    Rcpp::Rcout << "hu" << std::endl;
 
     /*
      * Get the size of the file

@@ -9,8 +9,6 @@
 #include <boost/graph/graphml.hpp>
 #include <boost/graph/properties.hpp>
 
-#include <Rcpp.h>
-
 class Idea;
 
 //! Node in the graph of a Networkland

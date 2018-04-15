@@ -1,7 +1,5 @@
 #pragma once
 
-#include <Rcpp.h>
-
 class IdeaState {
 
   public:

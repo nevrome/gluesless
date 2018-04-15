@@ -1,13 +1,13 @@
-#include <Rcpp.h>
 #include <string>
+#include <random>
+#include <algorithm>
 #include <math.h>
 
-inline int randWrapper(int n) {
-  return floor(unif_rand()*n);
-}
-
 inline int randunifrange(int start, int stop) {
-  return (int)round(R::runif(start,stop));
+  std::random_device rd;     // only used once to initialise (seed) engine
+  std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
+  std::uniform_int_distribution<int> uni(start, stop); // guaranteed unbiased
+  return uni(rng);
 }
 
 inline int get_number_of_digits (int i) {

@@ -20,12 +20,10 @@ void Timeline::develop(Aether* current) {
 
 }
 
-SEXP Timeline::export_as_R_list() {
-
-  using namespace Rcpp;
+void Timeline::export_as_R_list() {
 
   // create R list to store the result
-  List res;
+  // List res;
 
   // add Numeric vector with the number_alive_ideas development to the resultlist
   //res["number_of_ideas"] = this->number_alive_ideas;
@@ -105,14 +103,14 @@ SEXP Timeline::export_as_R_list() {
   }
 
   // construct data.frame and add to export list
-  res["idea_exp"] = Rcpp::DataFrame::create(
-    _["timestep"] = timestep,
-    _["idea"] = idea_name,
-    _["region_name"] = region_name,
-    _["proportion"] = proportion,
-    _["poison_supply"] = poison_supply,
-    _["stringsAsFactors"] = false
-  );
+  // res["idea_exp"] = Rcpp::DataFrame::create(
+  //   _["timestep"] = timestep,
+  //   _["idea"] = idea_name,
+  //   _["region_name"] = region_name,
+  //   _["proportion"] = proportion,
+  //   _["poison_supply"] = poison_supply,
+  //   _["stringsAsFactors"] = false
+  // );
 
-  return res;
+  // return res;
 }

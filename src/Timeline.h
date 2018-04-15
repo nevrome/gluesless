@@ -3,8 +3,6 @@
 #include <vector>
 #include <string>
 
-#include <Rcpp.h>
-
 #include "Aether.h"
 
 //! Sequence of Aether statuses
@@ -25,7 +23,7 @@ class Timeline {
    prepared R list. This object contains data for every
    timestep.
    */
-  SEXP export_as_R_list();
+  void export_as_R_list();
 
   //! go to the next timestep
   /*!
