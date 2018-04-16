@@ -23,7 +23,7 @@ class Timeline {
    prepared R list. This object contains data for every
    timestep.
    */
-  void export_as_R_list();
+  void export_to_text_file();
 
   //! go to the next timestep
   /*!
@@ -34,12 +34,4 @@ class Timeline {
   void develop(Aether* current);
 
   private:
-  //! stores Idea identities over time
-  std::vector< std::vector< std::string > > ideas;
-  //! stores Ideas regions names over time
-  std::vector< std::vector< std::vector< std::string > > > idea_regions;
-  //! stores Ideas powers in regions over time
-  std::vector< std::vector< std::vector< double > > > idea_powers;
-
-  std::vector< std::vector< std::vector< double > > > idea_poison_amounts;
 };

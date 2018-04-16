@@ -1,7 +1,6 @@
 #pragma once
 
 #include <vector>
-#include <string>
 
 #include "Idea.h"
 #include "Networkland.h"
@@ -18,26 +17,6 @@ class Aether {
 
   public:
   Aether(Networkland* real);
-
-  size_t get_size_of_mindspace();
-  Idea* get_idea_from_mindspace(size_t index);
-  void add_idea_to_mindspace(Idea* new_idea);
-  //! get identities of Idea instances
-  /*!
-   Returns vector of names of currently present
-   Idea instances.
-   */
-  std::vector<std::string> get_ideas();
-  //! get expansions of Idea instances in the Networkland
-  /*!
-   Returns vector of maps of occupied vertices and power distributions
-   */
-  std::vector< std::vector< std::string > > get_idea_regions();
-
-  std::vector< std::vector< double > > get_idea_powers();
-
-  std::vector< std::vector< double > > get_idea_poison_amounts();
-
 
   //! go to the next timestep
   /*!

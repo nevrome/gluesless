@@ -18,16 +18,7 @@
   
 int main(int argc, char* argv[]){
   
-  typedef PUNGraph PGraph;
-  
-  const TStr graphml_file_path = argv[1];
-  
-  PGraph fuup;
-  fuup = TSnap::LoadPajek<PGraph>(graphml_file_path);
-  
-  for (TUNGraph::TEdgeI EI = fuup->BegEI(); EI < fuup->EndEI(); EI++) {
-    printf("edge (%d, %d)\n", EI.GetSrcNId(), EI.GetDstNId());
-  }
+  const TStr pajek_file_path = argv[1];
   
   // int igraph_read_graph_graphml(graph, buffer, 0);
   
@@ -50,7 +41,7 @@ int main(int argc, char* argv[]){
   // std::vector<vertex_desc> idea_start_pos = idea_start_pos_int;
 
   // Realwelt
-  //Networkland* real = new Networkland(graphml_file_path);
+  Networkland* real = new Networkland(pajek_file_path);
 
   // Geistwelt
   // Aether* overmind = new Aether(real);
@@ -85,7 +76,7 @@ int main(int argc, char* argv[]){
   //
   // List res = thyme->export_as_R_list();
 
-  // delete real;
+  delete real;
   // delete overmind;
   // delete thyme;
 
