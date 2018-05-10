@@ -3,9 +3,10 @@
 #include <algorithm>
 #include <math.h>
 
+std::random_device rd; // only used once to initialise (seed) engine
+std::mt19937 rng(rd()); // random-number engine used (Mersenne-Twister in this case)
+
 inline int randunifrange(int start, int stop) {
-  std::random_device rd;     // only used once to initialise (seed) engine
-  std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
   std::uniform_int_distribution<int> uni(start, stop); // guaranteed unbiased
   return uni(rng);
 }

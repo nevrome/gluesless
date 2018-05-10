@@ -5,8 +5,8 @@ Timeline::Timeline(Aether* start) {
 
 void Timeline::develop(Aether* current) {
 
-  // // develop Aether
-  // current->develop();
+  // develop Aether
+  current->develop();
 
   // query new Aether values to be stored in Timeline
 

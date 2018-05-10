@@ -19,6 +19,8 @@ class Idea {
     Networkland* realworld
   );
 
+  void live();
+
   private:
   //! stores identity of an Idea
   std::string identity;

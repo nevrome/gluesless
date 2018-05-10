@@ -8,3 +8,6 @@ Idea::Idea(
   this->realworld = realworld;
 }
 
+void Idea::live() {
+  printf("hu");
+}
