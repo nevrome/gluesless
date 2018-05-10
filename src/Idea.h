@@ -22,6 +22,7 @@ class Idea {
   );
 
   void live();
+  void expand();
 
   private:
   //! stores identity of an Idea
