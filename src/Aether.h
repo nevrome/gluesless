@@ -25,6 +25,8 @@ class Aether {
    Ideas.
    */
   void develop();
+  
+  void add_idea_to_mindspace(Idea* new_idea);
 
   private:
   //! vector that stores references to Idea instances

@@ -14,13 +14,13 @@ Networkland::Networkland(const TStr& pajek_file_path) {
     //   printf("edge (%d, %d)\n", EI.GetSrcNId(), EI.GetDstNId());
     // }
     
-    const TUNGraph::TNodeI huup = this->graph->GetNI(2760);
-    //int fluut = huup.GetNbrNId(0);
-    //printf(std::to_string(fluut).c_str());
-    for (int i = 0; i < huup.GetDeg(); i++) {
-      printf(std::to_string(huup.GetNbrNId(i)).c_str());
-      printf("\n");
-    }
+    // const TUNGraph::TNodeI huup = this->graph->GetNI(2760);
+    // //int fluut = huup.GetNbrNId(0);
+    // //printf(std::to_string(fluut).c_str());
+    // for (int i = 0; i < huup.GetDeg(); i++) {
+    //   printf(std::to_string(huup.GetNbrNId(i)).c_str());
+    //   printf("\n");
+    // }
 }
 
 Networkland::Networkland(PUNGraph newgraph) {
