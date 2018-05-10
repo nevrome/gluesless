@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 
 #include "Networkland.h"
 
@@ -16,7 +17,8 @@ class Idea {
   public:
   Idea(
     std::string identity,
-    Networkland* realworld
+    Networkland* realworld,
+    std::vector<int> start_nodes
   );
 
   void live();
@@ -26,4 +28,8 @@ class Idea {
   std::string identity;
   //! reference to Networkland
   Networkland* realworld;
+  //!
+  std::vector<int> current_nodes;
+  //!
+  std::vector<int> dead_nodes;
 };

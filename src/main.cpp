@@ -27,15 +27,15 @@ int main(int argc, char* argv[]){
   Timeline* thyme = new Timeline(overmind);
 
   // create ideas
-  Idea* cremation = new Idea("cremation", real);
-  Idea* inhumation = new Idea("inhumation", real);
-  Idea* flat = new Idea("flat", real);
-  Idea* mound = new Idea("mound", real);
+  Idea* cremation = new Idea("cremation", real, {1,2,3});
+  Idea* inhumation = new Idea("inhumation", real, {4,5,6});
+  // Idea* flat = new Idea("flat", real);
+  // Idea* mound = new Idea("mound", real);
   
   overmind->add_idea_to_mindspace(cremation);
   overmind->add_idea_to_mindspace(inhumation);
-  overmind->add_idea_to_mindspace(flat);
-  overmind->add_idea_to_mindspace(mound);
+  // overmind->add_idea_to_mindspace(flat);
+  // overmind->add_idea_to_mindspace(mound);
   
   // develop
   //Progress p(iter, true);
@@ -53,8 +53,8 @@ int main(int argc, char* argv[]){
   
   delete cremation;
   delete inhumation;
-  delete flat;
-  delete mound;
+  // delete flat;
+  // delete mound;
 
   return 0;
 }
