@@ -1,6 +1,9 @@
 #include <cstdlib>
 #include <math.h>
 #include <iostream>
+#include <fstream>
+#include <iterator>
+#include <vector>
 
 #include "Snap.h"
 
@@ -27,7 +30,7 @@ int main(int argc, char* argv[]){
   Timeline* thyme = new Timeline(overmind);
 
   // create ideas
-  Idea* cremation = new Idea("cremation", real, {1,2,3});
+  Idea* cremation = new Idea("cremation", real, {155,6000,7000});
   Idea* inhumation = new Idea("inhumation", real, {4,5,6});
   // Idea* flat = new Idea("flat", real);
   // Idea* mound = new Idea("mound", real);
@@ -39,13 +42,19 @@ int main(int argc, char* argv[]){
   
   // develop
   //Progress p(iter, true);
-  for (int i = 0; i < 2000; i++) {
+  for (int i = 0; i < 2; i++) {
     thyme->develop(overmind);
     //if (Progress::check_abort()) {break;}
     //p.increment();
   }
   
-  //List res = thyme->export_as_R_list();
+  // output
+  std::vector<int> cremation_nodes = cremation->get_nodes();
+  std::vector<int> inhumation_nodes = inhumation->get_nodes();
+
+  std::ofstream output_file("./example.txt");
+  std::ostream_iterator<int> output_iterator(output_file, "\n");
+  std::copy(cremation_nodes.begin(), cremation_nodes.end(), output_iterator);
 
   delete real;
   delete overmind;

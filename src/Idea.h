@@ -23,6 +23,7 @@ class Idea {
 
   void live();
   void expand();
+  std::vector<int> get_nodes();
 
   private:
   //! stores identity of an Idea

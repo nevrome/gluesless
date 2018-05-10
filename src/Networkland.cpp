@@ -34,7 +34,7 @@ std::vector<int> Networkland::get_neighboring_nodes(int node) {
   neighboring_nodes.reserve(amount_of_neighbors);
   for (int i = 0; i < amount_of_neighbors; i++) {
     neighboring_nodes.push_back(nodei.GetNbrNId(i));
-    printf(std::to_string(nodei.GetNbrNId(i)).c_str());
+    //printf(std::to_string(nodei.GetNbrNId(i)).c_str());
   }
   return(neighboring_nodes);
 }
