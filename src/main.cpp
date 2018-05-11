@@ -30,8 +30,8 @@ int main(int argc, char* argv[]){
   Timeline* thyme = new Timeline(overmind);
 
   // create ideas
-  Idea* cremation = new Idea("cremation", real, {155,6000,7000});
-  Idea* inhumation = new Idea("inhumation", real, {4,5,6});
+  Idea* cremation = new Idea("cremation", real, {1});
+  Idea* inhumation = new Idea("inhumation", real, {2});
   // Idea* flat = new Idea("flat", real);
   // Idea* mound = new Idea("mound", real);
   
@@ -59,9 +59,12 @@ int main(int argc, char* argv[]){
   std::vector<int> cremation_nodes = cremation->get_nodes();
   std::vector<int> inhumation_nodes = inhumation->get_nodes();
 
-  std::ofstream output_file("./example.txt");
-  std::ostream_iterator<int> output_iterator(output_file, "\n");
-  std::copy(cremation_nodes.begin(), cremation_nodes.end(), output_iterator);
+  std::ofstream output_file_cremation("./cremation.txt");
+  std::ostream_iterator<int> output_iterator_cremation(output_file_cremation, "\n");
+  std::copy(cremation_nodes.begin(), cremation_nodes.end(), output_iterator_cremation);
+  std::ofstream output_file_inhumation("./inhumation.txt");
+  std::ostream_iterator<int> output_iterator_inhumation(output_file_inhumation, "\n");
+  std::copy(inhumation_nodes.begin(), inhumation_nodes.end(), output_iterator_inhumation);
 
   delete real;
   delete overmind;
