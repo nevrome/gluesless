@@ -42,11 +42,18 @@ int main(int argc, char* argv[]){
   
   // develop
   //Progress p(iter, true);
-  for (int i = 0; i < 2; i++) {
+  int graph_size = 0;
+  while (true) {
     thyme->develop(overmind);
+    int new_graph_size = real->get_number_of_nodes();
+    if (graph_size == new_graph_size) {
+      break;
+    }
+    graph_size = new_graph_size;
     //if (Progress::check_abort()) {break;}
     //p.increment();
   }
+
   
   // output
   std::vector<int> cremation_nodes = cremation->get_nodes();

@@ -22,8 +22,10 @@ void Idea::expand() {
   std::vector<int> neighbors;
   neighbors.reserve(1000);
   for (auto& i : this->current_nodes) {
-    std::vector<int> new_neighbors = this->realworld->get_neighboring_nodes(i);
-    neighbors.insert(neighbors.end(), new_neighbors.begin(), new_neighbors.end());
+    if(this->realworld->does_node_exist(i)) {
+      std::vector<int> new_neighbors = this->realworld->get_neighboring_nodes(i);
+      neighbors.insert(neighbors.end(), new_neighbors.begin(), new_neighbors.end());
+    }
   }
   // remove duplicates from neighbors
   std::sort(neighbors.begin(), neighbors.end());
@@ -47,7 +49,9 @@ void Idea::expand() {
   for (auto& i : this->current_nodes) {
     printf(std::to_string(i).c_str());
     printf("\n");
-    this->realworld->delete_nodes(i);
+    if(this->realworld->does_node_exist(i)) {
+      this->realworld->delete_nodes(i);
+    }
   }
   // make neighbors current nodes
   this->current_nodes.clear();

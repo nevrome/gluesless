@@ -16,6 +16,8 @@ class Networkland {
 
   std::vector<int> get_neighboring_nodes(int node);
   void delete_nodes(int node);
+  int get_number_of_nodes();
+  bool does_node_exist(int node);
 
   private:
   PUNGraph graph;

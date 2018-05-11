@@ -39,6 +39,15 @@ std::vector<int> Networkland::get_neighboring_nodes(int node) {
   return(neighboring_nodes);
 }
 
+int Networkland::get_number_of_nodes() {
+  this->graph->GetNodes();
+}
+
 void Networkland::delete_nodes(int node) {
   this->graph->DelNode(node);
 }
+
+bool Networkland::does_node_exist(int node) {
+  this->graph->IsNode(node);
+}
+
