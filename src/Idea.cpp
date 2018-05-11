@@ -1,3 +1,5 @@
+#include <algorithm>
+
 #include "Idea.h"
 
 Idea::Idea(
@@ -15,16 +17,43 @@ void Idea::live() {
 }
 
 void Idea::expand() {
-  auto cn = this->current_nodes;
-  this->dead_nodes.insert(this->dead_nodes.end(), cn.begin(), cn.end());
-  this->current_nodes.clear();
-  for (auto& i : cn) {
-    // printf("hu");
-    std::vector<int> neighbors = this->realworld->get_neighboring_nodes(i);
-    this->current_nodes.insert(this->current_nodes.end(), neighbors.begin(), neighbors.end());
+  printf("+++++++++++++++++++\n");
+  // get all neighboring nodes
+  std::vector<int> neighbors;
+  neighbors.reserve(1000);
+  for (auto& i : this->current_nodes) {
+    std::vector<int> new_neighbors = this->realworld->get_neighboring_nodes(i);
+    neighbors.insert(neighbors.end(), new_neighbors.begin(), new_neighbors.end());
   }
+  // remove duplicates from neighbors
+  std::sort(neighbors.begin(), neighbors.end());
+  std::vector<int>::iterator it;
+  it = std::unique(neighbors.begin(), neighbors.end());  // 10 20 30 20 10 ?  ?  ?  ?
+  neighbors.resize(std::distance(neighbors.begin(), it)); // 10 20 30 20 10
+  // remove the current nodes from neighbors
+  neighbors.erase(
+    remove_if(
+      neighbors.begin(), neighbors.end(),
+      [&](auto x){ return find(this->current_nodes.begin(), this->current_nodes.end() , x) != this->current_nodes.end(); }
+    ),
+    neighbors.end()
+  );
+  for (auto& i : neighbors) {
+    printf(std::to_string(i).c_str());
+    printf(" ");
+  }
+  printf("\n");
+  // delete current nodes
+  for (auto& i : this->current_nodes) {
+    printf(std::to_string(i).c_str());
+    printf("\n");
+    this->realworld->delete_nodes(i);
+  }
+  // make neighbors current nodes
+  this->current_nodes.clear();
+  this->current_nodes.insert(this->current_nodes.end(), neighbors.begin(), neighbors.end());
 }
-
+  
 std::vector<int> Idea::get_nodes() {
   auto& dn = this->dead_nodes;
   auto& cn = this->current_nodes;

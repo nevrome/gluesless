@@ -15,6 +15,7 @@ class Networkland {
   Networkland(PUNGraph newgraph);
 
   std::vector<int> get_neighboring_nodes(int node);
+  void delete_nodes(int node);
 
   private:
   PUNGraph graph;
