@@ -5,29 +5,6 @@
 Networkland::Networkland(const TStr& pajek_file_path) {
   this->graph = TSnap::LoadPajek<PUNGraph>(pajek_file_path);
 
-  unsigned long int	size = this->graph->GetNodes() * this->graph->GetNodes();
-  printf(std::to_string(size).c_str());
-  this->edge_weight_matrix = std::vector<unsigned char> (size);
-  
-  //printf(std::to_string(this->edge_weight_matrix[3]).c_str());
-  //printf("\n");
-  
-  // for (TUNGraph::TNodeI NI = this->graph->BegNI(); NI < this->graph->EndNI(); NI++) {
-  //   printf("node id %d with out-degree %d and in-degree %d\n",
-  //     NI.GetId(), NI.GetOutDeg(), NI.GetInDeg());
-  // }
-  
-  // for (TUNGraph::TEdgeI EI = this->graph->BegEI(); EI < this->graph->EndEI(); EI++) {
-  //   printf("edge (%d, %d)\n", EI.GetSrcNId(), EI.GetDstNId());
-  // }
-  
-  // const TUNGraph::TNodeI huup = this->graph->GetNI(2760);
-  // //int fluut = huup.GetNbrNId(0);
-  // //printf(std::to_string(fluut).c_str());
-  // for (int i = 0; i < huup.GetDeg(); i++) {
-  //   printf(std::to_string(huup.GetNbrNId(i)).c_str());
-  //   printf("\n");
-  // }
 }
 
 Networkland::Networkland(PUNGraph newgraph) {

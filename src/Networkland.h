@@ -22,6 +22,5 @@ class Networkland {
 
   private:
   PUNGraph graph;
-  std::vector<unsigned char> edge_weight_matrix;
 };
 
