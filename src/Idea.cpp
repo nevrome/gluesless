@@ -51,6 +51,7 @@ void Idea::expand() {
     printf("\n");
     if(this->realworld->does_node_exist(i)) {
       this->realworld->delete_nodes(i);
+      this->dead_nodes.push_back(i);
     }
   }
   // make neighbors current nodes
