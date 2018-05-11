@@ -5,11 +5,14 @@
 Idea::Idea(
   std::string identity,
   Networkland* realworld,
-  std::vector<int> start_nodes ){         
-//): current_nodes(1000), dead_nodes(100000) {
+  std::vector<int> start_nodes
+){
   this->identity = identity;
   this->realworld = realworld;
   this->current_nodes = start_nodes;
+  
+  this->current_nodes.reserve(1000);
+  this->dead_nodes.reserve(100000);
 }
 
 void Idea::live() {
