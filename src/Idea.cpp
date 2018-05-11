@@ -17,7 +17,6 @@ void Idea::live() {
 }
 
 void Idea::expand() {
-  printf("+++++++++++++++++++\n");
   // get all neighboring nodes
   std::vector<int> neighbors;
   neighbors.reserve(1000);
@@ -40,15 +39,8 @@ void Idea::expand() {
     ),
     neighbors.end()
   );
-  for (auto& i : neighbors) {
-    printf(std::to_string(i).c_str());
-    printf(" ");
-  }
-  printf("\n");
   // delete current nodes
   for (auto& i : this->current_nodes) {
-    printf(std::to_string(i).c_str());
-    printf("\n");
     if(this->realworld->does_node_exist(i)) {
       this->realworld->delete_nodes(i);
       this->dead_nodes.push_back(i);

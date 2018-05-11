@@ -66,6 +66,13 @@ int main(int argc, char* argv[]){
   std::ostream_iterator<int> output_iterator_inhumation(output_file_inhumation, "\n");
   std::copy(inhumation_nodes.begin(), inhumation_nodes.end(), output_iterator_inhumation);
 
+  printf("cremation: ");
+  printf(std::to_string(cremation_nodes.size()).c_str());
+  printf("\n");
+  printf("inhumation: ");
+  printf(std::to_string(inhumation_nodes.size()).c_str());
+  printf("\n");
+
   delete real;
   delete overmind;
   delete thyme;
