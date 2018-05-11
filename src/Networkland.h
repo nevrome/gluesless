@@ -19,8 +19,9 @@ class Networkland {
   int get_number_of_nodes();
   bool does_node_exist(int node);
 
+
   private:
   PUNGraph graph;
-  
+  std::vector<unsigned char> edge_weight_matrix;
 };
 

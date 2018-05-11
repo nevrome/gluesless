@@ -42,6 +42,8 @@ void Idea::expand() {
     ),
     neighbors.end()
   );
+  //
+  
   // delete current nodes
   for (auto& i : this->current_nodes) {
     if(this->realworld->does_node_exist(i)) {
