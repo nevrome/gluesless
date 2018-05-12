@@ -7,6 +7,8 @@
 
 Networkland::Networkland(const TStr& pajek_file_path) {
   this->graph = TSnap::pajek_file_to_PUndirNet(pajek_file_path);
+  printf("Input graph successfully loaded.");
+  printf("\n");
 }
 
 Networkland::Networkland(PUndirNet newgraph) {
@@ -47,4 +49,6 @@ int Networkland::get_edge_weight(int first_node, int second_node) {
   return((int) a);
 }
 
-
+PUndirNet Networkland::get_graph() {
+  return(this->graph);
+}

@@ -21,7 +21,8 @@ class Networkland {
   bool does_node_exist(int node);
   bool does_edge_exist(int first_node, int second_node);
   int get_edge_weight(int first_node, int second_node);
-
+  PUndirNet get_graph();
+  
   private:
   PUndirNet graph;
 };
