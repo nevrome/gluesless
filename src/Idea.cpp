@@ -1,6 +1,7 @@
 #include <algorithm>
 
 #include "Idea.h"
+#include "global_vector_operations.h"
 
 Idea::Idea(
   std::string identity,
@@ -21,19 +22,10 @@ void Idea::live() {
 
 void Idea::expand() {
   // get all neighboring nodes
-  std::vector<int> neighbors;
-  neighbors.reserve(1000);
-  for (auto& i : this->current_nodes) {
-    if(this->realworld->does_node_exist(i)) {
-      std::vector<int> new_neighbors = this->realworld->get_neighboring_nodes(i);
-      neighbors.insert(neighbors.end(), new_neighbors.begin(), new_neighbors.end());
-    }
-  }
+  std::vector<int> hu = this->get_all_neighboring_nodes();
   // remove duplicates from neighbors
-  std::sort(neighbors.begin(), neighbors.end());
-  std::vector<int>::iterator it;
-  it = std::unique(neighbors.begin(), neighbors.end());  // 10 20 30 20 10 ?  ?  ?  ?
-  neighbors.resize(std::distance(neighbors.begin(), it)); // 10 20 30 20 10
+  std::vector<int> neighbors = remove_duplicates(hu);
+  
   // remove the current nodes from neighbors
   neighbors.erase(
     remove_if(
@@ -54,6 +46,18 @@ void Idea::expand() {
   // make neighbors current nodes
   this->current_nodes.clear();
   this->current_nodes.insert(this->current_nodes.end(), neighbors.begin(), neighbors.end());
+}
+
+std::vector<int> Idea::get_all_neighboring_nodes() {
+  std::vector<int> neighbors;
+  neighbors.reserve(1000);
+  for (auto& i : this->current_nodes) {
+    if(this->realworld->does_node_exist(i)) {
+      std::vector<int> new_neighbors = this->realworld->get_neighboring_nodes(i);
+      neighbors.insert(neighbors.end(), new_neighbors.begin(), new_neighbors.end());
+    }
+  }
+  return(neighbors);
 }
   
 std::vector<int> Idea::get_nodes() {
