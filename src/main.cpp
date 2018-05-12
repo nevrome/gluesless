@@ -10,7 +10,7 @@
 //#include <progress.hpp>
 //#include <progress_bar.hpp>
 
-#include "Idea.h"
+//#include "Idea.h"
 //#include "Networkland.h"
 #include "Timeline.h"
 

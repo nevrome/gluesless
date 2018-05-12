@@ -47,9 +47,13 @@ void Idea::expand() {
     mean_weights_per_neighbor.push_back(mean_weight);
   }
   
-  // for (mean_weights_per_neighbor. )
-  
-  
+  std::vector<std::pair<int, bool>> success_per_neighbor(neighbors.size());
+  for (auto& i : mean_weights_per_neighbor) {
+    std::pair<int, bool> success = std::make_pair(
+      i.first, i.second > randunifrange(0, 10)
+    ); 
+    success_per_neighbor.push_back(success);
+  }
   
   // delete current nodes from graph
   for (auto& i : this->current_nodes) {

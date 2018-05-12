@@ -3,14 +3,6 @@
 #include <algorithm>
 #include <math.h>
 
-std::random_device rd; // only used once to initialise (seed) engine
-std::mt19937 rng(rd()); // random-number engine used (Mersenne-Twister in this case)
-
-inline int randunifrange(int start, int stop) {
-  std::uniform_int_distribution<int> uni(start, stop); // guaranteed unbiased
-  return uni(rng);
-}
-
 inline int get_number_of_digits (int i) {
   return i > 0 ? (int) log10 ((double) i) + 1 : 1;
 }

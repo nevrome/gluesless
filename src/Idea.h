@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "Networkland.h"
+#include "global_random_generators.h"
 
 //! Idea/Innovation/Meme/Memeplex - ABM agent
 /*!
