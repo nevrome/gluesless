@@ -23,17 +23,11 @@ void Idea::live() {
 void Idea::expand() {
   
   // get all neighboring nodes
-  std::vector<int> all_neighbors;
-  all_neighbors.reserve(1000);
-  all_neighbors = this->get_all_neighboring_nodes();
+  std::vector<int> all_neighbors = this->get_all_neighboring_nodes();
   // remove duplicates from neighbors
-  std::vector<int> neighbors_without_doubles;
-  neighbors_without_doubles.reserve(1000);
-  neighbors_without_doubles = remove_duplicates(all_neighbors);
+  std::vector<int> neighbors_without_doubles = remove_duplicates(all_neighbors);
   // remove the current nodes from neighbors
-  std::vector<int> neighbors;
-  neighbors.reserve(1000);
-  neighbors = erase_elements_of_second_vector_from_the_first(
+  std::vector<int> neighbors = erase_elements_of_second_vector_from_the_first(
     neighbors_without_doubles, this->current_nodes
   );
   
