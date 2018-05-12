@@ -46,8 +46,11 @@ build
 inst/doxygen/html/
 inst/doxygen/latex/
 
-# test data directory
+# test data and other remains
 test_data
 example.txt
 cremation.txt
 inhumation.txt
+callgrind.out.*
+
+

@@ -1,0 +1,3 @@
+valgrind --tool=callgrind ./build/a.out test_data/real_graph.paj
+
+kcachegrind callgrind.out.*
