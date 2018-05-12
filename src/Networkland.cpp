@@ -3,8 +3,10 @@
 #include "Networkland.h"
 #include <iostream>
 
+#include "global_load_pajek.h"
+
 Networkland::Networkland(const TStr& pajek_file_path) {
-  this->graph = TSnap::LoadPajek_better<PUndirNet>(pajek_file_path);
+  this->graph = TSnap::pajek_file_to_PUndirNet(pajek_file_path);
   
   TInt a = 35;
   this->graph->GetSAttrDatE(10, 85027, "weight", a);
