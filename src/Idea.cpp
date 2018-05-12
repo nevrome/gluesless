@@ -55,6 +55,14 @@ void Idea::expand() {
     success_per_neighbor.push_back(success);
   }
   
+  std::vector<int> converted;
+  converted.reserve(neighbors.size());
+  for (auto& i : success_per_neighbor) {
+    if (i.second) {
+      converted.push_back(i.first);
+    }
+  }
+  
   // delete current nodes from graph
   for (auto& i : this->current_nodes) {
     if(this->realworld->does_node_exist(i)) {
@@ -65,7 +73,7 @@ void Idea::expand() {
   
   // forget current nodes and make neighbors new current nodes
   this->current_nodes.clear();
-  this->current_nodes.insert(this->current_nodes.end(), neighbors.begin(), neighbors.end());
+  this->current_nodes.insert(this->current_nodes.end(), converted.begin(), converted.end());
   
 }
 
