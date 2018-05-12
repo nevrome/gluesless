@@ -7,13 +7,6 @@
 
 Networkland::Networkland(const TStr& pajek_file_path) {
   this->graph = TSnap::pajek_file_to_PUndirNet(pajek_file_path);
-  
-  TInt a = 35;
-  this->graph->GetSAttrDatE(10, 85027, "weight", a);
-
-  printf(std::to_string(a).c_str());
-  printf("\n");
-  
 }
 
 Networkland::Networkland(PUndirNet newgraph) {
@@ -44,5 +37,14 @@ bool Networkland::does_node_exist(int node) {
   this->graph->IsNode(node);
 }
 
+bool Networkland::does_edge_exist(int first_node, int second_node) {
+  this->graph->IsEdge(first_node, second_node);
+}
+
+int Networkland::get_edge_weight(int first_node, int second_node) {
+  TInt a;
+  this->graph->GetSAttrDatE(first_node, second_node, "weight", a);
+  return((int) a);
+}
 
 

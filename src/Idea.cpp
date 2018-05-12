@@ -31,7 +31,21 @@ void Idea::expand() {
     neighbors_without_doubles, this->current_nodes
   );
   
-  // delete current nodes
+  std::pair<int, int> mean_weights_per_neighbor;
+  for (auto& p1 : neighbors) {
+    mean_weights_per_neighbor.first = p1;
+    int number_of_edges = 0;
+    int weight_per_edge = 0;
+    for (auto& p2 : this->current_nodes) {
+      if(this->realworld->does_edge_exist(p1, p2)) {
+        number_of_edges += 1;
+        weight_per_edge += this->realworld->get_edge_weight(p1, p2);
+      }
+    }
+    mean_weights_per_neighbor.second = (double) weight_per_edge / (double) number_of_edges;
+  }
+  
+  // delete current nodes from graph
   for (auto& i : this->current_nodes) {
     if(this->realworld->does_node_exist(i)) {
       this->realworld->delete_nodes(i);
@@ -39,7 +53,7 @@ void Idea::expand() {
     }
   }
   
-  // make neighbors current nodes
+  // forget current nodes and make neighbors new current nodes
   this->current_nodes.clear();
   this->current_nodes.insert(this->current_nodes.end(), neighbors.begin(), neighbors.end());
   
