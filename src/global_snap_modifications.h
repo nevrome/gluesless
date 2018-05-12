@@ -33,4 +33,32 @@ namespace TSnap {
     return Graph;
   }
 
+  inline PUndirNet get_subgraph_PUndirNet(const PUndirNet& Graph, const TIntV& NIdV) {
+  //if (! RenumberNodes) { return TSnap::GetSubGraph(Graph, NIdV); }
+    PUndirNet NewGraphPt = TUndirNet::New();
+    TUndirNet& NewGraph = *NewGraphPt;
+    NewGraph.Reserve(NIdV.Len(), -1);
+    TIntSet NIdSet(NIdV.Len());
+    for (int n = 0; n < NIdV.Len(); n++) {
+      if (Graph->IsNode(NIdV[n])) {
+        NIdSet.AddKey(NIdV[n]);
+        NewGraph.AddNode(NIdV[n]);
+      }
+    }
+    for (int n = 0; n < NIdSet.Len(); n++) {
+      const int SrcNId = NIdSet[n];
+      const TUndirNet::TNodeI NI = Graph->GetNI(SrcNId);
+      for (int edge = 0; edge < NI.GetOutDeg(); edge++) {
+        const int OutNId = NI.GetOutNId(edge);
+        if (NIdSet.IsKey(OutNId)) {
+          NewGraph.AddEdge(SrcNId, OutNId);
+          TInt a;
+          Graph->TUndirNet::GetSAttrDatE(SrcNId, OutNId, "weight", a);
+          NewGraph.TUndirNet::AddSAttrDatE(SrcNId, OutNId, "weight", a);
+        }
+      }
+    }
+    return NewGraphPt;
+  }
+
 }

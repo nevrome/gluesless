@@ -2,6 +2,7 @@
 
 #include "Idea.h"
 #include "global_vector_operations.h"
+#include "global_snap_modifications.h"
 
 Idea::Idea(
   std::string identity,
@@ -74,7 +75,7 @@ std::vector<int> Idea::select_nodes_to_convert(std::vector<int> neighbors) {
     all_nodes_involved.Add(i);
   }
   
-  PUndirNet small_subgraph = TSnap::GetSubGraph(this->realworld->get_graph(), all_nodes_involved);
+  PUndirNet small_subgraph = TSnap::get_subgraph_PUndirNet(this->realworld->get_graph(), all_nodes_involved);
   
   // calculate mean weight per neighbor
   std::vector<std::pair<int, double>> mean_weights_per_neighbor(neighbors.size());
@@ -84,7 +85,10 @@ std::vector<int> Idea::select_nodes_to_convert(std::vector<int> neighbors) {
     for (auto& p2 : this->current_nodes) {
       if(small_subgraph->IsEdge(p1, p2)) {
         number_of_edges += 1;
-        weight_per_edge += this->realworld->get_edge_weight(p1, p2);
+        // weight_per_edge += this->realworld->get_edge_weight(p1, p2);
+        TInt a;
+        small_subgraph->GetSAttrDatE(p1, p2, "weight", a);
+        weight_per_edge += (int) a;
       }
     }
     std::pair<int, double> mean_weight = std::make_pair(
