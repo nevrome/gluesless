@@ -21,20 +21,21 @@ void Idea::live() {
 }
 
 void Idea::expand() {
-  // get all neighboring nodes
-  std::vector<int> hu = this->get_all_neighboring_nodes();
-  // remove duplicates from neighbors
-  std::vector<int> neighbors = remove_duplicates(hu);
   
+  // get all neighboring nodes
+  std::vector<int> all_neighbors;
+  all_neighbors.reserve(1000);
+  all_neighbors = this->get_all_neighboring_nodes();
+  // remove duplicates from neighbors
+  std::vector<int> neighbors_without_doubles;
+  neighbors_without_doubles.reserve(1000);
+  neighbors_without_doubles = remove_duplicates(all_neighbors);
   // remove the current nodes from neighbors
-  neighbors.erase(
-    remove_if(
-      neighbors.begin(), neighbors.end(),
-      [&](auto x){ return find(this->current_nodes.begin(), this->current_nodes.end() , x) != this->current_nodes.end(); }
-    ),
-    neighbors.end()
+  std::vector<int> neighbors;
+  neighbors.reserve(1000);
+  neighbors = erase_elements_of_second_vector_from_the_first(
+    neighbors_without_doubles, this->current_nodes
   );
-  //
   
   // delete current nodes
   for (auto& i : this->current_nodes) {
@@ -43,9 +44,11 @@ void Idea::expand() {
       this->dead_nodes.push_back(i);
     }
   }
+  
   // make neighbors current nodes
   this->current_nodes.clear();
   this->current_nodes.insert(this->current_nodes.end(), neighbors.begin(), neighbors.end());
+  
 }
 
 std::vector<int> Idea::get_all_neighboring_nodes() {
