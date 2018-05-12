@@ -1,6 +1,6 @@
 namespace TSnap {
 
-  PUndirNet pajek_file_to_PUndirNet(const TStr& InFNm) {
+  inline PUndirNet pajek_file_to_PUndirNet(const TStr& InFNm) {
     PUndirNet Graph = PUndirNet::New();
     TSsParser Ss(InFNm, ssfSpaceSep, true, true, true);
     while ((Ss.Len()==0 || strstr(Ss[0], "*vertices") == NULL) && ! Ss.Eof()) {
