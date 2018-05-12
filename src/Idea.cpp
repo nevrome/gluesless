@@ -31,37 +31,8 @@ void Idea::expand() {
     neighbors_without_doubles, this->current_nodes
   );
   
-  std::vector<std::pair<int, double>> mean_weights_per_neighbor(neighbors.size());
-  for (auto& p1 : neighbors) {
-    int number_of_edges = 0;
-    int weight_per_edge = 0;
-    for (auto& p2 : this->current_nodes) {
-      if(this->realworld->does_edge_exist(p1, p2)) {
-        number_of_edges += 1;
-        weight_per_edge += this->realworld->get_edge_weight(p1, p2);
-      }
-    }
-    std::pair<int, double> mean_weight = std::make_pair(
-      p1, (double) weight_per_edge / (double) number_of_edges
-    ); 
-    mean_weights_per_neighbor.push_back(mean_weight);
-  }
-  
-  std::vector<std::pair<int, bool>> success_per_neighbor(neighbors.size());
-  for (auto& i : mean_weights_per_neighbor) {
-    std::pair<int, bool> success = std::make_pair(
-      i.first, i.second > randunifrange(0, 10)
-    ); 
-    success_per_neighbor.push_back(success);
-  }
-  
-  std::vector<int> converted;
-  converted.reserve(neighbors.size());
-  for (auto& i : success_per_neighbor) {
-    if (i.second) {
-      converted.push_back(i.first);
-    }
-  }
+  // make decision, which neighbors can be converted
+  std::vector<int> converted = this->select_nodes_to_convert(neighbors);
   
   // delete current nodes from graph
   for (auto& i : this->current_nodes) {
@@ -78,6 +49,7 @@ void Idea::expand() {
 }
 
 std::vector<int> Idea::get_all_neighboring_nodes() {
+  
   std::vector<int> neighbors;
   neighbors.reserve(1000);
   for (auto& i : this->current_nodes) {
@@ -86,12 +58,58 @@ std::vector<int> Idea::get_all_neighboring_nodes() {
       neighbors.insert(neighbors.end(), new_neighbors.begin(), new_neighbors.end());
     }
   }
+  
   return(neighbors);
+  
+}
+
+std::vector<int> Idea::select_nodes_to_convert(std::vector<int> neighbors) {
+  
+  // calculate mean weight per neighbor
+  std::vector<std::pair<int, double>> mean_weights_per_neighbor(neighbors.size());
+  for (auto& p1 : neighbors) {
+    int number_of_edges = 0;
+    int weight_per_edge = 0;
+    for (auto& p2 : this->current_nodes) {
+      if(this->realworld->does_edge_exist(p1, p2)) {
+        number_of_edges += 1;
+        weight_per_edge += this->realworld->get_edge_weight(p1, p2);
+      }
+    }
+    std::pair<int, double> mean_weight = std::make_pair(
+      p1, (double) weight_per_edge / (double) number_of_edges
+    ); 
+    mean_weights_per_neighbor.push_back(mean_weight);
+  }
+  
+  // make random decision to convert or ignore a node based on the edge weight
+  std::vector<std::pair<int, bool>> success_per_neighbor(neighbors.size());
+  for (auto& i : mean_weights_per_neighbor) {
+    std::pair<int, bool> success = std::make_pair(
+      i.first, i.second > randunifrange(0, 10)
+    ); 
+    success_per_neighbor.push_back(success);
+  }
+  
+  // collect converted nodes into a result vector
+  std::vector<int> converted;
+  converted.reserve(neighbors.size());
+  for (auto& i : success_per_neighbor) {
+    if (i.second) {
+      converted.push_back(i.first);
+    }
+  }
+  
+  return(converted);
+  
 }
   
 std::vector<int> Idea::get_nodes() {
+  
   auto& dn = this->dead_nodes;
   auto& cn = this->current_nodes;
   dn.insert(dn.end(), cn.begin(), cn.end());
+  
   return(dn);
+  
 }
