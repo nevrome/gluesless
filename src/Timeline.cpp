@@ -36,6 +36,12 @@ void Timeline::export_to_text_file(std::string file_path) {
   outfile << "Number of iterations:" << std::endl;
   outfile << this->iteration_count << std::endl << std::endl;
   
+  outfile << "Number of remaining nodes after this iteration:" << std::endl;
+  for (auto& i : this->graph_size_over_time) {
+    outfile << i << ";";
+  }
+  outfile << std::endl << std::endl;
+  
   // std::vector<int> cremation_nodes = cremation->get_nodes();
   // std::vector<int> inhumation_nodes = inhumation->get_nodes();
   

@@ -51,6 +51,5 @@ test_data
 example.txt
 cremation.txt
 inhumation.txt
+result.txt
 callgrind.out.*
-
-
