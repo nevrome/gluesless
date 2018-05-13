@@ -4,6 +4,7 @@
 #include <fstream>
 #include <iterator>
 #include <vector>
+#include <string>
 
 #include "Snap.h"
 
@@ -29,6 +30,8 @@ int main(int argc, char* argv[]){
   Aether* overmind = new Aether(real);
   Timeline* thyme = new Timeline(overmind);
 
+  
+
   // create ideas
   Idea* cremation = new Idea("cremation", real, {1});
   Idea* inhumation = new Idea("inhumation", real, {2});
@@ -41,21 +44,25 @@ int main(int argc, char* argv[]){
   // overmind->add_idea_to_mindspace(mound);
   
   // develop
-  //Progress p(iter, true);
   int graph_size = 0;
   while (true) {
+    
     thyme->develop(overmind);
+    
     int new_graph_size = real->get_number_of_nodes();
     if (graph_size == new_graph_size) {
       break;
     }
     graph_size = new_graph_size;
-    //if (Progress::check_abort()) {break;}
-    //p.increment();
+    
+    printf("remaining nodes: ");
+    printf(std::to_string(graph_size).c_str());
+    printf("\r");
+    fflush(stdout);
+    
   }
-
   
-  // output
+  // file output
   std::vector<int> cremation_nodes = cremation->get_nodes();
   std::vector<int> inhumation_nodes = inhumation->get_nodes();
 
@@ -66,6 +73,10 @@ int main(int argc, char* argv[]){
   std::ostream_iterator<int> output_iterator_inhumation(output_file_inhumation, "\n");
   std::copy(inhumation_nodes.begin(), inhumation_nodes.end(), output_iterator_inhumation);
 
+  // console output
+  printf("remaining nodes: ");
+  printf(std::to_string(graph_size).c_str());
+  printf("\n");
   printf("cremation: ");
   printf(std::to_string(cremation_nodes.size()).c_str());
   printf("\n");
