@@ -120,3 +120,7 @@ std::vector<int> Idea::get_nodes() {
   return(dn);
   
 }
+
+std::string Idea::get_identity() {
+  return(this->identity);
+}

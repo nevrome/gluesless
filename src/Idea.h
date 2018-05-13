@@ -27,6 +27,7 @@ class Idea {
   std::vector<int> get_all_neighboring_nodes();
   std::vector<int> select_nodes_to_convert(std::vector<int> neighbors);
   std::vector<int> get_nodes();
+  std::string get_identity();
 
   private:
   //! stores identity of an Idea

@@ -26,3 +26,7 @@ int Aether::get_current_graph_size() {
 int Aether::get_number_of_nodes_in_graph() {
   return(this->realworld->get_number_of_nodes());
 }
+
+std::vector<Idea*> Aether::get_mindspace() {
+  return(this->mindspace);
+}

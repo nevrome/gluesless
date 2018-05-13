@@ -29,7 +29,8 @@ class Aether {
   void add_idea_to_mindspace(Idea* new_idea);
   int get_current_graph_size();
   int get_number_of_nodes_in_graph();
-
+  std::vector<Idea*> get_mindspace();
+  
   private:
   //! vector that stores references to Idea instances
   std::vector<Idea*> mindspace;
