@@ -66,15 +66,7 @@ std::vector<int> Idea::get_all_neighboring_nodes() {
 
 std::vector<int> Idea::select_nodes_to_convert(std::vector<int> neighbors) {
   
-  TIntV all_nodes_involved;
-  all_nodes_involved.Reserve(neighbors.size() + this->current_nodes.size());
-  for (auto& i : neighbors) {
-    all_nodes_involved.Add(i);
-  }
-  for (auto& i : this->current_nodes) {
-    all_nodes_involved.Add(i);
-  }
-  
+  TIntV all_nodes_involved = combine_vectors_to_TIntV(neighbors, this->current_nodes);
   PUndirNet small_subgraph = TSnap::get_subgraph_PUndirNet(this->realworld->get_graph(), all_nodes_involved);
   
   // calculate mean weight per neighbor

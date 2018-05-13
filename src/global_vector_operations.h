@@ -1,5 +1,6 @@
 #include <vector>
 #include <algorithm>
+#include "Snap.h"
 
 template<typename T>
 inline std::vector<T> remove_duplicates(std::vector<T> &v) {
@@ -19,4 +20,16 @@ inline std::vector<T> erase_elements_of_second_vector_from_the_first(std::vector
     first.end()
   );
   return(first);
+}
+
+inline TIntV combine_vectors_to_TIntV(std::vector<int> &first, std::vector<int> &second) {
+  TIntV new_vector;
+  new_vector.Reserve(first.size() + second.size());
+  for (auto& i : first) {
+    new_vector.Add(i);
+  }
+  for (auto& i : second) {
+    new_vector.Add(i);
+  }
+  return(new_vector);
 }
