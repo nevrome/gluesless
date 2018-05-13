@@ -30,8 +30,6 @@ int main(int argc, char* argv[]){
   Aether* overmind = new Aether(real);
   Timeline* thyme = new Timeline(overmind);
 
-  
-
   // create ideas
   Idea* cremation = new Idea("cremation", real, {1});
   Idea* inhumation = new Idea("inhumation", real, {2});
@@ -44,12 +42,12 @@ int main(int argc, char* argv[]){
   // overmind->add_idea_to_mindspace(mound);
   
   // develop
-  int graph_size = 0;
+  int graph_size;
   while (true) {
     
-    thyme->develop(overmind);
+    thyme->develop();
     
-    int new_graph_size = real->get_number_of_nodes();
+    int new_graph_size = thyme->get_graph_size_over_time().back();
     if (graph_size == new_graph_size) {
       break;
     }

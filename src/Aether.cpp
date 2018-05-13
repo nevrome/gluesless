@@ -18,3 +18,11 @@ void Aether::develop() {
 void Aether::add_idea_to_mindspace(Idea* new_idea) {
   this->mindspace.push_back(new_idea);
 }
+
+int Aether::get_current_graph_size() {
+  return(this->realworld->get_number_of_nodes());
+}
+
+int Aether::get_number_of_nodes_in_graph() {
+  return(this->realworld->get_number_of_nodes());
+}

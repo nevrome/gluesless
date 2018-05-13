@@ -15,7 +15,18 @@
 class Timeline {
 
   public:
-  Timeline(Aether* start);
+  Timeline(Aether* overmind);
+
+  //! go to the next timestep
+  /*!
+   Jumps from on timestep to the next by calling the Aether
+   development function. After the development, the
+   current status of the Aether is queried and stored.
+   */
+  void develop();
+
+  int get_iteration_count();
+  std::vector<int> get_graph_size_over_time();
 
   //! export model development
   /*!
@@ -24,14 +35,10 @@ class Timeline {
    timestep.
    */
   void export_to_text_file();
-
-  //! go to the next timestep
-  /*!
-   Jumps from on timestep to the next by calling the Aether
-   development function. After the development, the
-   current status of the Aether is queried and stored.
-   */
-  void develop(Aether* current);
-
-  private:
+  
+private:
+  Aether* overmind;
+  int iteration_count;
+  std::vector<int> graph_size_over_time;
+  
 };
