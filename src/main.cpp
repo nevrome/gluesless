@@ -61,17 +61,12 @@ int main(int argc, char* argv[]){
   }
   
   // file output
+  thyme->export_to_text_file("result.txt");
+
+  // console output
   std::vector<int> cremation_nodes = cremation->get_nodes();
   std::vector<int> inhumation_nodes = inhumation->get_nodes();
 
-  std::ofstream output_file_cremation("./cremation.txt");
-  std::ostream_iterator<int> output_iterator_cremation(output_file_cremation, "\n");
-  std::copy(cremation_nodes.begin(), cremation_nodes.end(), output_iterator_cremation);
-  std::ofstream output_file_inhumation("./inhumation.txt");
-  std::ostream_iterator<int> output_iterator_inhumation(output_file_inhumation, "\n");
-  std::copy(inhumation_nodes.begin(), inhumation_nodes.end(), output_iterator_inhumation);
-
-  // console output
   printf("remaining nodes: ");
   printf(std::to_string(graph_size).c_str());
   printf("\n");
@@ -82,10 +77,10 @@ int main(int argc, char* argv[]){
   printf(std::to_string(inhumation_nodes.size()).c_str());
   printf("\n");
 
+  // cleaning up 
   delete real;
   delete overmind;
   delete thyme;
-  
   delete cremation;
   delete inhumation;
   // delete flat;

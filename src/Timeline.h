@@ -31,10 +31,10 @@ class Timeline {
   //! export model development
   /*!
    Exports the complete model documentation in a specially
-   prepared R list. This object contains data for every
+   prepared text file. This file contains data for every
    timestep.
    */
-  void export_to_text_file();
+  void export_to_text_file(std::string file_path);
   
 private:
   Aether* overmind;
