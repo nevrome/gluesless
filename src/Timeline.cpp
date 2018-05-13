@@ -1,6 +1,8 @@
-#include "Timeline.h"
 #include <fstream>
 #include <iostream>
+#include <stdio.h>
+
+#include "Timeline.h"
 
 Timeline::Timeline(Aether* overmind) {
   this->overmind = overmind;
@@ -28,6 +30,9 @@ std::vector<int> Timeline::get_graph_size_over_time() {
 }
 
 void Timeline::export_to_text_file(std::string file_path) {
+  
+  // remove old result file 
+  std::remove(file_path.c_str());
   
   // open a file in write mode.
   std::ofstream outfile;
