@@ -68,7 +68,8 @@ int main(int argc, char* argv[]){
   std::vector<int> inhumation_nodes = inhumation->get_nodes();
 
   printf("remaining nodes: ");
-  printf(std::to_string(graph_size).c_str());
+  printf(std::to_string(thyme->get_graph_size_over_time().back()).c_str());
+  printf(" (final)");
   printf("\n");
   printf("cremation: ");
   printf(std::to_string(cremation_nodes.size()).c_str());
