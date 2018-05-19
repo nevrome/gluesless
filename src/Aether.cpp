@@ -1,12 +1,14 @@
 #include "Aether.h"
 
+#include "global_ideas_file_reader.h"
+
 Aether::Aether(Networkland* real) {
   this->realworld = real;
 }
 
-Aether(Networkland* real, std::string ideas_file_path) {
+Aether::Aether(Networkland* real, std::string ideas_file_path) {
   this->realworld = real;
-  this->mindspace = ideas_file_to_ideas_vector(ideas_file_path);
+  this->mindspace = ideas_file_to_ideas_vector(ideas_file_path, real);
 }
 
 void Aether::develop() {
