@@ -42,36 +42,36 @@ int main(int argc, char* argv[]){
   // overmind->add_idea_to_mindspace(flat);
   // overmind->add_idea_to_mindspace(mound);
   
-  // // develop
-  // int graph_size;
-  // while (true) {
+  // develop
+  int graph_size;
+  while (true) {
     
-  //   thyme->develop();
+    thyme->develop();
     
-  //   int new_graph_size = thyme->get_graph_size_over_time().back();
-  //   if (graph_size == new_graph_size) {
-  //     break;
-  //   }
-  //   graph_size = new_graph_size;
+    int new_graph_size = thyme->get_graph_size_over_time().back();
+    if (graph_size == new_graph_size) {
+      break;
+    }
+    graph_size = new_graph_size;
     
-  //   printf("remaining nodes: ");
-  //   printf(std::to_string(graph_size).c_str());
-  //   printf("\r");
-  //   fflush(stdout);
+    printf("remaining nodes: ");
+    printf(std::to_string(graph_size).c_str());
+    printf("\r");
+    fflush(stdout);
     
-  // }
+  }
   
-  // // file output
-  // thyme->export_to_text_file("result.txt");
+  // file output
+  thyme->export_to_text_file("result.txt");
 
-  // // console output
+  // console output
   // std::vector<int> cremation_nodes = cremation->get_nodes();
   // std::vector<int> inhumation_nodes = inhumation->get_nodes();
 
-  // printf("remaining nodes: ");
-  // printf(std::to_string(thyme->get_graph_size_over_time().back()).c_str());
-  // printf(" (final)");
-  // printf("\n");
+  printf("remaining nodes: ");
+  printf(std::to_string(thyme->get_graph_size_over_time().back()).c_str());
+  printf(" (final)");
+  printf("\n");
   // printf("cremation: ");
   // printf(std::to_string(cremation_nodes.size()).c_str());
   // printf("\n");

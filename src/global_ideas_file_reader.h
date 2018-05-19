@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <string>
 #include <vector>
 
@@ -35,7 +36,7 @@ inline void read_delim(std::string file_path, std::vector<std::vector<std::strin
     
     data.push_back(p);
 
-    std::cout << tmp << '\n';
+    //std::cout << tmp << '\n';
     tmp.clear();
   }
   
@@ -45,13 +46,18 @@ inline std::vector<Idea*> ideas_file_to_ideas_vector(std::string ideas_file_path
   
   std::vector<std::vector<std::string>*> data;
   
-  read_delim(ideas_file_path, data, ',');
+  read_delim(ideas_file_path, data, ';');
   
   std::vector<Idea*> mindspace;
   for(auto& p : data) {
-    // Idea* new_idea = new Idea(p1.front(), real, {2});
-    // mindspace.push_back(new_idea);
-    std::cout << p->front() << std::endl;
+    std::stringstream starting_nodes_string(p->at(1));
+    int number;
+    std::vector<int> starting_nodes;
+    while (starting_nodes_string >> number) { starting_nodes.push_back( number ); }
+    
+    Idea* new_idea = new Idea(p->at(0), real, starting_nodes);
+    mindspace.push_back(new_idea);
+    // std::cout << p->at(1) << std::endl;
   }
   
   return(mindspace);
