@@ -4,6 +4,11 @@ Aether::Aether(Networkland* real) {
   this->realworld = real;
 }
 
+Aether(Networkland* real, std::string ideas_file_path) {
+  this->realworld = real;
+  this->mindspace = ideas_file_to_ideas_vector(ideas_file_path);
+}
+
 void Aether::develop() {
   
   // let every idea act in random order

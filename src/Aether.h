@@ -17,6 +17,7 @@ class Aether {
 
   public:
   Aether(Networkland* real);
+  Aether(Networkland* real, std::string ideas_file_path);
 
   //! go to the next timestep
   /*!
