@@ -23,8 +23,10 @@
 int main(int argc, char* argv[]){
   
   // manage input arguments
+  if (argc < 4) { return(EXIT_FAILURE); }
   const TStr pajek_file_path = argv[1];
   std::string ideas_file_path = argv[2];
+  std::string output_file_path = argv[3];
   
   // create world
   Networkland* real = new Networkland(pajek_file_path);
@@ -56,13 +58,14 @@ int main(int argc, char* argv[]){
     
     printf("remaining nodes: ");
     printf(std::to_string(graph_size).c_str());
+    printf("      ");
     printf("\r");
     fflush(stdout);
     
   }
   
   // file output
-  thyme->export_to_text_file("result.txt");
+  thyme->export_to_text_file(output_file_path);
 
   // console output
   // std::vector<int> cremation_nodes = cremation->get_nodes();
