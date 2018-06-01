@@ -22,13 +22,17 @@ std::vector<int> Networkland::get_neighboring_nodes(int node) {
   neighboring_nodes.reserve(amount_of_neighbors);
   for (int i = 0; i < amount_of_neighbors; i++) {
     neighboring_nodes.push_back(nodei.GetNbrNId(i));
-    //printf(std::to_string(nodei.GetNbrNId(i)).c_str());
+    
+    // printf(std::to_string(node).c_str());
+    // printf("; ");
+    // printf(std::to_string(nodei.GetNbrNId(i)).c_str());
+    // printf(" ");
   }
   return(neighboring_nodes);
 }
 
 int Networkland::get_number_of_nodes() {
-  this->graph->GetNodes();
+  return(this->graph->GetNodes());
 }
 
 void Networkland::delete_nodes(int node) {
@@ -36,11 +40,11 @@ void Networkland::delete_nodes(int node) {
 }
 
 bool Networkland::does_node_exist(int node) {
-  this->graph->IsNode(node);
+  return(this->graph->IsNode(node));
 }
 
 bool Networkland::does_edge_exist(int first_node, int second_node) {
-  this->graph->IsEdge(first_node, second_node);
+  return(this->graph->IsEdge(first_node, second_node));
 }
 
 int Networkland::get_edge_weight(int first_node, int second_node) {
