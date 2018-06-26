@@ -1,4 +1,6 @@
 #include <algorithm>
+#include <tuple>
+#include <cmath>
 
 #include "Idea.h"
 #include "global_vector_operations.h"
@@ -69,8 +71,8 @@ std::vector<int> Idea::select_nodes_to_convert(std::vector<int> neighbors) {
   TIntV all_nodes_involved = combine_vectors_to_TIntV(neighbors, this->current_nodes);
   PUndirNet small_subgraph = TSnap::get_subgraph_PUndirNet(this->realworld->get_graph(), all_nodes_involved);
   
-  // calculate mean weight per neighbor
-  std::vector<std::pair<int, double>> mean_weights_per_neighbor(neighbors.size());
+  // calculate number and mean weight per neighbor
+  std::vector<std::tuple<int, double, int>> mean_weights_and_contacts_per_neighbor(neighbors.size());
   for (auto& p1 : neighbors) {
     int number_of_edges = 0;
     int weight_per_edge = 0;
@@ -83,17 +85,18 @@ std::vector<int> Idea::select_nodes_to_convert(std::vector<int> neighbors) {
         weight_per_edge += (int) a;
       }
     }
-    std::pair<int, double> mean_weight = std::make_pair(
-      p1, (double) weight_per_edge / (double) number_of_edges
-    ); 
-    mean_weights_per_neighbor.push_back(mean_weight);
+    std::tuple<int, double, int> mean_weight_and_contacts = std::make_tuple(
+      p1, (double) weight_per_edge / (double) number_of_edges, number_of_edges
+    );
+    mean_weights_and_contacts_per_neighbor.push_back(mean_weight_and_contacts);
   }
   
   // make random decision to convert or ignore a node based on the edge weight
   std::vector<std::pair<int, bool>> success_per_neighbor(neighbors.size());
-  for (auto& i : mean_weights_per_neighbor) {
+  for (auto& i : mean_weights_and_contacts_per_neighbor) {
+    // make decision. If more than one contact, then there's a convincing bonus
     std::pair<int, bool> success = std::make_pair(
-      i.first, i.second > randunifrange(0, 10)
+      std::get<0>(i), std::get<1>(i) * log2( (double) std::get<2>(i) + 2) > randunifrange(0, 10)
     ); 
     success_per_neighbor.push_back(success);
   }
