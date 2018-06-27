@@ -99,7 +99,7 @@ std::vector<int> Idea::select_nodes_to_convert(std::vector<int> neighbors) {
   for (auto& i : max_weights_and_contacts_per_neighbor) {
     // make decision. If more than one contact, then there's a convincing bonus
     std::pair<int, bool> success = std::make_pair(
-      std::get<0>(i), std::get<1>(i) * log2( (double) std::get<2>(i) + 2) > randunifrange(0, 10)
+      std::get<0>(i), std::get<1>(i) * log2( (double) std::get<2>(i) + 1) > randunifrange(0, 10)
     ); 
     success_per_neighbor.push_back(success);
   }
