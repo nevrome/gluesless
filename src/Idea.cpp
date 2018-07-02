@@ -114,7 +114,7 @@ std::vector<int> Idea::select_nodes_to_convert(std::vector<int> neighbors) {
     std::pair<int, bool> success;
     if (std::get<3>(i)) {
       success = std::make_pair(
-        std::get<0>(i), std::get<1>(i) * log2( (double) std::get<2>(i) + 1) >= randunifrange(50, 150)
+        std::get<0>(i), std::get<1>(i) * log2( (double) std::get<2>(i) + 1) >= randunifrange(75, 100)
       );
     } else {
       success = std::make_pair(
@@ -150,3 +150,8 @@ std::vector<int> Idea::get_nodes() {
 std::string Idea::get_identity() {
   return(this->identity);
 }
+
+int Idea::get_number_of_nodes() {
+  return(this->current_nodes.size());
+}
+
