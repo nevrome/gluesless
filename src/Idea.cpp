@@ -49,6 +49,11 @@ void Idea::expand() {
   this->current_nodes.clear();
   this->current_nodes.insert(this->current_nodes.end(), converted.begin(), converted.end());
   
+  // set occupation flag for all new nodes
+  for(auto& new_node : this->current_nodes) {
+    this->realworld->set_node_occupation_flag(new_node);
+  }
+  
 }
 
 std::vector<int> Idea::get_all_neighboring_nodes() {
@@ -71,11 +76,17 @@ std::vector<int> Idea::select_nodes_to_convert(std::vector<int> neighbors) {
   TIntV all_nodes_involved = combine_vectors_to_TIntV(neighbors, this->current_nodes);
   PUndirNet small_subgraph = TSnap::get_subgraph_PUndirNet(this->realworld->get_graph(), all_nodes_involved);
   
-  // calculate number and mean weight per neighbor
-  std::vector<std::tuple<int, double, int>> max_weights_and_contacts_per_neighbor(neighbors.size());
+  // determine connection number, mean edge weight and occupation state per neighbor
+  std::vector<std::tuple<int, double, int, bool>> all_neighbors_information(neighbors.size());
   for (auto& p1 : neighbors) {
     int number_of_edges = 0;
     int max_weight = 0;
+    bool occuppied = false;
+    
+    TInt b;
+    small_subgraph->GetSAttrDatN(p1, "occupied", b);
+    occuppied = (bool) b;
+    
     for (auto& p2 : this->current_nodes) {
       if(small_subgraph->IsEdge(p1, p2)) {
         number_of_edges += 1;
@@ -88,19 +99,28 @@ std::vector<int> Idea::select_nodes_to_convert(std::vector<int> neighbors) {
         }
       }
     }
-    std::tuple<int, double, int> max_weight_and_contacts = std::make_tuple(
-      p1, max_weight, number_of_edges
+    std::tuple<int, double, int, bool> one_neighbors_information = std::make_tuple(
+      p1, max_weight, number_of_edges, occuppied
     );
-    max_weights_and_contacts_per_neighbor.push_back(max_weight_and_contacts);
+    all_neighbors_information.push_back(one_neighbors_information);
   }
   
   // make random decision to convert or ignore a node based on the edge weight
   std::vector<std::pair<int, bool>> success_per_neighbor(neighbors.size());
-  for (auto& i : max_weights_and_contacts_per_neighbor) {
-    // make decision. If more than one contact, then there's a convincing bonus
-    std::pair<int, bool> success = std::make_pair(
-      std::get<0>(i), std::get<1>(i) * log2( (double) std::get<2>(i) + 1) >= randunifrange(0, 100)
-    ); 
+  for (auto& i : all_neighbors_information) {
+    // make decision
+    // if the node is already occupied, it's more difficult
+    // if more than one contact, then there's a convincing bonus
+    std::pair<int, bool> success;
+    if (std::get<3>(i)) {
+      success = std::make_pair(
+        std::get<0>(i), std::get<1>(i) * log2( (double) std::get<2>(i) + 1) >= randunifrange(50, 150)
+      );
+    } else {
+      success = std::make_pair(
+        std::get<0>(i), std::get<1>(i) * log2( (double) std::get<2>(i) + 1) >= randunifrange(0, 100)
+      );
+    }
     success_per_neighbor.push_back(success);
   }
   

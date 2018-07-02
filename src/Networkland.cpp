@@ -56,3 +56,13 @@ int Networkland::get_edge_weight(int first_node, int second_node) {
 PUndirNet Networkland::get_graph() {
   return(this->graph);
 }
+
+int Networkland::is_node_occupied(int node){
+  TInt a;
+  this->graph->GetSAttrDatN(node, "occupied", a);
+  return((int) a);
+}
+
+void Networkland::set_node_occupation_flag(int node){
+  this->graph->AddSAttrDatN( (TInt) node, (TStr) "occupied", (TInt) 1);
+}

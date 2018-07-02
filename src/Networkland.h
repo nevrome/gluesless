@@ -22,6 +22,8 @@ class Networkland {
   bool does_edge_exist(int first_node, int second_node);
   int get_edge_weight(int first_node, int second_node);
   PUndirNet get_graph();
+  int is_node_occupied(int node);
+  void set_node_occupation_flag(int node);
   
   private:
   PUndirNet graph;
