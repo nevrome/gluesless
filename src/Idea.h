@@ -29,6 +29,7 @@ class Idea {
   std::vector<int> get_nodes();
   std::string get_identity();
   int get_number_of_nodes();
+  int get_number_of_dead_nodes();
 
   private:
   //! stores identity of an Idea

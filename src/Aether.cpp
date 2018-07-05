@@ -18,19 +18,19 @@ void Aether::develop() {
   std::shuffle(v.begin(), v.end(), rng);
   
   // find weaker idea
-  std::vector<int> number_of_nodes;
-  for (auto& current_idea : v) {
-    number_of_nodes.push_back(current_idea->get_number_of_nodes());
-  }
-  auto minIt = std::min_element(number_of_nodes.begin(), number_of_nodes.end());
-  Idea* weaker_idea = v[*minIt];
+  // std::vector<int> number_of_nodes;
+  // for (auto& current_idea : v) {
+  //   number_of_nodes.push_back(current_idea->get_number_of_dead_nodes());
+  // }
+  // auto minIt = std::min_element(number_of_nodes.begin(), number_of_nodes.end());
+  // Idea* weaker_idea = v[*minIt];
   
   // let ideas live
   for (auto& current_idea : v) {
     current_idea->live();
-    if (current_idea == weaker_idea && 50 > randunifrange(0, 100)) {
-      current_idea->live();
-    }
+    // if (current_idea == weaker_idea) { //&& 50 > randunifrange(0, 100)) {
+    //   current_idea->live();
+    // }
   }
   
 }

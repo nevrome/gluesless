@@ -155,3 +155,7 @@ int Idea::get_number_of_nodes() {
   return(this->current_nodes.size());
 }
 
+int Idea::get_number_of_dead_nodes() {
+  return(this->dead_nodes.size());
+}
+
