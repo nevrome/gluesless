@@ -46,10 +46,5 @@ build
 inst/doxygen/html/
 inst/doxygen/latex/
 
-# test data and other remains
-test_data
-example.txt
-cremation.txt
-inhumation.txt
-result.txt
+# valgrind + callgrind
 callgrind.out.*
