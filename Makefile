@@ -4,7 +4,7 @@ BUILD_DIR ?= ./build
 SRC_DIRS ?= ./src
 
 LDFLAGS := ../snap/snap-core/Snap.o
-LDLIBS += -lboost_graph -fopenmp
+LDLIBS += -fopenmp
 
 SRCS := $(shell find $(SRC_DIRS) -name *.cpp)
 OBJS := $(SRCS:%=$(BUILD_DIR)/%.o)
