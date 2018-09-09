@@ -17,9 +17,13 @@ gluesless -pi <path_to_file> -ii <path_to_file> -o <path_to_file>
 ## Installation
 
 ```
-git clone git@github.com:snap-stanford/snap.git
-cd snap	
-make all
+sudo apt-get install -y libboost-all-dev libiomp-dev zip unzip
+wget "http://snap.stanford.edu/releases/Snap-4.0.zip"  
+unzip Snap-4.0.zip -d snap_raw
+mkdir snap
+cp -r snap_raw/Snap-4.0/* snap
+cd snap
+make
 cd ..
 git clone git@github.com:nevrome/gluesless.git
 cd gluesless
