@@ -23,10 +23,25 @@
 int main(int argc, char* argv[]){
   
   // manage input arguments
-  if (argc < 4) { return(EXIT_FAILURE); }
-  const TStr pajek_file_path = argv[1];
-  std::string ideas_file_path = argv[2];
-  std::string output_file_path = argv[3];
+  TStr pajek_file_path;
+  std::string ideas_file_path;
+  std::string output_file_path;
+  for (int i = 1; i < argc; i++) {  
+    if (i + 1 != argc){
+      if (strcmp(argv[i], "-pajekfile") == 0 | strcmp(argv[i], "-pi") == 0) {
+          pajek_file_path = argv[i + 1];
+          i++;
+      }
+      if (strcmp(argv[i], "-ideasfile") == 0 | strcmp(argv[i], "-ii") == 0) {
+          ideas_file_path = argv[i + 1];
+          i++;
+      }
+      if (strcmp(argv[i], "-outputfile") == 0 | strcmp(argv[i], "-o") == 0) {
+          output_file_path = argv[i + 1];
+          i++;
+      }
+    }
+  }
   
   // create world
   Networkland* real = new Networkland(pajek_file_path);
