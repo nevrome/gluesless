@@ -9,9 +9,9 @@ gluesless -pi <path_to_file> -ii <path_to_file> -o <path_to_file>
 
  Options:
   -pi --pajekfile		text file that describes network in .pajek format
-	-ii --ideasfile		text file that describes idea as produced by popgenerator
+  -ii --ideasfile		text file that describes idea as produced by popgenerator
   -o --outputfile 	output text file
-	-q --quiet
+  -q --quiet
 ```
 
 ## Installation
