@@ -7,8 +7,6 @@
 
 Networkland::Networkland(const TStr& pajek_file_path) {
   this->graph = TSnap::pajek_file_to_PUndirNet(pajek_file_path);
-  printf("Input graph successfully loaded.");
-  printf("\n");
 }
 
 Networkland::Networkland(PUndirNet newgraph) {

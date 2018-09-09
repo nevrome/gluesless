@@ -26,20 +26,22 @@ int main(int argc, char* argv[]){
   TStr pajek_file_path;
   std::string ideas_file_path;
   std::string output_file_path;
+  bool quiet = false;
   for (int i = 1; i < argc; i++) {  
-    if (i + 1 != argc){
-      if (strcmp(argv[i], "-pajekfile") == 0 | strcmp(argv[i], "-pi") == 0) {
-          pajek_file_path = argv[i + 1];
-          i++;
-      }
-      if (strcmp(argv[i], "-ideasfile") == 0 | strcmp(argv[i], "-ii") == 0) {
-          ideas_file_path = argv[i + 1];
-          i++;
-      }
-      if (strcmp(argv[i], "-outputfile") == 0 | strcmp(argv[i], "-o") == 0) {
-          output_file_path = argv[i + 1];
-          i++;
-      }
+    if (strcmp(argv[i], "--pajekfile") == 0 | strcmp(argv[i], "-pi") == 0) {
+        pajek_file_path = argv[i + 1];
+        i++;
+    }
+    if (strcmp(argv[i], "--ideasfile") == 0 | strcmp(argv[i], "-ii") == 0) {
+        ideas_file_path = argv[i + 1];
+        i++;
+    }
+    if (strcmp(argv[i], "--outputfile") == 0 | strcmp(argv[i], "-o") == 0) {
+        output_file_path = argv[i + 1];
+        i++;
+    }
+    if (strcmp(argv[i], "--quiet") == 0 | strcmp(argv[i], "-q") == 0) {
+        quiet = true;
     }
   }
   
@@ -71,11 +73,13 @@ int main(int argc, char* argv[]){
     }
     graph_size = new_graph_size;
     
-    printf("remaining nodes: ");
-    printf(std::to_string(graph_size).c_str());
-    printf("      ");
-    printf("\r");
-    fflush(stdout);
+    if (!quiet) {
+      printf("remaining nodes: ");
+      printf(std::to_string(graph_size).c_str());
+      printf("      ");
+      printf("\r");
+      fflush(stdout);
+    }
     
   }
   
@@ -86,16 +90,18 @@ int main(int argc, char* argv[]){
   // std::vector<int> cremation_nodes = cremation->get_nodes();
   // std::vector<int> inhumation_nodes = inhumation->get_nodes();
 
-  printf("remaining nodes: ");
-  printf(std::to_string(thyme->get_graph_size_over_time().back()).c_str());
-  printf(" (final)");
-  printf("\n");
-  // printf("cremation: ");
-  // printf(std::to_string(cremation_nodes.size()).c_str());
-  // printf("\n");
-  // printf("inhumation: ");
-  // printf(std::to_string(inhumation_nodes.size()).c_str());
-  // printf("\n");
+  if (!quiet) {
+    printf("remaining nodes: ");
+    printf(std::to_string(thyme->get_graph_size_over_time().back()).c_str());
+    printf(" (final)");
+    printf("\n");
+    // printf("cremation: ");
+    // printf(std::to_string(cremation_nodes.size()).c_str());
+    // printf("\n");
+    // printf("inhumation: ");
+    // printf(std::to_string(inhumation_nodes.size()).c_str());
+    // printf("\n");
+  }
 
   // cleaning up 
   delete real;
