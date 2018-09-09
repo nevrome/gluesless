@@ -2,7 +2,29 @@
 
 ## gluesless
 
-gluesless is the implementation of an idea expansion simulation. 
+gluesless is an idea expansion simulation. 
+
+```
+gluesless -pi <path_to_file> -ii <path_to_file> -o <path_to_file>
+
+  Options:
+		-pi --pajekfile		text file that describes network in .pajek format
+		-ii --ideasfile		text file that describes idea as produced by popgenerator
+		-o --outputfile 	output text file
+		-q --quiet
+```
+
+## Installation
+
+```
+git clone git@github.com:snap-stanford/snap.git
+cd snap	
+make all
+cd ..
+git clone git@github.com:nevrome/gluesless.git
+cd gluesless
+make
+```
 
 ## Citation Info
 
