@@ -108,19 +108,18 @@ std::vector<int> Idea::select_nodes_to_convert(std::vector<int> neighbors) {
   // make random decision to convert or ignore a node based on the edge weight
   std::vector<std::pair<int, bool>> success_per_neighbor(neighbors.size());
   for (auto& i : all_neighbors_information) {
-    // make decision
     // if the node is already occupied, it's more difficult
+    double resistance;
+    if (std::get<3>(i)) { resistance = randunifrange(50, 100); } else { resistance = randunifrange(0, 100); } 
+    double max_weight = std::get<1>(i);
+    int number_of_edges = std::get<2>(i);
     // if more than one contact, then there's a convincing bonus
+    double group_effect_multiplier = (1 + log10( (double) std::get<2>(i) + 1));
+    double power = max_weight * group_effect_multiplier;
+    // make decision
     std::pair<int, bool> success;
-    if (std::get<3>(i)) {
-      success = std::make_pair(
-        std::get<0>(i), std::get<1>(i) * log2( (double) std::get<2>(i) + 1) >= randunifrange(75, 100)
-      );
-    } else {
-      success = std::make_pair(
-        std::get<0>(i), std::get<1>(i) * log2( (double) std::get<2>(i) + 1) >= randunifrange(0, 100)
-      );
-    }
+    success = std::make_pair(std::get<0>(i), power > resistance);
+    // store decision
     success_per_neighbor.push_back(success);
   }
   
