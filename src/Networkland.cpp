@@ -6,7 +6,7 @@
 #include "global_snap_modifications.h"
 
 Networkland::Networkland(const TStr& pajek_file_path) {
-  this->graph = TSnap::pajek_file_to_PUndirNet(pajek_file_path);
+	this->graph = TSnap::pajek_file_to_PUndirNet(pajek_file_path);
 }
 
 Networkland::Networkland(PUndirNet newgraph) {

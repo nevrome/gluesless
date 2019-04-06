@@ -22,6 +22,7 @@ int main(int argc, char* argv[]){
   std::string ideas_file_path;
   std::string output_file_path;
   bool quiet = false;
+
   for (int i = 1; i < argc; i++) {  
     if (strcmp(argv[i], "--pajekfile") == 0 | strcmp(argv[i], "-pi") == 0) {
         pajek_file_path = argv[i + 1];
@@ -39,7 +40,7 @@ int main(int argc, char* argv[]){
         quiet = true;
     }
   }
-  
+
   // create world
   Networkland* real = new Networkland(pajek_file_path);
   Aether* overmind = new Aether(real, ideas_file_path);

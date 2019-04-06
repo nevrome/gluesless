@@ -40,6 +40,8 @@ inline void read_delim(std::string file_path, std::vector<std::vector<std::strin
     tmp.clear();
   }
   
+	data.erase(data.end() - 1);
+
 }
 
 inline std::vector<Idea*> ideas_file_to_ideas_vector(std::string ideas_file_path, Networkland* real) {
@@ -47,17 +49,16 @@ inline std::vector<Idea*> ideas_file_to_ideas_vector(std::string ideas_file_path
   std::vector<std::vector<std::string>*> data;
   
   read_delim(ideas_file_path, data, ';');
-  
+
   std::vector<Idea*> mindspace;
   for(auto& p : data) {
-    std::stringstream starting_nodes_string(p->at(1));
+		std::stringstream starting_nodes_string(p->at(1));
     int number;
     std::vector<int> starting_nodes;
     while (starting_nodes_string >> number) { starting_nodes.push_back( number ); }
-    
+
     Idea* new_idea = new Idea(p->at(0), real, starting_nodes);
-    mindspace.push_back(new_idea);
-    // std::cout << p->at(1) << std::endl;
+		mindspace.push_back(new_idea);
   }
   
   return(mindspace);
