@@ -4,6 +4,8 @@
 
 gluesless is an idea expansion simulation. 
 
+A miminal working example application can be explored [here](https://github.com/nevrome/popgen.styletrans.saa2019/tree/master/code). More documentation will be added in the future. 
+
 ```
 gluesless -pi <path_to_file> -ii <path_to_file> -o <path_to_file>
 
