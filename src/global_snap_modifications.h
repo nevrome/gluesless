@@ -1,3 +1,5 @@
+#include <iostream>
+
 namespace TSnap {
 
   inline PUndirNet pajek_file_to_PUndirNet(const TStr& InFNm) {
@@ -12,9 +14,14 @@ namespace TSnap {
     while (Ss.Next()) {
       Ss.ToLc();
       if (Ss.Len()>0 && Ss[0][0] == '%') { continue; } // comment
-      if (strstr(Ss[0], "*arcslist")!=NULL || strstr(Ss[0],"*edgeslist")!=NULL) { EdgeList=false; break; } 
+      if (strstr(Ss[0], "*arcslist")!=NULL || strstr(Ss[0],"*edgeslist")!=NULL) { EdgeList=false; break; }
       if (strstr(Ss[0], "*arcs")!=NULL || strstr(Ss[0],"*edges")!=NULL) { break; } // arcs are directed, edges are undirected
       Graph->AddNode(Ss.GetInt(0));
+      // Node attributes
+      const TInt& time = Ss.GetInt(1);
+      Graph->TUndirNet::AddSAttrDatN(Ss.GetInt(0), "time", time);
+      const TInt& social = Ss.GetInt(2);
+      Graph->TUndirNet::AddSAttrDatN(Ss.GetInt(0), "social", social);
     }
     // edges
     while (Ss.Next()) {
